@@ -60,7 +60,7 @@ class AppScreen : public Screen
 
       image_label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(image_label, _app1->_title);
-      lv_obj_align(image_label, button_image1, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+      lv_obj_align(image_label, button_image1, LV_ALIGN_CENTER, 0, 2);
 
       button_image2 = lv_imgbtn_create(lv_scr_act(), NULL);
       lv_imgbtn_set_src(button_image2, LV_BTN_STATE_REL, _app2->_symbol);
@@ -71,7 +71,7 @@ class AppScreen : public Screen
 
       image_label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(image_label, _app2->_title);
-      lv_obj_align(image_label, button_image2, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+      lv_obj_align(image_label, button_image2, LV_ALIGN_CENTER, 0, 2);
 
       button_image3 = lv_imgbtn_create(lv_scr_act(), NULL);
       lv_imgbtn_set_src(button_image3, LV_BTN_STATE_REL, _app3->_symbol);
@@ -82,7 +82,7 @@ class AppScreen : public Screen
 
       image_label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(image_label, _app3->_title);
-      lv_obj_align(image_label, button_image3, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+      lv_obj_align(image_label, button_image3, LV_ALIGN_CENTER, 0, 2);
 
       button_image4 = lv_imgbtn_create(lv_scr_act(), NULL);
       lv_imgbtn_set_src(button_image4, LV_BTN_STATE_REL, _app4->_symbol);
@@ -93,7 +93,7 @@ class AppScreen : public Screen
 
       image_label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(image_label, _app4->_title);
-      lv_obj_align(image_label, button_image4, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+      lv_obj_align(image_label, button_image4, LV_ALIGN_CENTER, 0, 2);
     }
 
     virtual void main()

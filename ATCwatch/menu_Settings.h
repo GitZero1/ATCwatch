@@ -31,13 +31,13 @@ class SettingsScreen : public Screen
       lv_obj_set_event_cb(btn1, lv_event_handler);
       lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, -55, -50);
       btn1_label = lv_label_create(btn1, NULL);
-      lv_label_set_text(btn1_label, "Date");
+      lv_label_set_text(btn1_label, "Reboot");
 
       btn2 = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(btn2, lv_event_handler);
       lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 55, -50);
       btn2_label = lv_label_create(btn2, NULL);
-      lv_label_set_text(btn2_label, "Time");
+      lv_label_set_text(btn2_label, "Off");
 
       btn3 = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(btn3, lv_event_handler);
@@ -49,7 +49,7 @@ class SettingsScreen : public Screen
       lv_obj_set_event_cb(btn4, lv_event_handler);
       lv_obj_align(btn4, NULL, LV_ALIGN_CENTER, 55, 50);
       btn4_label = lv_label_create(btn4, NULL);
-      lv_label_set_text(btn4_label, "Brightness");
+      lv_label_set_text(btn4_label, "Bootldr");
     }
 
     virtual void main()
@@ -72,13 +72,13 @@ class SettingsScreen : public Screen
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
       if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
-        change_screen((Screen*)&settingsDateScreen);
+        change_screen((Screen*)&rebootScreen);
       } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
-        change_screen((Screen*)&settingsTimeScreen);
+        change_screen((Screen*)&offScreen);
       } else if (object == btn3 && event == LV_EVENT_SHORT_CLICKED) {
         change_screen((Screen*)&settingsColorScreen);
       } else if (object == btn4 && event == LV_EVENT_SHORT_CLICKED) {
-        change_screen((Screen*)&settingsBrightnessScreen);
+        change_screen((Screen*)&updateScreen);
       }
     }
 

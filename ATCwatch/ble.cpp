@@ -24,9 +24,9 @@ BLECharacteristic   RXchar        = BLECharacteristic("0001", BLEWriteWithoutRes
 bool vars_ble_connected = false;
 
 void init_ble() {
-  blePeripheral.setLocalName("ATCwatch");
+  blePeripheral.setLocalName("Zer0Watch");
   blePeripheral.setAdvertisingInterval(500);
-  blePeripheral.setDeviceName("ATCwatch");
+  blePeripheral.setDeviceName("Zer0Watch");
   blePeripheral.setAdvertisedServiceUuid(main_service.uuid());
   blePeripheral.addAttribute(main_service);
   blePeripheral.addAttribute(TXchar);
@@ -142,5 +142,13 @@ void filterCmd(String Command) {
     ble_write("AT+DT:" + GetDateTimeString());
   } else if (Command.substring(0, 8) == "AT+HTTP=") {
     show_http(Command.substring(8));
+  } else if (Command.substring(0, 8) == "AT+NAME=") {
+    show_appName(Command.substring(8));
+  } else if (Command.substring(0, 8) == "AT+TITL=") {
+    show_titl(Command.substring(8));
+  } else if (Command.substring(0, 8) == "AT+BODY=") {
+    show_msgBody(Command.substring(8));
+  } else if (Command.substring(0, 8) == "AT+TICK=") {
+    show_msgBody(Command.substring(8));
   }
 }

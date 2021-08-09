@@ -53,7 +53,7 @@ class DebugScreen : public Screen
       lv_obj_align(label_button, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 125);
 
       lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
-      lv_img_set_src(img1, &IsymbolDebug);
+      lv_img_set_src(img1, &IsymbolAppIcon);
       lv_obj_align(img1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
     }
 

@@ -40,9 +40,6 @@ class HeartScreen : public Screen
       lv_label_set_text(label_hr_last, "Last HR:");
       lv_obj_align(label_hr_last, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 80);
 
-      lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
-      lv_img_set_src(img1, &IsymbolHeart);
-      lv_obj_align(img1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
     }
 
     virtual void main()
