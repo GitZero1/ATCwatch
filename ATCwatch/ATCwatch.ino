@@ -23,6 +23,34 @@
 #include "display.h"
 #include "accl.h"
 #include "push.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "flash.h"
 
 bool stepsWhereReseted = false;

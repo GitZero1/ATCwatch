@@ -19,44 +19,45 @@ class HttpScreen : public Screen
   public:
     virtual void pre()
     {
-      label_screen = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_screen, "HTTP Demo");
-      lv_obj_align(label_screen, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      set_swipe_enabled(true);
+      
+      label = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label, "Test");
+      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
-      label_http_req = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text_fmt(label_http_req, "HTTP:%s", string2char(get_http_msg()));
-      lv_obj_align(label_http_req, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 10);
+      
+      /*Create a list*/
+      lv_obj_t * list1 = lv_list_create(lv_scr_act(), NULL);
+      lv_obj_set_size(list1, 175, 200);
+      lv_obj_align(list1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
 
-      btn1 = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_event_cb(btn1, lv_event_handler);
-      lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, -55, -45);
-      btn1_label = lv_label_create(btn1, NULL);
-      lv_label_set_text(btn1_label, "Block");
+      /*Add buttons to the list*/
+      lv_obj_t * list_btn;
 
-      btn2 = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_event_cb(btn2, lv_event_handler);
-      lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 55, -45);
-      btn2_label = lv_label_create(btn2, NULL);
-      lv_label_set_text(btn2_label, "Mario");
+      list_btn = lv_list_add_btn(list1, NULL, "block");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
 
-      btn3 = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_event_cb(btn3, lv_event_handler);
-      lv_obj_align(btn3, NULL, LV_ALIGN_CENTER, -55, 45);
-      btn3_label = lv_label_create(btn3, NULL);
-      lv_label_set_text(btn3_label, "Link");
+      //list_btn = lv_list_add_btn(list1, NULLDIRECTORY, "Open");
+      //lv_obj_set_event_cb(list_btn, lv_event_handler);
 
-      btn4 = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_event_cb(btn4, lv_event_handler);
-      lv_obj_align(btn4, NULL, LV_ALIGN_CENTER, 55, 45);
-      btn4_label = lv_label_create(btn4, NULL);
-      lv_label_set_text(btn4_label, "OFF");
+      list_btn = lv_list_add_btn(list1, NULL, "mario");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
 
+      list_btn = lv_list_add_btn(list1, NULL, "qbert");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
+
+      list_btn = lv_list_add_btn(list1, NULL, "digdug");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
+
+      list_btn = lv_list_add_btn(list1, NULL, "bombjack");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
+
+      list_btn = lv_list_add_btn(list1, LV_SYMBOL_BATTERY_FULL, "off");
+      lv_obj_set_event_cb(list_btn, lv_event_handler);
     }
-
     virtual void main()
     {
-      lv_label_set_text_fmt(label_http_req, "%s", string2char(get_http_msg()));
-      lv_obj_align(label_http_req, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 10);
+
     }
 
     virtual void up()
@@ -69,34 +70,22 @@ class HttpScreen : public Screen
 
     virtual void right()
     {
-      display_home();
     }
 
+    
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
-      if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
-        ble_write("AT+HTTP:?BLOCK=ON");
-        } else if (object == btn2 && event == LV_EVENT_SHORT_CLICKED) {
-        ble_write("AT+HTTP:?MARIO=ON");
-        } else if (object == btn3 && event == LV_EVENT_SHORT_CLICKED) {
-        ble_write("AT+HTTP:?LINK=ON");
-        } else if (object == btn4 && event == LV_EVENT_SHORT_CLICKED) {
-        ble_write("AT+HTTP:?LED=OFF");
+      if (event == LV_EVENT_SHORT_CLICKED) {
+        lv_label_set_text_fmt(label,"C: %s\n", lv_list_get_btn_text(object));
+        //temp = lv_list_get_btn_text(object)
+        String bletxt = lv_list_get_btn_text(object);
+        ble_write("AT+HTTP:"+bletxt);//string2char
         }
       
     }
-    
+
+    lv_obj_t *label;
 
   private:
-    lv_obj_t *label_screen, *label_http_req;
-    lv_obj_t *btn1, *btn1_label, *btn2, *btn2_label, *btn3, *btn3_label, *btn4, *btn4_label;
-
-    char* string2char(String command) {
-      if (command.length() != 0) {
-        char *p = const_cast<char*>(command.c_str());
-        return p;
-      }
-    }
 };
-
 HttpScreen httpScreen;

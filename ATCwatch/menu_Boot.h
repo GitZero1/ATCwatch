@@ -30,7 +30,7 @@ class BootScreen : public Screen
 
 
       lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
-      lv_img_set_src(img1, &IsZerone);
+      lv_img_set_src(img1, &IsZeroneSmall);
       lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
 
       lv_obj_t *label = lv_label_create(lv_scr_act(), NULL);

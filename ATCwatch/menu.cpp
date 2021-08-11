@@ -57,11 +57,11 @@ app_struct demoApp = {"Demo", &IsymbolAppIcon , &demoScreen};
 
 //app_struct flashApp = {"Flash", &IsymbolAppIcon , &flashScreen};
 app_struct touchApp = {"Touch", &IsymbolAppIcon , &touchScreen};
-app_struct httpApp = {"HTTP", &IsymbolAppIcon , &httpScreen};
+app_struct httpApp = {"LED", &IsymbolAppIcon , &httpScreen};
 //app_struct logApp = {"Log", &IsymbolAppIcon , &logScreen};
 
 int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &settingsApp, &touchApp, &batteryApp);
+AppScreen apps1Screen(1, maxApps, &acclApp, &settingsApp, &touchApp, &batteryApp);
 AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &demoApp, &heartApp);
 //AppScreen apps3Screen(3, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
 //AppScreen apps4Screen(4, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
