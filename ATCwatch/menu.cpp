@@ -15,11 +15,11 @@
 #include "menu_Update.h"
 #include "menu_Off.h"
 #include "menu_Notify.h"
-#include "menu_Battery.h"
+//#include "menu_Battery.h"
 //#include "menu_Settings_Time.h"
 //#include "menu_Settings_Date.h"
 #include "menu_Settings_Color.h"
-//#include "menu_Settings_Brightness.h"
+#include "menu_Settings_Brightness.h"
 //#include "menu_infos.h"
 #include "menu_Accl.h"
 #include "menu_App.h"
@@ -43,7 +43,7 @@ Screen_def *lastScreen = &homeScreen;
 
 app_struct notifyApp = {"Msg", &IsymbolAppIcon, &notifyScreen};
 app_struct heartApp = {"Heart", &IsymbolAppIcon, &heartScreen};
-app_struct batteryApp = {"Batt", &IsymbolAppIcon, &batteryScreen};
+//app_struct batteryApp = {"Batt", &IsymbolAppIcon, &batteryScreen};
 //app_struct debugApp = {"Debug", &IsymbolAppIcon, &debugScreen};
 
 //app_struct rebootApp = {"Reboot", &IsymbolAppIcon, &rebootScreen};
@@ -52,17 +52,17 @@ app_struct batteryApp = {"Batt", &IsymbolAppIcon, &batteryScreen};
 app_struct settingsApp = {"Settings", &IsymbolAppIcon, &settingsScreen};
 
 //app_struct infosApp = {"Infos", &IsymbolAppIcon, &infosScreen};
-app_struct acclApp = {"Accl", &IsymbolAppIcon , &acclScreen};
+//app_struct acclApp = {"Accl", &IsymbolAppIcon , &acclScreen};
 app_struct demoApp = {"Demo", &IsymbolAppIcon , &demoScreen};
 
 //app_struct flashApp = {"Flash", &IsymbolAppIcon , &flashScreen};
-app_struct touchApp = {"Touch", &IsymbolAppIcon , &touchScreen};
+//app_struct touchApp = {"Touch", &IsymbolAppIcon , &touchScreen};
 app_struct httpApp = {"LED", &IsymbolAppIcon , &httpScreen};
 //app_struct logApp = {"Log", &IsymbolAppIcon , &logScreen};
 
 int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &acclApp, &settingsApp, &touchApp, &batteryApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &demoApp, &heartApp);
+AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
+AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &settingsApp, &demoApp);
 //AppScreen apps3Screen(3, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
 //AppScreen apps4Screen(4, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
 

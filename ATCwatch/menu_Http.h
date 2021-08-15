@@ -28,8 +28,8 @@ class HttpScreen : public Screen
       
       /*Create a list*/
       lv_obj_t * list1 = lv_list_create(lv_scr_act(), NULL);
-      lv_obj_set_size(list1, 175, 200);
-      lv_obj_align(list1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+      lv_obj_set_size(list1, 240, 200);
+      lv_obj_align(list1, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
 
       /*Add buttons to the list*/
       lv_obj_t * list_btn;

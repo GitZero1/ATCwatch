@@ -16,44 +16,40 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
-
-
 #include <lvgl.h>
-
 
 class DemoScreen : public Screen
 {
   public:
     virtual void pre()
     {
-      set_swipe_enabled(true);
-      /*Create a Tab view object*/
-    lv_obj_t *tabview;
-    tabview = lv_tabview_create(lv_scr_act(), NULL);
+    //FONT AND STYLE FOR ROLLER
+    lv_style_copy( &st, &lv_style_plain );
+    //st.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+    st.text.font = &lv_font_roboto_28;
+    
+    
+    set_swipe_enabled(true);
+    lv_obj_t *roller1 = lv_roller_create(lv_scr_act(), NULL);
+    lv_obj_set_style( roller1, &st );
+    lv_roller_set_options(roller1,
+                        "January\n"
+                        "February\n"
+                        "March\n"
+                        "April\n"
+                        "May\n"
+                        "June\n"
+                        "July\n"
+                        "August\n"
+                        "September\n"
+                        "October\n"
+                        "November\n"
+                        "December",
+                        LV_ROLLER_MODE_NORMAL);
 
-    /*Add 3 tabs (the tabs are page (lv_page) and can be scrolled*/
-    lv_obj_t *tab1 = lv_tabview_add_tab(tabview, "Tab 1");
-    lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Tab 2");
-    lv_obj_t *tab3 = lv_tabview_add_tab(tabview, "Tab 3");
-
-
-    /*Add content to the tabs*/
-    lv_obj_t * label = lv_label_create(tab1, NULL);
-    lv_label_set_text(label, "This the first tab\n\n"
-                             "If the content\n"
-                             "of a tab\n"
-                             "become too long\n"
-                             "the it \n"
-                             "automatically\n"
-                             "become\n"
-                             "scrollable.");
-
-    label = lv_label_create(tab2, NULL);
-    lv_label_set_text(label, "Second tab");
-
-    label = lv_label_create(tab3, NULL);
-    lv_label_set_text(label, "Third tab");
-
+    lv_roller_set_visible_row_count(roller1, 3);
+    lv_obj_align(roller1, NULL, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_event_cb(roller1, event_handler);
     }
 
     virtual void main()
@@ -73,7 +69,17 @@ class DemoScreen : public Screen
     {
     }
 
+    static void event_handler(lv_obj_t * obj, lv_event_t event)
+    {
+    if(event == LV_EVENT_VALUE_CHANGED) {
+        char buf[32];
+        lv_roller_get_selected_str(obj, buf, sizeof(buf));
+       // printf("Selected month: %s\n", buf);
+      }
+    }
+
   private: 
+  lv_style_t st;
 };
 
 DemoScreen demoScreen;
