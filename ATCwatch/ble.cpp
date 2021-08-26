@@ -10,6 +10,7 @@
 #include "sleep.h"
 #include "time.h"
 #include "battery.h"
+#include "heartrate.h"
 #include "inputoutput.h"
 #include "backlight.h"
 #include "bootloader.h"
@@ -110,15 +111,17 @@ void filterCmd(String Command) {
     ble_write("AT+PACE:" + String(accl_data.steps));
   } else if (Command == "AT+BATT") {
     ble_write("AT+BATT:" + String(get_battery_percent()));
+  } else if (Command == "AT+HRTR") {
+    ble_write("AT+HRTR:" + String(get_last_heartrate()));
   } else if (Command.substring(0, 8) == "AT+PUSH=") {
     ble_write("AT+PUSH:OK");
     show_push(Command.substring(8));
   } else if (Command == "BT+VER") {
-    ble_write("BT+VER:P8");
+    ble_write("BT+VER:PineTime");
   } else if (Command == "AT+VER") {
-    ble_write("AT+VER:P8");
+    ble_write("AT+VER:PineTime");
   } else if (Command == "AT+SN") {
-    ble_write("AT+SN:P8");
+    ble_write("AT+SN:PineTime");
   } else if (Command.substring(0, 12) == "AT+CONTRAST=") {
     String contrastTemp = Command.substring(12);
     if (contrastTemp == "100")
@@ -151,5 +154,5 @@ void filterCmd(String Command) {
     show_msgBody(Command.substring(8));
   } else if (Command.substring(0, 8) == "AT+TICK=") {
     show_msgBody(Command.substring(8));
-  }
+  } 
 }
