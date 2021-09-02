@@ -17,44 +17,50 @@
 class HttpScreen : public Screen
 {
   public:
+    String req;
     virtual void pre()
     {
-      set_swipe_enabled(true);
-      
-      label = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label, "Test");
-      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+    set_swipe_enabled(true);
 
-      
-      /*Create a list*/
-      lv_obj_t * list1 = lv_list_create(lv_scr_act(), NULL);
-      lv_obj_set_size(list1, 240, 200);
-      lv_obj_align(list1, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
+    
+    //FONT AND STYLE FOR ROLLER
+    lv_style_copy( &st, &lv_style_plain );
+    //st.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+    st.text.font = &lv_font_roboto_28;
 
-      /*Add buttons to the list*/
-      lv_obj_t * list_btn;
+    //LABEL
+    label = lv_label_create(lv_scr_act(), NULL);
+    lv_label_set_text(label, "Test");
+    lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
-      list_btn = lv_list_add_btn(list1, NULL, "block");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
 
-      //list_btn = lv_list_add_btn(list1, NULLDIRECTORY, "Open");
-      //lv_obj_set_event_cb(list_btn, lv_event_handler);
 
-      list_btn = lv_list_add_btn(list1, NULL, "mario");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
+    //BUTTON 
+    btn1 = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_event_cb(btn1, lv_event_handler);
+    lv_obj_align(btn1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, -20);
+    lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
+    btn1_label = lv_label_create(btn1, NULL);
+    lv_label_set_text(btn1_label, "Send");
 
-      list_btn = lv_list_add_btn(list1, NULL, "qbert");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
 
-      list_btn = lv_list_add_btn(list1, NULL, "digdug");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
+    //ROLLER    
+    roller1 = lv_roller_create(lv_scr_act(), NULL);
+    lv_obj_set_style( roller1, &st );
+    lv_roller_set_options(roller1,
+                        "block\n"
+                        "mario\n"
+                        "qbert\n"
+                        "digdug\n"
+                        "bombjack\n"
+                        "off\n",
+                        LV_ROLLER_MODE_NORMAL);
 
-      list_btn = lv_list_add_btn(list1, NULL, "bombjack");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
-
-      list_btn = lv_list_add_btn(list1, LV_SYMBOL_BATTERY_FULL, "off");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
+    lv_roller_set_visible_row_count(roller1, 3);
+    lv_obj_align(roller1, NULL, LV_ALIGN_CENTER, 0, -30);
+    lv_obj_set_event_cb(roller1, event_handler);
     }
+
     virtual void main()
     {
 
@@ -72,20 +78,29 @@ class HttpScreen : public Screen
     {
     }
 
-    
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    static void event_handler(lv_obj_t * obj, lv_event_t event)
     {
-      if (event == LV_EVENT_SHORT_CLICKED) {
-        lv_label_set_text_fmt(label,"C: %s\n", lv_list_get_btn_text(object));
-        //temp = lv_list_get_btn_text(object)
-        String bletxt = lv_list_get_btn_text(object);
-        ble_write("AT+HTTP:"+bletxt);//string2char
-        }
-      
+    if(event == LV_EVENT_VALUE_CHANGED) {
+        char buf[32];
+        lv_roller_get_selected_str(obj, buf, sizeof(buf));
+       // printf("Selected month: %s\n", buf);
+      }
     }
 
-    lv_obj_t *label;
+    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
+    {
+      if (object == btn1 && event == LV_EVENT_SHORT_CLICKED) {
+        char buf[32];
+        lv_roller_get_selected_str(roller1, buf, sizeof(buf));
+        lv_label_set_text(label, buf);
+        req = String(buf);
+        ble_write("AT+HTTP:"+req);//string2char
+      } 
+    }
 
-  private:
+  private: 
+  lv_style_t st;
+  lv_obj_t *label, *btn1, *btn1_label, *roller1;
 };
+
 HttpScreen httpScreen;

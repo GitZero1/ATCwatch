@@ -38,13 +38,13 @@ class SettingsScreen : public Screen
 
       //Add 3 tabs (the tabs are page (lv_page) and can be scrolled
       lv_obj_t *tab1 = lv_tabview_add_tab(tabview, "Power");
-      lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Demo");
+      lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Apps");
       lv_obj_t *tab3 = lv_tabview_add_tab(tabview, "Settings");
 
       //TAB ONE ###########################################################
       //Create a list in tab 1
       lv_obj_t * list1 = lv_list_create(tab1, NULL);
-      lv_obj_set_size(list1, 215, 160);
+      lv_obj_set_size(list1, 200, 154);
       lv_obj_align(list1, NULL, LV_ALIGN_CENTER, 0, 0);
 
       //Add buttons to the list
@@ -64,9 +64,9 @@ class SettingsScreen : public Screen
 
 
       // TAB TWO #########################################################
-      //Create a list in tab 1
+      //Create a list in tab 2
       lv_obj_t * list2 = lv_list_create(tab2, NULL);
-      lv_obj_set_size(list2, 215, 160);
+      lv_obj_set_size(list2, 200, 154);
       lv_obj_align(list2, NULL, LV_ALIGN_CENTER, 0, 0);
 
       //button1
@@ -81,10 +81,11 @@ class SettingsScreen : public Screen
       list_btn = lv_list_add_btn(list2, &IsymbolHeartIcon, "Heart");
       lv_obj_set_event_cb(list_btn, lv_event_handler);
 
+
       // TAB THREE #########################################################
       //Create a list in tab 3
       lv_obj_t * list3 = lv_list_create(tab3, NULL);
-      lv_obj_set_size(list3, 215, 160);
+      lv_obj_set_size(list3, 200, 154);
       lv_obj_align(list3, NULL, LV_ALIGN_CENTER, 0, 0);
 
       //button1

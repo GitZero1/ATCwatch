@@ -34,7 +34,7 @@
 
 long last_main_run;
 int vars_menu = -1;
-int vars_max_menu = 2;
+int vars_max_menu = 1;
 bool swipe_enabled_bool = false;
 
 Screen_def *currentScreen = &homeScreen;
@@ -42,7 +42,7 @@ Screen_def *oldScreen = &homeScreen;
 Screen_def *lastScreen = &homeScreen;
 
 app_struct notifyApp = {"Msg", &IsymbolAppIcon, &notifyScreen};
-app_struct heartApp = {"Heart", &IsymbolAppIcon, &heartScreen};
+//app_struct heartApp = {"Heart", &IsymbolAppIcon, &heartScreen};
 //app_struct batteryApp = {"Batt", &IsymbolAppIcon, &batteryScreen};
 //app_struct debugApp = {"Debug", &IsymbolAppIcon, &debugScreen};
 
@@ -57,16 +57,16 @@ app_struct demoApp = {"Demo", &IsymbolAppIcon , &demoScreen};
 
 //app_struct flashApp = {"Flash", &IsymbolAppIcon , &flashScreen};
 //app_struct touchApp = {"Touch", &IsymbolAppIcon , &touchScreen};
-app_struct httpApp = {"LED", &IsymbolAppIcon , &httpScreen};
+app_struct httpApp = {"HTTP", &IsymbolAppIcon , &httpScreen};
 //app_struct logApp = {"Log", &IsymbolAppIcon , &logScreen};
 
-int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &settingsApp, &demoApp);
+int maxApps = 1;
+//AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
+AppScreen apps2Screen(1, maxApps, &notifyApp, &httpApp, &settingsApp, &demoApp);
 //AppScreen apps3Screen(3, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
 //AppScreen apps4Screen(4, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
 
-Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};
+Screen_def *menus[] = {&homeScreen, &apps2Screen};
 
 void init_menu() {
 

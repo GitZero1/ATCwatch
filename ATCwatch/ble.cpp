@@ -96,33 +96,35 @@ void set_vars_ble_connected(bool state) {
 void filterCmd(String Command) {
   if (Command == "AT+BOND") {
     ble_write("AT+BOND:OK");
-  } else if (Command == "AT+ACT") {
+  } /*else if (Command == "AT+ACT") { 
     ble_write("AT+ACT:0");
-  } else if (Command.substring(0, 7) == "BT+UPGB") {
+  } */else if (Command.substring(0, 7) == "BT+UPGB") { //goto bootloader
     start_bootloader();
-  } else if (Command.substring(0, 8) == "BT+RESET") {
+  } else if (Command.substring(0, 8) == "BT+RESET") { //restart
     set_reboot();
-  } else if (Command.substring(0, 7) == "AT+RUN=") {
+  } /* else if (Command.substring(0, 7) == "AT+RUN=") {
     ble_write("AT+RUN:" + Command.substring(7));
   } else if (Command.substring(0, 8) == "AT+USER=") {
     ble_write("AT+USER:" + Command.substring(8));
-  } else if (Command == "AT+PACE") {
+  } */ else if (Command == "AT+PACE") {
     accl_data_struct accl_data = get_accl_data();
     ble_write("AT+PACE:" + String(accl_data.steps));
   } else if (Command == "AT+BATT") {
-    ble_write("AT+BATT:" + String(get_battery_percent()));
-  } else if (Command == "AT+HRTR") {
+    ble_write("AT+BATT:" + String(get_battery_percent())); 
+  } else if (Command == "AT+HRTR") { 
     ble_write("AT+HRTR:" + String(get_last_heartrate()));
-  } else if (Command.substring(0, 8) == "AT+PUSH=") {
+  } else if (Command.substring(0, 8) == "AT+PUSH=") { //push message
     ble_write("AT+PUSH:OK");
     show_push(Command.substring(8));
-  } else if (Command == "BT+VER") {
+  } /*else if (Command == "BT+VER") {
     ble_write("BT+VER:PineTime");
-  } else if (Command == "AT+VER") {
+  } */else if (Command == "AT+VER") { //set device type
     ble_write("AT+VER:PineTime");
-  } else if (Command == "AT+SN") {
+  } else if (Command == "AT+BLEN") { //set device name
+    ble_write("AT+BLEN:ATCwatch.01");
+  } /*else if (Command == "AT+SN") {
     ble_write("AT+SN:PineTime");
-  } else if (Command.substring(0, 12) == "AT+CONTRAST=") {
+  } */else if (Command.substring(0, 12) == "AT+CONTRAST=") { //set brightness
     String contrastTemp = Command.substring(12);
     if (contrastTemp == "100")
       set_backlight(1);
@@ -130,7 +132,7 @@ void filterCmd(String Command) {
       set_backlight(3);
     else set_backlight(7);
     ble_write("AT+CONTRAST:" + Command.substring(12));
-  } else if (Command.substring(0, 10) == "AT+MOTOR=1") {
+  } else if (Command.substring(0, 10) == "AT+MOTOR=1") { //set vibrate
     String motor_power = Command.substring(10);
     if (motor_power == "1")
       set_motor_power(50);
@@ -139,10 +141,10 @@ void filterCmd(String Command) {
     else set_motor_power(350);
     ble_write("AT+MOTOR:1" + Command.substring(10));
     set_motor_ms();
-  } else if (Command.substring(0, 6) == "AT+DT=") {
+  } else if (Command.substring(0, 6) == "AT+DT=") { //set date time
     SetDateTimeString(Command.substring(6));
     ble_write("AT+DT:" + GetDateTimeString());
-  } else if (Command.substring(0, 5) == "AT+DT") {
+  } else if (Command.substring(0, 5) == "AT+DT") {  //get date time
     ble_write("AT+DT:" + GetDateTimeString());
   } else if (Command.substring(0, 8) == "AT+HTTP=") {
     show_http(Command.substring(8));
