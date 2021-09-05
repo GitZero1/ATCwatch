@@ -27,19 +27,13 @@ class SettingsScreen : public Screen
     {
       set_swipe_enabled(true);
 
-
-
-
-
-
       // CREATE TABVIEW
       lv_obj_t *tabview;
       tabview = lv_tabview_create(lv_scr_act(), NULL);
 
-      //Add 3 tabs (the tabs are page (lv_page) and can be scrolled
+      //Add 2 tabs (the tabs are page (lv_page) and can be scrolled
       lv_obj_t *tab1 = lv_tabview_add_tab(tabview, "Power");
-      lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Apps");
-      lv_obj_t *tab3 = lv_tabview_add_tab(tabview, "Settings");
+      lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Style");
 
       //TAB ONE ###########################################################
       //Create a list in tab 1
@@ -69,33 +63,13 @@ class SettingsScreen : public Screen
       lv_obj_set_size(list2, 200, 154);
       lv_obj_align(list2, NULL, LV_ALIGN_CENTER, 0, 0);
 
-      //button1
-      list_btn = lv_list_add_btn(list2, LV_SYMBOL_GPS, "Accl");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
-
-      //button2
-      list_btn = lv_list_add_btn(list2, NULL, "Touch");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
-
-      //button3
-      list_btn = lv_list_add_btn(list2, &IsymbolHeartIcon, "Heart");
-      lv_obj_set_event_cb(list_btn, lv_event_handler);
-
-
-      // TAB THREE #########################################################
-      //Create a list in tab 3
-      lv_obj_t * list3 = lv_list_create(tab3, NULL);
-      lv_obj_set_size(list3, 200, 154);
-      lv_obj_align(list3, NULL, LV_ALIGN_CENTER, 0, 0);
-
-      //button1
-      list_btn = lv_list_add_btn(list3, LV_SYMBOL_IMAGE, "Style");
+       //button1
+      list_btn = lv_list_add_btn(list2, LV_SYMBOL_IMAGE, "Style");
       lv_obj_set_event_cb(list_btn, lv_event_handler);
       
       //button2
-      list_btn = lv_list_add_btn(list3, LV_SYMBOL_EYE_OPEN, "Brightness");
+      list_btn = lv_list_add_btn(list2, LV_SYMBOL_EYE_OPEN, "Brightness");
       lv_obj_set_event_cb(list_btn, lv_event_handler);
-
 
     }
 
@@ -126,10 +100,7 @@ class SettingsScreen : public Screen
         else if(btnName == "Off"){change_screen((Screen*)&offScreen);}
         else if(btnName == "Bootloader"){change_screen((Screen*)&updateScreen);}
         else if(btnName == "Style"){change_screen((Screen*)&settingsColorScreen);}
-        else if(btnName == "Accl"){change_screen((Screen*)&acclScreen);}
-        else if(btnName == "Touch"){change_screen((Screen*)&touchScreen);}
         else if(btnName == "Brightness"){change_screen((Screen*)&settingsBrightnessScreen);}
-        else if(btnName == "Heart"){change_screen((Screen*)&heartScreen);}
         
       }
     }

@@ -16,6 +16,7 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
+#include "screen_style.h"
 #include <lvgl.h>
 
 class TorchScreen : public Screen 
@@ -23,10 +24,15 @@ class TorchScreen : public Screen
 
 {
   public:
+  
     virtual void pre()
     {
+      mainColor = get_main_color();
+      gradColor = get_grad_color();
+      backlight_brightness = get_backlight();
+      set_backlight(7);
       white_screen();
-      set_gray_screen_style(&sans_regular);
+      set_gray_screen_style(&lv_font_roboto_16);
     }
     /*colors are
     0 milk
@@ -41,9 +47,10 @@ class TorchScreen : public Screen
       set_grad_color(0);
     }
 
-    virtual void black_screen(){
-      set_main_color(2);
-      set_grad_color(2);
+    void reset_theme(){
+      set_main_color(mainColor);
+      set_grad_color(gradColor);
+      set_backlight(backlight_brightness);
     }
 
     virtual void main()
@@ -51,40 +58,50 @@ class TorchScreen : public Screen
       
     }
 
+    virtual uint32_t sleepTime()
+    {
+      return 3000000;
+    }
+
     virtual void long_click()
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
 
     virtual void left()
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
 
     virtual void right()
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
 
     virtual void up()
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
     virtual void down()
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
 
     virtual void click(touch_data_struct touch_data)
     {
-      black_screen();
+      reset_theme();
       display_home();
     }
+
+  private:
+    int mainColor;
+    int gradColor;
+    int backlight_brightness;
 
 };
 

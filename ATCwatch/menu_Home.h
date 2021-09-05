@@ -35,6 +35,10 @@ class HomeScreen : public Screen
         ztime = ztime - 12;
       
       accl_data = get_accl_data();
+      weekday = getDayString();
+      month = getMonthString();
+      
+
 
 
       
@@ -43,12 +47,12 @@ class HomeScreen : public Screen
       st1.text.color = lv_color_hsv_to_rgb(10, 5, 95);
       st1.text.font = &lv_font_roboto_12;
 
-      /*
+      
       //BACKGROUND IMAGE
       lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
       lv_img_set_src(img1, &IsZeroneLarge); //TODO remove or change this// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 24);
-     */
+     
 
 
       //DATE TIME ##############################################################################################################
@@ -66,12 +70,12 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
       //lv_label_set_text(label_time,  "1234");
       lv_obj_set_style( label_time, &st );
-      lv_obj_align(label_time, NULL, LV_ALIGN_CENTER, 0, 0);
+      lv_obj_align(label_time, NULL, LV_ALIGN_IN_TOP_RIGHT, -5, 5);
 
 
       //DATE TEXT
       label_date = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text_fmt(label_date, "%02i/%02i/%04i", time_data.month, time_data.day, time_data.year);
+      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       //lv_obj_set_style( label_date, &st );
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
       //DATE TIME ##############################################################################################################
@@ -191,8 +195,8 @@ class HomeScreen : public Screen
       //lv_label_set_text(label_time,  "zer0");
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
       //UPDATE DATE
-      lv_label_set_text_fmt(label_date, "%02i/%02i/%04i", time_data.month, time_data.day, time_data.year);
-
+      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+      //lv_label_set_text_fmt(label_date, string2char(weekday) );
 
       
       //UPDATE BATTERY TEXT
@@ -254,6 +258,8 @@ class HomeScreen : public Screen
     }
 
   private:
+    String weekday;
+    String month;
     time_data_struct time_data;
     accl_data_struct accl_data;
     lv_style_t st, st1;

@@ -28,13 +28,13 @@ class BootScreen : public Screen
     {
       set_gray_screen_style(&lv_font_roboto_22);
 
-      /*
+      
       lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
       lv_img_set_src(img1, &IsZeroneSmall);
       lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
-      */
+      
       lv_obj_t *label = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label, "Booting Zer0S");
+      lv_label_set_text(label, "Booting 01OS");
       lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
       lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, 60);
       

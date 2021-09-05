@@ -102,29 +102,23 @@ void filterCmd(String Command) {
     start_bootloader();
   } else if (Command.substring(0, 8) == "BT+RESET") { //restart
     set_reboot();
-  } /* else if (Command.substring(0, 7) == "AT+RUN=") {
-    ble_write("AT+RUN:" + Command.substring(7));
-  } else if (Command.substring(0, 8) == "AT+USER=") {
-    ble_write("AT+USER:" + Command.substring(8));
-  } */ else if (Command == "AT+PACE") {
+  } else if (Command.substring(0, 8) == "BT+OFF") { //shutdown
+        system_off();
+  } else if (Command == "AT+PACE") { // get step data
     accl_data_struct accl_data = get_accl_data();
     ble_write("AT+PACE:" + String(accl_data.steps));
-  } else if (Command == "AT+BATT") {
+  } else if (Command == "AT+BATT") {  //get battery
     ble_write("AT+BATT:" + String(get_battery_percent())); 
-  } else if (Command == "AT+HRTR") { 
+  } else if (Command == "AT+HRTR") { //get heartrate
     ble_write("AT+HRTR:" + String(get_last_heartrate()));
   } else if (Command.substring(0, 8) == "AT+PUSH=") { //push message
     ble_write("AT+PUSH:OK");
     show_push(Command.substring(8));
-  } /*else if (Command == "BT+VER") {
+  } else if (Command == "BT+VER") {
     ble_write("BT+VER:PineTime");
-  } */else if (Command == "AT+VER") { //set device type
+  } else if (Command == "AT+VER") { //set device type
     ble_write("AT+VER:PineTime");
-  } else if (Command == "AT+BLEN") { //set device name
-    ble_write("AT+BLEN:ATCwatch.01");
-  } /*else if (Command == "AT+SN") {
-    ble_write("AT+SN:PineTime");
-  } */else if (Command.substring(0, 12) == "AT+CONTRAST=") { //set brightness
+  } else if (Command.substring(0, 12) == "AT+CONTRAST=") { //set brightness
     String contrastTemp = Command.substring(12);
     if (contrastTemp == "100")
       set_backlight(1);
@@ -146,15 +140,15 @@ void filterCmd(String Command) {
     ble_write("AT+DT:" + GetDateTimeString());
   } else if (Command.substring(0, 5) == "AT+DT") {  //get date time
     ble_write("AT+DT:" + GetDateTimeString());
-  } else if (Command.substring(0, 8) == "AT+HTTP=") {
+  } else if (Command.substring(0, 8) == "AT+HTTP=") { //handle http response
     show_http(Command.substring(8));
-  } else if (Command.substring(0, 8) == "AT+NAME=") {
+  } else if (Command.substring(0, 8) == "AT+NAME=") {  //handle notifications
     show_appName(Command.substring(8));
   } else if (Command.substring(0, 8) == "AT+TITL=") {
     show_titl(Command.substring(8));
   } else if (Command.substring(0, 8) == "AT+BODY=") {
     show_msgBody(Command.substring(8));
-  } else if (Command.substring(0, 8) == "AT+TICK=") {
+  } else if (Command.substring(0, 8) == "AT+TICK=") { //end of handling notifications
     show_msgBody(Command.substring(8));
   } 
 }

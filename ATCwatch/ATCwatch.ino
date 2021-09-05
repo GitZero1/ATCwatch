@@ -32,25 +32,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include "flash.h"
 
 bool stepsWhereReseted = false;

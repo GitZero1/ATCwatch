@@ -49,6 +49,7 @@ class HttpScreen : public Screen
     lv_obj_set_style( roller1, &st );
     lv_roller_set_options(roller1,
                         "block\n"
+                        "link\n"
                         "mario\n"
                         "qbert\n"
                         "digdug\n"

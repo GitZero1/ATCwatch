@@ -12,7 +12,7 @@
 lv_color_t color_list[] = {/*lv_color_hsv_to_rgb(10, 5, 95)*/LV_COLOR_MAKE(0xFF, 0xFF, 0xFF), LV_COLOR_GRAY, LV_COLOR_BLACK, LV_COLOR_RED, LV_COLOR_GREEN, LV_COLOR_BLUE};
 
 int main_color_save = 2;
-int grad_color_save = 1;
+int grad_color_save = 2;
 int font_color_save = 0;
 
 void set_gray_screen_style( lv_font_t * font = LV_FONT_DEFAULT) {
