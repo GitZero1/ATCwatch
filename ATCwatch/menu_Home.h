@@ -27,121 +27,54 @@ class HomeScreen : public Screen
   public:
     virtual void pre()
     {
-      time_data = get_time();
-      int ztime = time_data.hr;
-      if(ztime == 0)
-        ztime = 12;
-      else if (ztime > 12)
-        ztime = ztime - 12;
-      
-      accl_data = get_accl_data();
-      weekday = getDayString();
-      month = getMonthString();
-      
-
-
-
+      getHomeScreenData();
       
       // STYLE FOR BATTERY TEXT
       lv_style_copy( &st1, &lv_style_plain );
-      st1.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+      st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
+      //st1.text.color = lv_color_hsv_to_rgb(0, 0, 0);
       st1.text.font = &lv_font_roboto_12;
-
-      
-      //BACKGROUND IMAGE
-      lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
-      lv_img_set_src(img1, &IsZeroneLarge); //TODO remove or change this// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-      lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 24);
-     
-
-
-      //DATE TIME ##############################################################################################################
 
       //FONT AND STYLE FOR TIME
       lv_style_copy( &st, &lv_style_plain );
-      st.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+      st.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
+      //st.text.color = lv_color_hsv_to_rgb(10, 5, 95);
       st.text.font = &mksd50;
 
+      /*
+      //BACKGROUND IMAGE
+      img1 = lv_img_create(lv_scr_act(), NULL);
+      lv_img_set_src(img1, &Ibbd0); //TODO remove or change this// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      lv_obj_align(img1, NULL, LV_ALIGN_IN_BOTTOM_MID, 0, 4);
+     */
 
 
-    
+
+      //DATE TIME ##############################################################################################################
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      //lv_label_set_text(label_time,  "1234");
       lv_obj_set_style( label_time, &st );
-      lv_obj_align(label_time, NULL, LV_ALIGN_IN_TOP_RIGHT, -5, 5);
+      lv_obj_align(label_time, NULL, LV_ALIGN_CENTER, 0, 0);
 
 
       //DATE TEXT
       label_date = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
-      //lv_obj_set_style( label_date, &st );
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
       //DATE TIME ##############################################################################################################
 
 
-
-
-
-      //BATTERY##############################################################################################################
       // BATTERY ICON
-      label_battery_icon = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
-      lv_obj_align(label_battery_icon, NULL, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-
-      
-      // BATTERY TEXT
-      label_battery = lv_label_create(lv_scr_act(), NULL);
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      lv_obj_set_style( label_battery, &st1 );
-      
-      
-      // BATTERY COLOR
-      lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
-      style_battery.text.color = lv_color_hsv_to_rgb(10, 5, 95);
-      lv_obj_set_style(label_battery_icon, &style_battery);
-
-      //BATTERY##############################################################################################################
-
-
-
-
-      //BLUETOOTH ############################################################################################################
+      initBatteryIcon();
 
       //BLUETOOTH ICON
-      label_ble = lv_label_create(lv_scr_act(), NULL);
-      lv_obj_align(label_ble, NULL, LV_ALIGN_IN_TOP_LEFT, 2, 22);
-      lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
+      initBluetoothIcon();
 
-      //BLUETOOTH COLOR
-      lv_style_copy(&style_ble, lv_label_get_style(label_ble, LV_LABEL_STYLE_MAIN));
-      style_ble.text.color = LV_COLOR_RED;
-      style_ble.text.font = LV_FONT_DEFAULT;
-      lv_obj_set_style(label_ble, &style_ble);
-      
-      //BLUETOOTH ###########################################################################################################
-    
+      //Heartrate
+      initHeartData();
 
-      //HEART ###########################################################################################################
-
-      //HEART ICON      
-      img_heart = lv_img_create(lv_scr_act(), NULL);  
-      lv_img_set_src(img_heart, &IsymbolHeartIcon);
-      lv_obj_align(img_heart, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 2, -25);
-      
-      //HEART TEXT
-      label_heart = lv_label_create(lv_scr_act(), NULL);
-      lv_obj_set_width(label_heart, 240);
-      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-
-      //HEART ###########################################################################################################
-
-      #ifdef COUNT_STEPS
-      
-      
+      #ifdef COUNT_STEPS 5 
       //STEPS IMAGE
       img_steps = lv_img_create(lv_scr_act(), NULL);
       lv_img_set_src(img_steps, &IsymbolFootIcon);
@@ -153,84 +86,13 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
       lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
       #endif
-
-
-      /*
-      img_msg = lv_img_create(lv_scr_act(), NULL);
-      lv_img_set_src(img_msg, &IsymbolMsgSmall);
-      lv_obj_align(img_msg, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 0, -8);
-      
-      label_msg = lv_label_create(lv_scr_act(), NULL);
-
-      lv_style_copy(&style_msg, lv_label_get_style(label_ble, LV_LABEL_STYLE_MAIN));
-      style_msg.text.color = lv_color_hsv_to_rgb(10, 5, 95);
-      style_msg.text.font = &sans_regular;
-      lv_obj_set_style(label_msg, &style_msg);
-
-      lv_obj_set_width(label_msg, 240);
-      lv_label_set_text(label_msg, " ");
-      lv_label_set_text(label_msg, string2char(get_push_msg(30)));
-      lv_obj_align(label_msg, label_ble, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      */
     }
 
+   
     virtual void main()
     {
-      //CONVERT TIME TO 12 Hour
-      time_data = get_time();
-      int ztime = time_data.hr;
-      if(ztime == 0)
-        ztime = 12;
-      else if (ztime > 12)
-        ztime = ztime - 12;
-      
-
-      
-      //UPDATE STEP DATA
-      accl_data = get_accl_data();
-
-
-
-      //UPDATE TIME
-      //lv_label_set_text(label_time,  "zer0");
-      lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      //UPDATE DATE
-      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
-      //lv_label_set_text_fmt(label_date, string2char(weekday) );
-
-      
-      //UPDATE BATTERY TEXT
-      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      
-      
-      //UPDATE BATTERY ICON
-      if (get_battery_percent() < 15) lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_EMPTY);
-      else if (get_battery_percent() > 75) lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
-      else lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_2);
-      
-      //UPDATE HEARTREATE TEXT
-      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
-
-      // UPDATE STEPS
-      #ifdef COUNT_STEPS 
-      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
-      #endif
-
-
-      //UPDATE BLUETOOTH CONNECTION ICON
-      if (get_vars_ble_connected())
-        style_ble.text.color = LV_COLOR_MAKE(0x27, 0xA6, 0xFF);
-      else
-        style_ble.text.color = LV_COLOR_RED;
-      lv_obj_set_style(label_ble, &style_ble);
-
-
-
-      // COLOR AND CHANGE BATTERY ICON
-      if (get_battery_percent() < 15) style_battery.text.color = LV_COLOR_RED;
-      else
-        style_battery.text.color = LV_COLOR_MAKE(0x05, 0xF9, 0x25);
-      lv_obj_set_style(label_battery_icon, &style_battery);
+      getHomeScreenData();
+      updateHomeScreenUI();
 
     }
 
@@ -257,17 +119,162 @@ class HomeScreen : public Screen
       sleep_down();
     }
 
+    virtual void animate01(){
+      int sec = time_data.sec;
+      int x = (sec / 1U) % 10;
+      switch (x)
+      {
+      case 1:
+        //lv_img_set_src(img1, &Ibbd0);
+        break;
+      case 2:
+        //lv_img_set_src(img1, &Ibbd1);
+        break;
+      case 3:
+        //lv_img_set_src(img1, &Ibbd2);
+        break;
+      case 4:
+        //lv_img_set_src(img1, &Ibbd0);
+        break;
+      case 5:
+        //lv_img_set_src(img1, &Ibbd1);
+        break;
+      case 6:
+        //lv_img_set_src(img1, &Ibbd2);
+        break;
+      case 7:
+        //lv_img_set_src(img1, &Ibbd0);
+        break;
+      case 8:
+        //lv_img_set_src(img1, &Ibbd1);
+        break;
+      case 9:
+        //lv_img_set_src(img1, &Ibbd2);
+        break;
+      case 0:
+        //lv_img_set_src(img1, &Ibbd1);
+        break;
+      default:
+        //lv_img_set_src(img1, &Ibbd0);
+        break;
+      }
+    } 
+
+    //initializers
+    void initBatteryIcon(){
+      label_battery_icon = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
+      lv_obj_align(label_battery_icon, NULL, LV_ALIGN_IN_TOP_LEFT, 2, 1);
+
+      
+      // BATTERY TEXT
+      label_battery = lv_label_create(lv_scr_act(), NULL);
+      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
+      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
+      lv_obj_set_style( label_battery, &st1 );
+      
+      
+      // BATTERY COLOR
+      lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
+      style_battery.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+      lv_obj_set_style(label_battery_icon, &style_battery);
+    }
+
+    void initBluetoothIcon(){
+      label_ble = lv_label_create(lv_scr_act(), NULL);
+      lv_obj_align(label_ble, NULL, LV_ALIGN_IN_TOP_LEFT, 2, 22);
+      lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
+
+      //BLUETOOTH COLOR
+      lv_style_copy(&style_ble, lv_label_get_style(label_ble, LV_LABEL_STYLE_MAIN));
+      style_ble.text.color = LV_COLOR_RED;
+      style_ble.text.font = LV_FONT_DEFAULT;
+      lv_obj_set_style(label_ble, &style_ble);
+    }
+
+    void initHeartData(){
+      //HEART ICON      
+      img_heart = lv_img_create(lv_scr_act(), NULL);  
+      lv_img_set_src(img_heart, &IsymbolHeartIcon);
+      lv_obj_align(img_heart, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 2, -25);
+      
+      //HEART TEXT
+      label_heart = lv_label_create(lv_scr_act(), NULL);
+      lv_obj_set_width(label_heart, 240);
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+    }
+    
+    
+    //Updates
+
+    virtual void updateHomeScreenUI(){
+      
+      //UPDATE TIME
+      lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
+      //UPDATE DATE
+      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+
+      //UPDATE BATTERY TEXT
+      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
+    
+      //UPDATE BATTERY ICON
+      if (get_battery_percent() < 15) lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_EMPTY);
+      else if (get_battery_percent() > 75) lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
+      else lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_2);
+
+      // COLOR AND CHANGE BATTERY ICON
+      if (get_battery_percent() < 15) style_battery.text.color = LV_COLOR_RED;
+      else
+        style_battery.text.color = LV_COLOR_MAKE(0x05, 0xF9, 0x25);
+      lv_obj_set_style(label_battery_icon, &style_battery);
+      
+      //UPDATE HEARTREATE TEXT
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+
+      // UPDATE STEPS
+      #ifdef COUNT_STEPS 
+      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
+      #endif
+
+      //UPDATE BLUETOOTH CONNECTION ICON
+      if (get_vars_ble_connected())
+        style_ble.text.color = LV_COLOR_MAKE(0x27, 0xA6, 0xFF);
+      else
+        style_ble.text.color = LV_COLOR_RED;
+      lv_obj_set_style(label_ble, &style_ble);
+
+    }
+
+    //get+update datetime data
+     virtual void getHomeScreenData(){
+      
+      accl_data = get_accl_data();
+      weekday = getDayString();
+      month = getMonthString();
+      
+      
+      time_data = get_time();
+      ztime = time_data.hr;
+      if(ztime == 0)
+        ztime = 12;
+      else if (ztime > 12)
+        ztime = ztime - 12;
+    }
+
+
   private:
     String weekday;
     String month;
+    int ztime;
     time_data_struct time_data;
     accl_data_struct accl_data;
     lv_style_t st, st1;
-    lv_obj_t *label, *label_heart, *label_steps, *label_msg;
+    lv_obj_t *label, *label_heart, *label_steps;
     lv_obj_t *label_time, *label_date;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon;
-    lv_style_t style_ble, style_battery, style_msg;
-    lv_obj_t * img_heart, *img_steps, *img_msg;
+    lv_style_t style_ble, style_battery;
+    lv_obj_t * img_heart, *img_steps, *img1;
 
     char* string2char(String command) {
       if (command.length() != 0) {

@@ -34,12 +34,12 @@ Screen_def *currentScreen = &homeScreen;
 Screen_def *oldScreen = &homeScreen;
 Screen_def *lastScreen = &homeScreen;
 
-app_struct notifyApp = {"Msg", &IsymbolgreenApp, &notifyScreen};
-app_struct settingsApp = {"Settings", &IsymbolSettingsApp, &settingsScreen};
-app_struct demoApp = {"Demo", &IsymbolDebugApp , &demoScreen};
-app_struct httpApp = {"HTTP", &IsymbolgreenApp , &httpScreen};
-app_struct heartApp = {"<3", &IsymbolgreenApp , &heartScreen};
-app_struct torchApp = {"Torch", &IsymbolgreenApp , &torchScreen};
+app_struct notifyApp = {"Msg", &IsymbolAppIcon, &notifyScreen};
+app_struct settingsApp = {"Settings", &IsymbolAppIcon, &settingsScreen};
+app_struct demoApp = {"Demo", &IsymbolAppIcon , &demoScreen};
+app_struct httpApp = {"HTTP", &IsymbolAppIcon , &httpScreen};
+app_struct heartApp = {"<3", &IsymbolAppIcon , &heartScreen};
+app_struct torchApp = {"Torch", &IsymbolAppIcon , &torchScreen};
 
 
 
