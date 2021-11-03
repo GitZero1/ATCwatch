@@ -98,6 +98,13 @@ class TorchScreen : public Screen
       display_home();
     }
 
+    virtual void button_push(int length)
+    {
+      reset_theme();
+      display_home();
+      set_motor_ms(40);
+    }
+
   private:
     int mainColor;
     int gradColor;
