@@ -21,9 +21,9 @@ lv_color_t color_list[] = {LV_COLOR_MAKE(0xFF, 0xFF, 0xFF), LV_COLOR_GRAY, LV_CO
 6 = green?
 */
 
-int main_color_save = 2;
-int grad_color_save = 2;
-int font_color_save = 0;
+int main_color_save = 6;
+int grad_color_save = 6;
+int font_color_save = 2;
 
 void set_gray_screen_style( lv_font_t * font = LV_FONT_DEFAULT) {
   static lv_style_t style_screen;

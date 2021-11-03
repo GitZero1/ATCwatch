@@ -25,6 +25,7 @@ void SetTime(int hr, int min);
 String GetDateTimeString();
 String getDayString();
 String getMonthString();
+int get12hrTime();
 
 
 void getTimeWithSecs(char* str);

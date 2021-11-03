@@ -114,6 +114,16 @@ void setTimeWrapper(int yr, int mth, int _day, int hr, int _min, int sec) {
 
 //month string
 
+int get12hrTime(){
+  time_data = get_time();
+  int sTime = time_data.hr;
+  if(sTime == 0)
+    sTime = 12;
+  else if (sTime > 12)
+    sTime = sTime - 12;
+  return sTime;
+}
+
 String getMonthString(){
   switch (month()){
     case 1:

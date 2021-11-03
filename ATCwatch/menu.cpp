@@ -21,6 +21,7 @@
 #include "menu_Charging.h"
 #include "menu_Http.h"
 #include "menu_Torch.h"
+#include "menu_Calendar.h"
 //#include "menu_Log.h"
 #include "menu_Settings.h"
 #include <lvgl.h>
@@ -40,11 +41,11 @@ app_struct demoApp = {"Demo", &IsymbolAppIcon , &demoScreen};
 app_struct httpApp = {"HTTP", &IsymbolAppIcon , &httpScreen};
 app_struct heartApp = {"<3", &IsymbolAppIcon , &heartScreen};
 app_struct torchApp = {"Torch", &IsymbolAppIcon , &torchScreen};
-
+app_struct calApp = {"Calendar", &IsymbolAppIcon , &calendarScreen};
 
 
 int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &demoApp, &heartApp);
+AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &calApp, &heartApp);
 AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &settingsApp, &torchApp);
 
 Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};
