@@ -24,6 +24,7 @@ class DemoScreen : public Screen
     virtual void pre()
     {
       set_swipe_enabled(true);
+<<<<<<< HEAD
       //createStyle();
       //lv_ex_calendar_1();
 
@@ -48,6 +49,21 @@ class DemoScreen : public Screen
 
 
     virtual void main(){
+=======
+      createStyle();
+
+      label = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label, "DEMO SCREEN");
+      lv_obj_align(label, NULL, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
+
+      btn1 = lv_btn_create(lv_scr_act(),nullptr);
+      lv_obj_align(btn1, nullptr, LV_ALIGN_IN_BOTTOM_RIGHT, 0 , 0);
+      label = lv_label_create(btn1, nullptr);
+      lv_label_set_text(label,"FF");
+
+
+      tContainer();
+>>>>>>> 80f443872ff5e89ce54177836ad1b1af3b71bf2d
 
     }
 
@@ -59,6 +75,7 @@ class DemoScreen : public Screen
       //st.body.
     }
 
+<<<<<<< HEAD
     void lv_ex_calendar_1(void)
     {
         lv_obj_t  * calendar = lv_calendar_create(lv_scr_act(), NULL);
@@ -145,9 +162,22 @@ class DemoScreen : public Screen
       label = lv_label_create(cont, NULL);
       lv_label_set_text(label, "Here is an even longer text");
       */
+=======
+    virtual void main(){
 
     }
+>>>>>>> 80f443872ff5e89ce54177836ad1b1af3b71bf2d
 
+    virtual void createStyle(){
+      lv_style_copy( &st, &lv_style_plain );
+      st.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
+      st.body.main_color = lv_color_make(0x00, 0x00, 0x00);
+      st.body.grad_color = lv_color_make(0x00, 0x00, 0x00);
+      //st1.text.color = lv_color_hsv_to_rgb(0, 0, 0);
+      //st.text.font = &lv_font_roboto_28;
+    }
+
+<<<<<<< HEAD
 
 
 
@@ -225,6 +255,36 @@ class DemoScreen : public Screen
 
       lv_calendar_set_today_date(calendar, &today);
       lv_calendar_set_showed_date(calendar, &today);
+=======
+    //test container
+    virtual void tContainer(){
+      lv_obj_t * cont;
+
+      cont = lv_cont_create(lv_scr_act(), NULL);
+      lv_obj_align(cont, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_set_size(cont, LV_HOR_RES, 35);
+      lv_cont_set_layout(cont, LV_LAYOUT_COL_M);
+      lv_obj_set_style(cont, &st);
+
+      label = lv_label_create(cont, NULL);
+      lv_label_set_text(label, "Short text");
+  
+
+      //Refresh and pause here for a while to see how `fit` works
+      uint32_t t;
+      lv_refr_now(NULL);
+      t = lv_tick_get();
+      while(lv_tick_elaps(t) < 2000);
+      lv_label_set_text(label, "It is a long text");
+
+      //Wait here too
+      lv_refr_now(NULL);
+      t = lv_tick_get();
+      while(lv_tick_elaps(t) < 1000);
+      lv_label_set_text(label, "Here is an even longer text");
+      
+
+>>>>>>> 80f443872ff5e89ce54177836ad1b1af3b71bf2d
     }
 
 
@@ -233,7 +293,10 @@ class DemoScreen : public Screen
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 80f443872ff5e89ce54177836ad1b1af3b71bf2d
     // event handler
     virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
