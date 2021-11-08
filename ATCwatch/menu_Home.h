@@ -30,13 +30,11 @@ class HomeScreen : public Screen
       initStyles();
       getHomeScreenData();
       drawBar();
-
-    
+      
       //BACKGROUND IMAGE
       img1 = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img1, &IsnoopyBg); //TODO remove or change this// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-     
 
 
 
@@ -200,7 +198,7 @@ class HomeScreen : public Screen
 
     void initBluetoothIcon(){
       label_ble = lv_label_create(cont, nullptr);
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
+      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 10, 0);
       lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
 
       //BLUETOOTH COLOR

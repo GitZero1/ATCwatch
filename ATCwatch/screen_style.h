@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #include <lvgl.h>
 
-lv_color_t color_list[] = {LV_COLOR_MAKE(0xFF, 0xFF, 0xFF), LV_COLOR_GRAY, LV_COLOR_BLACK, LV_COLOR_RED, LV_COLOR_MAKE(0x39,0xFF,0x14), LV_COLOR_BLUE, LV_COLOR_MAKE(0x00, 0xB7, 0xEF)};
+lv_color_t color_list[] = {LV_COLOR_MAKE(0xFF, 0xFF, 0xFF), LV_COLOR_GRAY, LV_COLOR_BLACK, LV_COLOR_RED, LV_COLOR_MAKE(0x39,0xFF,0x14), LV_COLOR_BLUE, LV_COLOR_MAKE(0x00, 0x8E, 0xFF)};
 
 /*
 0 = white

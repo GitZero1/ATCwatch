@@ -39,6 +39,7 @@ class AppScreen : public Screen
 
     virtual void pre()
     {
+      /*
       slider = lv_slider_create(lv_scr_act(), NULL);
       lv_obj_set_size(slider, 23, 100);
       lv_slider_set_range(slider, 1, _maxApps);
@@ -46,7 +47,8 @@ class AppScreen : public Screen
       lv_obj_align(slider, NULL, LV_ALIGN_IN_RIGHT_MID, -4, 0);
       lv_obj_set_click(slider, false);
       lv_obj_set_click(lv_page_get_scrl(slider), false);
-
+      */
+     
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 0);

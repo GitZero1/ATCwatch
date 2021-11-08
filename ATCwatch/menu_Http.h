@@ -31,8 +31,11 @@ class HttpScreen : public Screen
     //LABEL
     label = lv_label_create(lv_scr_act(), NULL);
     lv_label_set_text(label, "Test");
-    lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+    lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 20);
 
+    labelReply = lv_label_create(lv_scr_act(), NULL);
+    lv_label_set_text_fmt(labelReply, "HTTP:%s", string2char(get_http_msg()));
+    lv_obj_align(labelReply, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
 
     //BUTTON 
@@ -64,6 +67,7 @@ class HttpScreen : public Screen
 
     virtual void main()
     {
+      lv_label_set_text_fmt(labelReply, string2char(get_http_msg()));
 
     }
 
@@ -84,7 +88,6 @@ class HttpScreen : public Screen
     if(event == LV_EVENT_VALUE_CHANGED) {
         char buf[32];
         lv_roller_get_selected_str(obj, buf, sizeof(buf));
-       // printf("Selected month: %s\n", buf);
       }
     }
 
@@ -101,7 +104,14 @@ class HttpScreen : public Screen
 
   private: 
   lv_style_t st;
-  lv_obj_t *label, *btn1, *btn1_label, *roller1;
+  lv_obj_t *label, *btn1, *btn1_label, *labelReply, *roller1;
+
+  char* string2char(String command) {
+      if (command.length() != 0) {
+        char *p = const_cast<char*>(command.c_str());
+        return p;
+      }
+    }
 };
 
 HttpScreen httpScreen;
