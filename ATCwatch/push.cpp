@@ -72,7 +72,7 @@ void show_tick(String tickMSG) {
 }
 
 void show_msgBody(String bodyMSG) {
-  msgBodyText = filter_string("Body: " + bodyMSG);
+  msgBodyText = filter_string(bodyMSG);
   set_sleep_time();
 }
 

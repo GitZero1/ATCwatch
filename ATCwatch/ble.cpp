@@ -96,8 +96,6 @@ void set_vars_ble_connected(bool state) {
 void filterCmd(String Command) {
   if (Command == "AT+BOND") {
     ble_write("AT+BOND:OK");
-  } else if (Command == "AT+ACT") { 
-    ble_write("AT+ACT:0");
   } else if (Command.substring(0, 7) == "BT+UPGB") { //goto bootloader
     start_bootloader();
   } else if (Command.substring(0, 8) == "BT+RESET") { //restart
@@ -114,8 +112,6 @@ void filterCmd(String Command) {
   } else if (Command.substring(0, 8) == "AT+PUSH=") { //push message
     ble_write("AT+PUSH:OK");
     show_push(Command.substring(8));
-  } else if (Command == "BT+VER") {
-    ble_write("BT+VER:PineTime");
   } else if (Command == "AT+VER") { //set device type
     ble_write("AT+VER:PineTime");
   } else if (Command.substring(0, 12) == "AT+CONTRAST=") { //set brightness
