@@ -16,11 +16,11 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
+//#include "screen_style.h"
 #include <lvgl.h>
 
 struct app_struct {
   const char* _title;
-  const lv_img_dsc_t* _symbol;
   Screen* _screen;
 };
 
@@ -48,54 +48,46 @@ class AppScreen : public Screen
       lv_obj_set_click(slider, false);
       lv_obj_set_click(lv_page_get_scrl(slider), false);
       */
-     
+
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
-      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 0);
+      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);
 
-      button_image1 = lv_imgbtn_create(lv_scr_act(), NULL);
-      lv_imgbtn_set_src(button_image1, LV_BTN_STATE_REL, _app1->_symbol);
-      lv_imgbtn_set_src(button_image1, LV_BTN_STATE_PR, _app1->_symbol);
-      lv_imgbtn_set_toggle(button_image1, false);
-      lv_obj_set_pos(button_image1, 32, 28);
+      button_image1 = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(button_image1, NULL, LV_ALIGN_CENTER, -55, -40);
       lv_obj_set_event_cb(button_image1, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(button_image1, NULL);
       lv_label_set_text(image_label, _app1->_title);
-      lv_obj_align(image_label, button_image1, LV_ALIGN_CENTER, 0, 2);
 
-      button_image2 = lv_imgbtn_create(lv_scr_act(), NULL);
-      lv_imgbtn_set_src(button_image2, LV_BTN_STATE_REL, _app2->_symbol);
-      lv_imgbtn_set_src(button_image2, LV_BTN_STATE_PR, _app2->_symbol);
-      lv_imgbtn_set_toggle(button_image2, false);
-      lv_obj_set_pos(button_image2, 136, 28);
+      button_image2 = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(button_image2, NULL, LV_ALIGN_CENTER, 55, -40);
       lv_obj_set_event_cb(button_image2, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(button_image2, NULL);
       lv_label_set_text(image_label, _app2->_title);
-      lv_obj_align(image_label, button_image2, LV_ALIGN_CENTER, 0, 2);
 
-      button_image3 = lv_imgbtn_create(lv_scr_act(), NULL);
-      lv_imgbtn_set_src(button_image3, LV_BTN_STATE_REL, _app3->_symbol);
-      lv_imgbtn_set_src(button_image3, LV_BTN_STATE_PR, _app3->_symbol);
-      lv_imgbtn_set_toggle(button_image3, false);
-      lv_obj_set_pos(button_image3, 32, 132);
+      button_image3 = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(button_image3, NULL, LV_ALIGN_CENTER, -55, 55);
       lv_obj_set_event_cb(button_image3, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(button_image3, NULL);
       lv_label_set_text(image_label, _app3->_title);
-      lv_obj_align(image_label, button_image3, LV_ALIGN_CENTER, 0, 2);
 
-      button_image4 = lv_imgbtn_create(lv_scr_act(), NULL);
-      lv_imgbtn_set_src(button_image4, LV_BTN_STATE_REL, _app4->_symbol);
-      lv_imgbtn_set_src(button_image4, LV_BTN_STATE_PR, _app4->_symbol);
-      lv_imgbtn_set_toggle(button_image4, false);
-      lv_obj_set_pos(button_image4, 136, 132);
+      button_image4 = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(button_image4, NULL, LV_ALIGN_CENTER, 55, 55);
       lv_obj_set_event_cb(button_image4, lv_event_handler);
 
-      image_label = lv_label_create(lv_scr_act(), NULL);
+      image_label = lv_label_create(button_image4, NULL);
       lv_label_set_text(image_label, _app4->_title);
-      lv_obj_align(image_label, button_image4, LV_ALIGN_CENTER, 0, 2);
+
+
+      //STYLE BUTTONS
+      set_btn_style(button_image1);
+      set_btn_style(button_image2);
+      set_btn_style(button_image3);
+      set_btn_style(button_image4);
+
     }
 
     virtual void main()

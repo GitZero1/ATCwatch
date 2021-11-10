@@ -48,21 +48,21 @@ class CalendarScreen : public Screen
       style_bg.body.main_color = LV_COLOR_WHITE;
       style_bg.body.grad_color = LV_COLOR_WHITE;
       style_bg.text.color = LV_COLOR_BLACK;
-      lv_obj_set_style(lv_scr_act(), &style_bg);
+      //lv_obj_set_style(lv_scr_act(), &style_bg);
 
       static lv_style_t style_header;
       lv_style_copy(&style_header, &lv_style_plain);
       style_header.body.main_color = LV_COLOR_MAKE(0xFF, 0x4D, 0x4D);
       style_header.body.grad_color = LV_COLOR_MAKE(0xFF, 0x4D, 0x4D);
       style_header.text.color = LV_COLOR_BLACK;
-      lv_obj_set_style(lv_scr_act(), &style_header);
+      //lv_obj_set_style(lv_scr_act(), &style_header);
 
       static lv_style_t style_dayNames;
       lv_style_copy(&style_dayNames, &lv_style_plain);
       style_dayNames.body.main_color = LV_COLOR_WHITE;
       style_dayNames.body.grad_color = LV_COLOR_WHITE;
       style_dayNames.text.color = LV_COLOR_BLUE;
-      lv_obj_set_style(lv_scr_act(), &style_dayNames);
+      //lv_obj_set_style(lv_scr_act(), &style_dayNames);
 
       static lv_style_t style_weekBox;
       lv_style_copy(&style_weekBox, &lv_style_plain);
@@ -70,7 +70,7 @@ class CalendarScreen : public Screen
       style_weekBox.body.grad_color = LV_COLOR_MAKE(0xB3, 0xB3, 0xB3);
       style_weekBox.text.color = LV_COLOR_BLACK;
       style_weekBox.body.radius=6;
-      lv_obj_set_style(lv_scr_act(), &style_weekBox);
+      //lv_obj_set_style(lv_scr_act(), &style_weekBox);
 
       static lv_style_t style_todayBox;
       lv_style_copy(&style_todayBox, &lv_style_plain);
@@ -78,14 +78,14 @@ class CalendarScreen : public Screen
       style_todayBox.body.grad_color = LV_COLOR_MAKE(0x80, 0xCC, 0xFF);
       style_todayBox.text.color = LV_COLOR_BLACK;
       style_todayBox.body.radius=6;
-      lv_obj_set_style(lv_scr_act(), &style_todayBox);
+      //lv_obj_set_style(lv_scr_act(), &style_todayBox);
 
       static lv_style_t style_inactiveDays;
       lv_style_copy(&style_inactiveDays, &lv_style_plain);
       style_inactiveDays.body.main_color = LV_COLOR_WHITE;
       style_inactiveDays.body.grad_color = LV_COLOR_WHITE;
       style_inactiveDays.text.color = LV_COLOR_MAKE(0xD9, 0xD9, 0xD9);
-      lv_obj_set_style(lv_scr_act(), &style_inactiveDays);
+      //lv_obj_set_style(lv_scr_act(), &style_inactiveDays);
 
 
       time_data = get_time();

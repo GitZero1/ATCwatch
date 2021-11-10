@@ -28,9 +28,6 @@ class SettingsColorScreen : public Screen
       grad_color_save = get_grad_color();
       font_color_save = get_font_color();
 
-      label_screen = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_screen, "Set Colors");
-      lv_obj_align(label_screen, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
       btn1 = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(btn1, lv_event_handler);

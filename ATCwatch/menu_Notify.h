@@ -26,22 +26,40 @@ class NotifyScreen : public Screen
     {
       set_gray_screen_style(&lv_font_roboto_16);
 
-      //FONT AND STYLE FOR BAR
+      //create title bar style
       static lv_style_t stBar;
       lv_style_copy( &stBar, &lv_style_plain );
       stBar.text.color = LV_COLOR_MAKE(0x00, 0xFF, 0x00);
-      stBar.body.main_color = lv_color_make(0x00, 0x00, 0x00);
-      stBar.body.grad_color = lv_color_make(0x00, 0x00, 0x00);
+      stBar.body.main_color = LV_COLOR_BLACK;
+      stBar.body.grad_color = LV_COLOR_BLACK;
       stBar.body.border.color = lv_color_make(0x00, 0xFF, 0x00);
-      stBar.body.border.width = 2;
+      stBar.body.border.width = 3;
+      //create title bar style
+      static lv_style_t stBody;
+      lv_style_copy( &stBody, &lv_style_plain );
+      stBody.text.color = LV_COLOR_MAKE(0x00, 0xFF, 0x00);
+      stBody.body.main_color = LV_COLOR_BLACK;
+      stBody.body.grad_color = LV_COLOR_BLACK;
+      stBody.body.border.color = lv_color_make(0x00, 0xFF, 0x00);
+      stBody.body.border.width = 3;
+      stBody.body.radius = 10;
+      //Create bg style
+      static lv_style_t style_bg;
+      lv_style_copy( &style_bg, &lv_style_plain );
+      style_bg.body.main_color = lv_color_make(0x00, 0xFF, 0x00);//LV_COLOR_BLACK;
+      style_bg.body.grad_color = lv_color_make(0x00, 0xFF, 0x00);//LV_COLOR_BLACK;
+      lv_obj_set_style(lv_scr_act(), &style_bg);
 
       titleCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_align(titleCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
       lv_obj_set_size(titleCont, LV_HOR_RES, 50);
-      //lv_cont_set_layout(cont, LV_LAYOUT_COL_M);
       lv_obj_set_style(titleCont, &stBar);
 
-      lv_obj_set_style(lv_scr_act(), &stBar);
+      bodyCont = lv_cont_create(lv_scr_act(),NULL);
+      lv_obj_align(bodyCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 50); 
+      lv_obj_set_size(bodyCont, LV_HOR_RES, LV_VER_RES -50);
+      lv_obj_set_style(bodyCont, &stBody);
+      
 
 
       label_msg_name = lv_label_create(titleCont, NULL);
@@ -58,12 +76,12 @@ class NotifyScreen : public Screen
       lv_label_set_text(label_msg_title, string2char(get_titl_msg()));
       lv_obj_align(label_msg_title, NULL, LV_ALIGN_IN_TOP_LEFT, 5, 25);
 
-      label_msg_body = lv_label_create(lv_scr_act(), NULL);
+      label_msg_body = lv_label_create(bodyCont, NULL);
       lv_label_set_long_mode(label_msg_body, LV_LABEL_LONG_BREAK);
       lv_obj_set_width(label_msg_body,240);
       lv_label_set_text(label_msg_body, "");
       lv_label_set_text(label_msg_body, string2char(get_body_msg()));
-      lv_obj_align(label_msg_body, NULL, LV_ALIGN_IN_TOP_LEFT, 5, 55);
+      lv_obj_align(label_msg_body, NULL, LV_ALIGN_IN_TOP_LEFT, 5, 5);
 
 
     }
@@ -75,6 +93,7 @@ class NotifyScreen : public Screen
       lv_label_set_text(label_msg_body, string2char(get_body_msg()));
     }
 
+    
     virtual void long_click()
     {
       display_home();
@@ -106,7 +125,7 @@ class NotifyScreen : public Screen
 
   private:
     lv_obj_t *label, *label_msg_body, *label_msg_name, *label_msg_title, *label_msg, 
-    *titleCont;
+    *titleCont, *bodyCont;
   
 
     char* string2char(String command) {
