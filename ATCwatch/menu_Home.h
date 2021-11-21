@@ -31,11 +31,13 @@ class HomeScreen : public Screen
       getHomeScreenData();
       drawBar();
       
+
+      /*
       //BACKGROUND IMAGE
       img1 = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img1, &IsnoopyBg); //TODO remove or change this// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-
+      */
 
 
       //DATE TIME ##############################################################################################################
@@ -157,6 +159,7 @@ class HomeScreen : public Screen
     
     //initializers---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     virtual void initStyles(){
+      set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
       lv_style_copy( &st1, &lv_style_plain );
       st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
@@ -252,7 +255,7 @@ class HomeScreen : public Screen
     lv_obj_t *label_time, *label_date;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon, *cont;
     lv_style_t style_ble, style_battery;
-    lv_obj_t * img_heart, *img_steps, *img1;
+    lv_obj_t * img_heart, *img_steps;
 
     char* string2char(String command) {
       if (command.length() != 0) {

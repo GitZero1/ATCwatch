@@ -26,7 +26,7 @@ class BootScreen : public Screen
   public:
     virtual void pre()
     {
-      set_gray_screen_style(&lv_font_roboto_22);
+      set_gray_screen_style();
       
       lv_obj_t *label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label, "Booting\n 01OS");

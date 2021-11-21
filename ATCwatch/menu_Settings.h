@@ -16,6 +16,7 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
+#include "menu_theme.h"
 #include "menu_Settings_Brightness.h"
 
 //&lv_font_roboto_28
@@ -25,8 +26,6 @@ class SettingsScreen : public Screen
   public:
     virtual void pre()
     {
-      //set_swipe_enabled(true);
-
       //Create bg style
       static lv_style_t style_bg;
       lv_style_copy( &style_bg, &lv_style_plain );
@@ -59,7 +58,7 @@ class SettingsScreen : public Screen
 
 
       // CREATE TABVIEW
-      lv_obj_t *tabview;
+      tabview;
       tabview = lv_tabview_create(lv_scr_act(), NULL);
       lv_obj_align(tabview, nullptr, LV_ALIGN_CENTER, 0, 0);
       lv_tabview_set_style(tabview, LV_TABVIEW_STYLE_BG, &style_bg);
@@ -69,14 +68,13 @@ class SettingsScreen : public Screen
       lv_tabview_set_style(tabview,LV_TABVIEW_STYLE_BTN_REL, &style_btn);
 
       //Add 2 tabs (the tabs are page (lv_page) and can be scrolled
-      lv_obj_t *tab1 = lv_tabview_add_tab(tabview, "Power");
-      lv_obj_t *tab2 = lv_tabview_add_tab(tabview, "Style");
-      lv_obj_set_style(tab1, &style_btn);
-      lv_obj_set_style(tab2, &style_btn);
+      tab1 = lv_tabview_add_tab(tabview, "Power");
+      tab2 = lv_tabview_add_tab(tabview, "Style");
+      set_custom_style(tab1);
+      set_custom_style(tab2);
 
-      //TAB ONE ###########################################################
-      
-
+      //TAB ONE #######################################################################################################
+    
       //power button
       pwr_btn = lv_btn_create(tab1, nullptr); //create button
       lv_obj_set_height(pwr_btn,45); //set button height
@@ -86,7 +84,6 @@ class SettingsScreen : public Screen
       lv_label_set_text(pwr_btn_label,"Power"); //set button label text
       set_btn_style(pwr_btn); //set button style
       lv_obj_set_event_cb(pwr_btn, lv_event_handler); //set event handler
-
 
       //Reboot Button
       reboot_btn = lv_btn_create(tab1, nullptr);  //create button
@@ -108,26 +105,31 @@ class SettingsScreen : public Screen
       set_btn_style(bootload_btn);  //set button style
       lv_obj_set_event_cb(bootload_btn, lv_event_handler); //set event handler
 
-
-      // TAB TWO #########################################################
-
+      // TAB TWO ###############################################################################################
       
+      //theme button
+      theme_btn = lv_btn_create(tab2, nullptr); //create button
+      lv_obj_set_height(theme_btn,45); //set button height
+      lv_btn_set_fit2(theme_btn,LV_FIT_FILL, LV_FIT_NONE); //set button width
+      lv_obj_align(theme_btn, tab2, LV_ALIGN_CENTER, 0, -50); //set button location
+      theme_btn_label = lv_label_create(theme_btn, nullptr); //create button label
+      lv_label_set_text(theme_btn_label,"Theme"); //set button label text
+      set_btn_style(theme_btn); //set button style
+      lv_obj_set_event_cb(theme_btn, lv_event_handler); //set event handler
 
-      //sample button
-      sample_btn = lv_btn_create(tab2, nullptr); //create button
-      lv_obj_set_height(sample_btn,45); //set button height
-      lv_btn_set_fit2(sample_btn,LV_FIT_FILL, LV_FIT_NONE); //set button width
-      lv_obj_align(sample_btn, tab2, LV_ALIGN_CENTER, 0, -50); //set button location
-      sample_btn_label = lv_label_create(sample_btn, nullptr); //create button label
-      lv_label_set_text(sample_btn_label,"Sample"); //set button label text
-      set_btn_style(sample_btn); //set button style
-      lv_obj_set_event_cb(sample_btn, lv_event_handler); //set event handler
-
-      //TODO add buttons to select color options and brightness
-      // with apply and cancel as well. 
+      //brightness Button
+      brightness_btn = lv_btn_create(tab2, nullptr);  //create button
+      lv_obj_set_height(brightness_btn,45); //set button height
+      lv_btn_set_fit2(brightness_btn,LV_FIT_FILL, LV_FIT_NONE); //set button width
+      lv_obj_align(brightness_btn, tab2, LV_ALIGN_CENTER, 0, 0); //set button location
+      brightness_btn_label = lv_label_create(brightness_btn, nullptr); //create button label
+      lv_label_set_text(brightness_btn_label,"Brightness"); //set button label text
+      set_btn_style(brightness_btn);  //set button style
+      lv_obj_set_event_cb(brightness_btn, lv_event_handler); //set event handler
       
     }
 
+   
     
     virtual void main()
     {
@@ -152,22 +154,25 @@ class SettingsScreen : public Screen
         if(object == reboot_btn){change_screen((Screen*)&rebootScreen);}
         else if(object == pwr_btn){change_screen((Screen*)&offScreen);}
         else if(object == bootload_btn){change_screen((Screen*)&updateScreen);}
-        //else if(object == "Style"){change_screen((Screen*)&settingsColorScreen);}
-        //else if(object == "Brightness"){change_screen((Screen*)&settingsBrightnessScreen);}
+        else if(object == theme_btn){change_screen((Screen*)&themeScreen);}
+        else if(object == brightness_btn){change_screen((Screen*)&settingsBrightnessScreen);}
         
       }
     }
 
   private:
+  //tabveiw and tabs
+  lv_obj_t *tabview, *tab1, *tab2;
   //tab1 btns
   lv_obj_t *reboot_btn, *pwr_btn, *bootload_btn;
   //tab1 labels
   lv_obj_t *pwr_btn_label, *reboot_btn_label, *bootload_btn_label;
 
-  //tab2 btns
-  lv_obj_t *sample_btn, *left_btn, *right_btn;
+  //tab2 buttons
+  lv_obj_t *theme_btn, *brightness_btn;
   //tab2 labels
-  lv_obj_t *sample_btn_label;
+  lv_obj_t *theme_btn_label, *brightness_btn_label;
+
 };
 
 SettingsScreen settingsScreen;

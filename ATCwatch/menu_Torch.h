@@ -32,7 +32,7 @@ class TorchScreen : public Screen
       backlight_brightness = get_backlight();
       set_backlight(7);
       white_screen();
-      set_gray_screen_style(&lv_font_roboto_16);
+      set_gray_screen_style();
     }
     /*colors are
     0 milk

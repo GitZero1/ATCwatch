@@ -24,41 +24,16 @@ class NotifyScreen : public Screen
   public:
     virtual void pre()
     {
-      set_gray_screen_style(&lv_font_roboto_16);
-
-      //create title bar style
-      static lv_style_t stBar;
-      lv_style_copy( &stBar, &lv_style_plain );
-      stBar.text.color = LV_COLOR_MAKE(0x00, 0xFF, 0x00);
-      stBar.body.main_color = LV_COLOR_BLACK;
-      stBar.body.grad_color = LV_COLOR_BLACK;
-      stBar.body.border.color = lv_color_make(0x00, 0xFF, 0x00);
-      stBar.body.border.width = 3;
-      //create title bar style
-      static lv_style_t stBody;
-      lv_style_copy( &stBody, &lv_style_plain );
-      stBody.text.color = LV_COLOR_MAKE(0x00, 0xFF, 0x00);
-      stBody.body.main_color = LV_COLOR_BLACK;
-      stBody.body.grad_color = LV_COLOR_BLACK;
-      stBody.body.border.color = lv_color_make(0x00, 0xFF, 0x00);
-      stBody.body.border.width = 3;
-      stBody.body.radius = 10;
-      //Create bg style
-      static lv_style_t style_bg;
-      lv_style_copy( &style_bg, &lv_style_plain );
-      style_bg.body.main_color = lv_color_make(0x00, 0xFF, 0x00);//LV_COLOR_BLACK;
-      style_bg.body.grad_color = lv_color_make(0x00, 0xFF, 0x00);//LV_COLOR_BLACK;
-      lv_obj_set_style(lv_scr_act(), &style_bg);
-
+      set_gray_screen_style();
       titleCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_align(titleCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
       lv_obj_set_size(titleCont, LV_HOR_RES, 50);
-      lv_obj_set_style(titleCont, &stBar);
+      set_custom_style(titleCont);
 
       bodyCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_align(bodyCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 50); 
       lv_obj_set_size(bodyCont, LV_HOR_RES, LV_VER_RES -50);
-      lv_obj_set_style(bodyCont, &stBody);
+      set_custom_style(bodyCont);
       
 
 
