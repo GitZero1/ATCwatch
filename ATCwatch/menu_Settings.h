@@ -26,12 +26,6 @@ class SettingsScreen : public Screen
   public:
     virtual void pre()
     {
-      //Create bg style
-      static lv_style_t style_bg;
-      lv_style_copy( &style_bg, &lv_style_plain );
-      style_bg.body.main_color = LV_COLOR_MAKE(0x00, 0x8E, 0xFF);
-      style_bg.body.grad_color = LV_COLOR_MAKE(0x00, 0x8E, 0xFF);
-      lv_obj_set_style(lv_scr_act(), &style_bg);
 
       // Button Style
       static lv_style_t style_btn;
@@ -61,7 +55,7 @@ class SettingsScreen : public Screen
       tabview;
       tabview = lv_tabview_create(lv_scr_act(), NULL);
       lv_obj_align(tabview, nullptr, LV_ALIGN_CENTER, 0, 0);
-      lv_tabview_set_style(tabview, LV_TABVIEW_STYLE_BG, &style_bg);
+      //lv_tabview_set_style(tabview, LV_TABVIEW_STYLE_BG, &style_bg);
       lv_tabview_set_style(tabview,LV_TABVIEW_STYLE_BTN_TGL_PR, &style_btn_sel);
       lv_tabview_set_style(tabview,LV_TABVIEW_STYLE_BTN_TGL_REL, &style_btn_sel);
       lv_tabview_set_style(tabview,LV_TABVIEW_STYLE_BTN_PR, &style_btn);

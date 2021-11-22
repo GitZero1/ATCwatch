@@ -21,8 +21,8 @@ lv_color_t color_list[] = {LV_COLOR_MAKE(0xFF, 0xFF, 0xFF), LV_COLOR_GRAY, LV_CO
 6 = snoopyblue?
 */
 
-int main_color_save = 6;
-int grad_color_save = 6;
+int main_color_save = 1;
+int grad_color_save = 1;
 int font_color_save = 2;
 int btn_bg_color_save = 0; //white
 int btn_main_color_save = 2; //black

@@ -19,6 +19,7 @@
 #include "heartrate.h"
 #include "fonts.h"
 #include "sleep.h"
+#include "screen_style.h"
 #include <lvgl.h>
 
 
@@ -45,7 +46,8 @@ class HomeScreen : public Screen
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
       lv_obj_set_style( label_time, &st );
-      lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25);
+      //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
+      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0);
 
 
       //DATE TEXT
@@ -168,7 +170,9 @@ class HomeScreen : public Screen
       //FONT AND STYLE FOR TIME
       lv_style_copy( &st, &lv_style_plain );
       //st.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
-      st.text.color = LV_COLOR_MAKE(0x00, 0x00, 0x00);
+      if(get_main_color() == 2){
+        st.text.color = LV_COLOR_WHITE;
+      } else {st.text.color = LV_COLOR_BLACK;}
       st.text.font = &mksd50;
 
       //FONT AND STYLE FOR BAR
