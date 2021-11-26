@@ -31,8 +31,17 @@ class DemoScreen : public Screen
   public:
     virtual void pre()
     {
-     // create_btns();
-      
+     test_btn = lv_btn_create(lv_scr_act(), nullptr);
+     label = lv_label_create(test_btn, nullptr);
+     lv_label_set_text(label,"screen1");
+     lv_obj_align(test_btn, nullptr, LV_ALIGN_CENTER, 0,-50);
+     lv_obj_set_event_cb(test_btn, lv_event_handler); //set event handler
+     
+     test_btn2 = lv_btn_create(lv_scr_act(), nullptr);
+     label = lv_label_create(test_btn2, nullptr);
+     lv_label_set_text(label,"screen2");
+     lv_obj_align(test_btn2, nullptr, LV_ALIGN_CENTER, 0,50);
+     lv_obj_set_event_cb(test_btn2, lv_event_handler); //set event handler
     }
 
 
@@ -56,14 +65,18 @@ class DemoScreen : public Screen
     {
        if (event == LV_EVENT_SHORT_CLICKED) {
          if(object == test_btn){
-           //do this
+           set_motor_ms();
+           //lv_label_set_text(label, "pressed");
+           set_watchface(1);
+         } else if (object == test_btn2){
+           set_watchface(2);
          }
          
        }
     }
 
   private:
-  lv_obj_t  *label, *test_btn;
+  lv_obj_t  *label, *test_btn, *test_btn2;
   
 };
 
