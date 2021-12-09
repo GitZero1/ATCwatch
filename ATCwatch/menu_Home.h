@@ -193,6 +193,15 @@ class HomeScreen : public Screen
       label_date = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
+
+
+      //xmas timer
+      label_xmasCount = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_xmasCount, "%i Days till Xmas",  25 - time_data.day);
+      lv_obj_align(label_xmasCount, cont, LV_ALIGN_OUT_BOTTOM_LEFT, 5, 0);
+
+      
+      
       
     }
     
@@ -288,7 +297,7 @@ class HomeScreen : public Screen
     time_data_struct time_data;
     accl_data_struct accl_data;
     lv_style_t st, st1, stBar;
-    lv_obj_t *label, *label_heart, *label_steps;
+    lv_obj_t *label, *label_heart, *label_steps, *label_xmasCount;
     lv_obj_t *label_time, *label_date;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon, *cont;
     lv_style_t style_ble, style_battery;
