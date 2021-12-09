@@ -73,7 +73,7 @@
 // Pinetime########################################################################################
 //display
 #define LCD_SCK      2
-#define LCD_SDI      3
+#define LCD_SDI      13 //sn80
 #define LCD_CS       25
 #define LCD_RESET    26
 #define LCD_RS       18
@@ -113,10 +113,8 @@
 //InputOutput
 #define STATUS_LED        27
 #define VIBRATOR_OUT      16
-#define PUSH_BUTTON_IN    13 // Pinetime
-#define PUSH_BUTTON_OUT   15 //PinetTime
-//#define PUSH_BUTTON_IN    17   // P8 Watch
-//#define PUSH_BUTTON_OUT   -1   // P8 Watch
+#define PUSH_BUTTON_IN    9 // sn80
+#define PUSH_BUTTON_OUT   17 // sn80
 
 //Backlight
 #define LCD_BACKLIGHT_LOW  14
