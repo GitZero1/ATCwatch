@@ -24,6 +24,7 @@ BLECharacteristic   RXchar        = BLECharacteristic("0001", BLEWriteWithoutRes
 
 bool vars_ble_connected = false;
 
+
 void init_ble() {  
   blePeripheral.setLocalName("ATCwatch.01");
   blePeripheral.setConnectionInterval(400,401);
@@ -93,6 +94,7 @@ void set_vars_ble_connected(bool state) {
   vars_ble_connected = state;
 }
 
+
 void filterCmd(String Command) {
   if (Command == "AT+BOND") {
     ble_write("AT+BOND:OK");
@@ -113,7 +115,15 @@ void filterCmd(String Command) {
     ble_write("AT+PUSH:OK");
     show_push(Command.substring(8));
   } else if (Command == "AT+VER") { //set device type
+    #ifdef PineTime
     ble_write("AT+VER:PineTime");
+    #endif
+    #ifdef P8WATCH
+    ble_write("AT+VER:PineTime");
+    #endif
+    #ifdef SN80
+    ble_write("AT+VER:SN80");
+    #endif
   } else if (Command.substring(0, 12) == "AT+CONTRAST=") { //set brightness
     String contrastTemp = Command.substring(12);
     if (contrastTemp == "100")

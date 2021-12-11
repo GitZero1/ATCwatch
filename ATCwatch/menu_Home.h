@@ -91,8 +91,102 @@ class HomeScreen : public Screen
     }
     
     virtual void init_objects(){
-      //style ----------------------------------------------------------------------------------------------------------------------------------
       
+      #ifdef SN80 //round display layout
+      //style ----------------------------------------------------------------------------------------------------------------------------------
+      set_gray_screen_style();
+      // STYLE FOR BATTERY TEXT
+      lv_style_copy( &st1, &lv_style_plain );
+      st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
+      st1.text.font = &lv_font_roboto_12;
+
+      //FONT AND STYLE FOR TIME
+      lv_style_copy( &st, &lv_style_plain );
+      st.text.font = &mksd50;
+      st.text.color = LV_COLOR_WHITE;
+      //if(get_main_color() == 2){
+      //  st.text.color = LV_COLOR_WHITE; //usually make this white
+      //} else {st.text.color = LV_COLOR_BLACK;}
+
+      //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
+      //img1 = lv_img_create(lv_scr_act(), nullptr);
+      //lv_img_set_src(img1, &SN80Template); 
+      //lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+
+
+      // BATTERY ------------------------------------------------------------------------------------------------------------------------------
+      label_battery_icon = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
+      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_MID, 2, 0);
+      
+      // BATTERY TEXT
+      label_battery = lv_label_create(lv_scr_act(), nullptr);
+      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
+      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
+      lv_obj_set_style( label_battery, &st1 );
+      
+      // BATTERY COLOR
+      lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
+      style_battery.text.color = lv_color_hsv_to_rgb(10, 5, 95);
+      lv_obj_set_style(label_battery_icon, &style_battery);
+      
+      // Bluetooth ---------------------------------------------------------------------------------------------------------------------------
+      label_ble = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
+      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_MID, -25, 0);
+
+      //BLUETOOTH COLOR
+      lv_style_copy(&style_ble, lv_label_get_style(label_ble, LV_LABEL_STYLE_MAIN));
+      style_ble.text.color = LV_COLOR_RED;
+      style_ble.text.font = LV_FONT_DEFAULT;
+      lv_obj_set_style(label_ble, &style_ble);
+
+      //Heartrate -----------------------------------------------------------------------------------------------------------------------------
+      
+      //HEART ICON      
+      img_heart = lv_img_create(lv_scr_act(), nullptr);  
+      lv_img_set_src(img_heart, &IsymbolHeartIcon);
+      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -30, 20);
+      
+      //HEART TEXT
+      label_heart = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+
+      // STEPS---------------------------------------------------------------------------------------------------------------------------------
+      
+      //STEPS IMAGE
+      img_steps = lv_img_create(lv_scr_act(), nullptr);
+      lv_img_set_src(img_steps, &IsymbolFootIcon);
+      lv_obj_align(img_steps, nullptr, LV_ALIGN_IN_TOP_MID, 25, 20);
+
+      //STEPS TEXT
+      label_steps = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
+      lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+ 
+      //DATE TIME ##############################################################################################################
+      //TIME TEXT
+      label_time = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
+      lv_obj_set_style( label_time, &st );
+      //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
+      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0); //center time
+
+      //DATE TEXT
+      label_date = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
+
+
+      //xmas timer
+      label_xmasCount = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_xmasCount, "%i Days till Xmas",  25 - time_data.day);
+      lv_obj_align(label_xmasCount, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, 3);
+
+
+      #else // Round Display//Square Display P8/PineTime
+      //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
       lv_style_copy( &st1, &lv_style_plain );
@@ -155,7 +249,6 @@ class HomeScreen : public Screen
       lv_obj_set_style(label_ble, &style_ble);
 
       //Heartrate -----------------------------------------------------------------------------------------------------------------------------
-      
       //HEART ICON      
       img_heart = lv_img_create(cont, nullptr);  
       lv_img_set_src(img_heart, &IsymbolHeartIcon);
@@ -177,9 +270,6 @@ class HomeScreen : public Screen
       label_steps = lv_label_create(cont, nullptr);
       lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
       lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
- 
-      
-      
 
       //DATE TIME ##############################################################################################################
       //TIME TEXT
@@ -200,12 +290,11 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_xmasCount, "%i Days till Xmas",  25 - time_data.day);
       lv_obj_align(label_xmasCount, cont, LV_ALIGN_OUT_BOTTOM_LEFT, 5, 0);
 
-      
-      
-      
+      #endif
     }
     
   
+ 
     //get+update datetime data
     virtual void getHomeScreenData(){
         accl_data = get_accl_data();

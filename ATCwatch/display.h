@@ -15,7 +15,6 @@
 #define ST77XX_DISPON 0x29
 
 void init_display();
-void init_SN80_display();
 
 void display_enable(bool state);
 void inc_tick();

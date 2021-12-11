@@ -64,8 +64,7 @@ void inc_tick() {
 }
 
 void init_display() {
-  //initDisplay();
-  init_SN80_display();
+  initDisplay();
 
   lv_init();
   lv_disp_buf_init(&disp_buf, buf, NULL, buffer_lcd_size);
@@ -121,104 +120,9 @@ void setAddrWindowDisplay(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
   spiCommand(0x2C);
 }
 
+
+#ifdef SN80 //SN80 Display Init
 void initDisplay() {
-  uint8_t temp[25];
-  pinMode(LCD_CS, OUTPUT);
-  pinMode(LCD_RS, OUTPUT);
-  pinMode(LCD_RESET, OUTPUT);
-  pinMode(LCD_DET, OUTPUT);
-
-  digitalWrite(LCD_CS , HIGH);
-  digitalWrite(LCD_RS , HIGH);
-
-  digitalWrite(LCD_RESET, HIGH);
-  delay(20);
-  digitalWrite(LCD_RESET, LOW);
-  delay(100);
-  digitalWrite(LCD_RESET, HIGH);
-  delay(100);
-  startWrite_display();
-  spiCommand(54);
-  temp[0] = 0x00;//0xC0 when rotated screen
-  write_fast_spi(temp, 1);
-  spiCommand(58);
-  temp[0] = 5;
-  write_fast_spi(temp, 1);
-  spiCommand(178);
-  temp[0] = 12;
-  temp[1] = 12;
-  temp[2] = 0;
-  temp[3] = 51;
-  temp[4] = 51;
-  write_fast_spi(temp, 5);
-  spiCommand(183);
-  temp[0] = 53;
-  write_fast_spi(temp, 1);
-  spiCommand(187);
-  temp[0] = 25;
-  write_fast_spi(temp, 1);
-  spiCommand(192);
-  temp[0] = 44;
-  write_fast_spi(temp, 1);
-  spiCommand(194);
-  temp[0] = 1;
-  write_fast_spi(temp, 1);
-  spiCommand(195);
-  temp[0] = 18;
-  write_fast_spi(temp, 1);
-  spiCommand(196);
-  temp[0] = 32;
-  write_fast_spi(temp, 1);
-  spiCommand(198);
-  temp[0] = 15;
-  write_fast_spi(temp, 1);
-  spiCommand(208);
-  temp[0] = 164;
-  temp[1] = 161;
-  write_fast_spi(temp, 2);
-  spiCommand(224);
-  temp[0] = 208;
-  temp[1] = 4;
-  temp[2] = 13;
-  temp[3] = 17;
-  temp[4] = 19;
-  temp[5] = 43;
-  temp[6] = 63;
-  temp[7] = 84;
-  temp[8] = 76;
-  temp[9] = 24;
-  temp[10] = 13;
-  temp[11] = 11;
-  temp[12] = 31;
-  temp[13] = 35;
-  write_fast_spi(temp, 14);
-  spiCommand(225);
-  temp[0] = 208;
-  temp[1] = 4;
-  temp[2] = 12;
-  temp[3] = 17;
-  temp[4] = 19;
-  temp[5] = 44;
-  temp[6] = 63;
-  temp[7] = 68;
-  temp[8] = 81;
-  temp[9] = 47;
-  temp[10] = 31;
-  temp[11] = 31;
-  temp[12] = 32;
-  temp[13] = 35;
-  write_fast_spi(temp, 14);
-  spiCommand(33);
-  spiCommand(17);
-  delay(120);
-  spiCommand(41);
-  spiCommand(0x11);
-  spiCommand(0x29);
-  endWrite_display();
-}
-
-
-void init_SN80_display() {
   uint8_t temp[25];
   pinMode(LCD_CS, OUTPUT);
   pinMode(LCD_RS, OUTPUT);
@@ -495,6 +399,103 @@ void init_SN80_display() {
 /** end **/
   endWrite_display();
 }
+#else //Standard Square display
+void initDisplay() {
+  uint8_t temp[25];
+  pinMode(LCD_CS, OUTPUT);
+  pinMode(LCD_RS, OUTPUT);
+  pinMode(LCD_RESET, OUTPUT);
+  pinMode(LCD_DET, OUTPUT);
+
+  digitalWrite(LCD_CS , HIGH);
+  digitalWrite(LCD_RS , HIGH);
+
+  digitalWrite(LCD_RESET, HIGH);
+  delay(20);
+  digitalWrite(LCD_RESET, LOW);
+  delay(100);
+  digitalWrite(LCD_RESET, HIGH);
+  delay(100);
+  startWrite_display();
+  spiCommand(54);
+  temp[0] = 0x00;//0xC0 when rotated screen
+  write_fast_spi(temp, 1);
+  spiCommand(58);
+  temp[0] = 5;
+  write_fast_spi(temp, 1);
+  spiCommand(178);
+  temp[0] = 12;
+  temp[1] = 12;
+  temp[2] = 0;
+  temp[3] = 51;
+  temp[4] = 51;
+  write_fast_spi(temp, 5);
+  spiCommand(183);
+  temp[0] = 53;
+  write_fast_spi(temp, 1);
+  spiCommand(187);
+  temp[0] = 25;
+  write_fast_spi(temp, 1);
+  spiCommand(192);
+  temp[0] = 44;
+  write_fast_spi(temp, 1);
+  spiCommand(194);
+  temp[0] = 1;
+  write_fast_spi(temp, 1);
+  spiCommand(195);
+  temp[0] = 18;
+  write_fast_spi(temp, 1);
+  spiCommand(196);
+  temp[0] = 32;
+  write_fast_spi(temp, 1);
+  spiCommand(198);
+  temp[0] = 15;
+  write_fast_spi(temp, 1);
+  spiCommand(208);
+  temp[0] = 164;
+  temp[1] = 161;
+  write_fast_spi(temp, 2);
+  spiCommand(224);
+  temp[0] = 208;
+  temp[1] = 4;
+  temp[2] = 13;
+  temp[3] = 17;
+  temp[4] = 19;
+  temp[5] = 43;
+  temp[6] = 63;
+  temp[7] = 84;
+  temp[8] = 76;
+  temp[9] = 24;
+  temp[10] = 13;
+  temp[11] = 11;
+  temp[12] = 31;
+  temp[13] = 35;
+  write_fast_spi(temp, 14);
+  spiCommand(225);
+  temp[0] = 208;
+  temp[1] = 4;
+  temp[2] = 12;
+  temp[3] = 17;
+  temp[4] = 19;
+  temp[5] = 44;
+  temp[6] = 63;
+  temp[7] = 68;
+  temp[8] = 81;
+  temp[9] = 47;
+  temp[10] = 31;
+  temp[11] = 31;
+  temp[12] = 32;
+  temp[13] = 35;
+  write_fast_spi(temp, 14);
+  spiCommand(33);
+  spiCommand(17);
+  delay(120);
+  spiCommand(41);
+  spiCommand(0x11);
+  spiCommand(0x29);
+  endWrite_display();
+}
+#endif //SN80/Standard Display Init
 
 void spiCommand(uint8_t d) {
   digitalWrite(LCD_RS , LOW);
