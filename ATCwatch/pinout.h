@@ -10,9 +10,8 @@
 //Enable or Disable this line to set for Pinetime, P8 Watch, or SN80. more pinouts to added here
 
 //#define P8WATCH
-//#define PineTime
-#define SN80
-#define COUNT_STEPS
+#define PineTime
+//#define SN80
 
 
 #ifdef P8WATCH
