@@ -40,52 +40,25 @@ int watchface = 1;
 
 void set_gray_screen_style() {
   static lv_style_t style_screen;
-  lv_style_copy(&style_screen, &lv_style_plain);
-  style_screen.body.main_color = color_list[main_color_save];// LV_COLOR_GREEN;
-  style_screen.body.grad_color = color_list[main_color_save];//LV_COLOR_BLUE;
-  style_screen.text.color = color_list[btn_main_color_save];
-  lv_obj_set_style(lv_scr_act(), &style_screen);
+  lv_style_init(&style_screen);
+  lv_style_set_bg_color(&style_screen,LV_STATE_DEFAULT, color_list[main_color_save]);
+  lv_style_set_text_color(&style_screen,LV_STATE_DEFAULT,color_list[font_color_save]);
+  lv_obj_add_style(lv_scr_act(),LV_OBJ_PART_MAIN ,&style_screen);
 }
 
-
-void set_btn_style(lv_obj_t *obj){
-  //Create btn style
-  static lv_style_t style_btn;
-  lv_style_copy(&style_btn, &lv_style_plain);
-  style_btn.body.main_color = color_list[btn_bg_color_save];
-  style_btn.body.grad_color = color_list[btn_bg_color_save];
-  style_btn.body.border.width = 4;
-  style_btn.body.border.color = color_list[btn_main_color_save];
-  style_btn.text.color = color_list[btn_main_color_save];
-  style_btn.body.radius = 10;
-  //style_btn.text.font = font;
-  //Create btn_pressed style
-  static lv_style_t style_btn_sel;
-  lv_style_copy(&style_btn_sel, &lv_style_plain);
-  style_btn_sel.body.main_color = color_list[btn_main_color_save];
-  style_btn_sel.body.grad_color = color_list[btn_main_color_save];
-  style_btn_sel.body.border.width = 4;
-  style_btn_sel.body.border.color = color_list[btn_bg_color_save];
-  style_btn_sel.text.color = color_list[btn_bg_color_save];
-  style_btn_sel.body.radius = 10;
-  //style_btn_sel.text.font = font;
-  // Set Styles to obj
-  //lv_obj_set_style(obj, &style_btn);
-  lv_btn_set_style(obj, LV_BTN_STYLE_PR, &style_btn_sel);
-  lv_btn_set_style(obj, LV_BTN_STYLE_REL, &style_btn);
-}
 
 void set_custom_style(lv_obj_t *obj){
   //Create custom style
+  
   static lv_style_t style_custom;
-  lv_style_copy(&style_custom, &lv_style_plain);
-  style_custom.body.main_color = color_list[btn_bg_color_save];
-  style_custom.body.grad_color = color_list[btn_bg_color_save];
-  style_custom.body.border.width = 4;
-  style_custom.body.border.color = color_list[btn_main_color_save];
-  style_custom.text.color = color_list[btn_main_color_save];
-  style_custom.body.radius = 10;
-  lv_obj_set_style(obj, &style_custom);
+  lv_style_init(&style_custom);
+  lv_style_set_bg_color(&style_custom,LV_STATE_DEFAULT,color_list[main_color_save]);
+  lv_style_set_border_width(&style_custom,LV_STATE_DEFAULT,2);
+  lv_style_set_border_color(&style_custom,LV_STATE_DEFAULT,color_list[btn_main_color_save]);
+  lv_style_set_text_color(&style_custom,LV_STATE_DEFAULT,color_list[btn_main_color_save]);
+  //lv_style_set_radius(&style_custom,LV_STATE_DEFAULT,15);
+  lv_obj_add_style(obj,LV_OBJ_PART_MAIN,&style_custom);
+  
 }
 
 void set_main_color(int new_color) {

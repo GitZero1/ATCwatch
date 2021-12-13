@@ -44,10 +44,6 @@ class ThemeScreen : public Screen
       bg_color_save = get_bg_btn_color();
       tbg_color_save = bg_color_save;
 
-      //create style for button labels
-      static lv_style_t label_style;
-      lv_style_copy(&label_style, &lv_style_plain);
-      label_style.text.font = &lv_font_roboto_28;
       
 
       //sample button
@@ -65,19 +61,19 @@ class ThemeScreen : public Screen
       main_color_left_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(main_color_left_btn, lv_event_handler);
       lv_obj_align(main_color_left_btn, NULL, LV_ALIGN_CENTER, -55, -25);
-      set_btn_style(main_color_left_btn);
+      set_custom_style(main_color_left_btn);
       label = lv_label_create(main_color_left_btn, NULL);
       lv_label_set_text(label, "<");
-      lv_obj_set_style(label, &label_style);
+      //todo bigger font here
       lv_btn_set_fit2(main_color_left_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //right btn
       main_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(main_color_right_btn, lv_event_handler);
       lv_obj_align(main_color_right_btn, NULL, LV_ALIGN_CENTER, 50, -25);
-      set_btn_style(main_color_right_btn);
+      set_custom_style(main_color_right_btn);
       label = lv_label_create(main_color_right_btn, NULL);
       lv_label_set_text(label, ">");
-      lv_obj_set_style(label, &label_style);
+      //todo igger font
       lv_btn_set_fit2(main_color_right_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //main color label
       mcolor_label = lv_label_create(lv_scr_act(), nullptr);
@@ -89,19 +85,19 @@ class ThemeScreen : public Screen
       alt_color_left_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(alt_color_left_btn, lv_event_handler);
       lv_obj_align(alt_color_left_btn, NULL, LV_ALIGN_CENTER, -55, 35);
-      set_btn_style(alt_color_left_btn);
+      set_custom_style(alt_color_left_btn);
       label = lv_label_create(alt_color_left_btn, NULL);
       lv_label_set_text(label, "<");
-      lv_obj_set_style(label, &label_style);
+      //todo bigger font
       lv_btn_set_fit2(alt_color_left_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //right btn
       alt_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(alt_color_right_btn, lv_event_handler);
       lv_obj_align(alt_color_right_btn, NULL, LV_ALIGN_CENTER, 50, 35);
-      set_btn_style(alt_color_right_btn);
+      set_custom_style(alt_color_right_btn);
       label = lv_label_create(alt_color_right_btn, NULL);
       lv_label_set_text(label, ">");
-      lv_obj_set_style(label, &label_style);
+      //todo bigger font
       lv_btn_set_fit2(alt_color_right_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //alt color label
       alt_color_label = lv_label_create(lv_scr_act(), nullptr);
@@ -115,17 +111,17 @@ class ThemeScreen : public Screen
       lv_obj_align(background_color_left_btn, NULL, LV_ALIGN_CENTER, -55, 95);
       label = lv_label_create(background_color_left_btn, NULL);
       lv_label_set_text(label, "<");
-      lv_obj_set_style(label, &label_style);
-      set_btn_style(background_color_left_btn);
+      //todobiggerfont
+      set_custom_style(background_color_left_btn);
       lv_btn_set_fit2(background_color_left_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //right btn
       background_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(background_color_right_btn, lv_event_handler);
       lv_obj_align(background_color_right_btn, NULL, LV_ALIGN_CENTER, 50, 95);
-      set_btn_style(background_color_right_btn);
+      set_custom_style(background_color_right_btn);
       label = lv_label_create(background_color_right_btn, NULL);
       lv_label_set_text(label, ">");
-      lv_obj_set_style(label, &label_style);
+      //todo bigger font
       lv_btn_set_fit2(background_color_right_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //alt color label
       background_color_label = lv_label_create(lv_scr_act(), nullptr);

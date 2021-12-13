@@ -31,23 +31,20 @@ class DemoScreen : public Screen
   public:
     virtual void pre()
     {
-      lv_style_copy(&st, &lv_style_plain);
-      st.body.radius = 180;
-      st.body.border.width = 1;
-      st.body.border.color = LV_COLOR_WHITE;
-
       cont = lv_cont_create(lv_scr_act(),nullptr);
       //lv_cont_set_style(cont,LV_CONT_STYLE_MAIN,&st);
-      lv_obj_set_style(cont, &st);
+      lv_obj_set_style_local_radius(cont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,360);
       lv_obj_set_height(cont,240);
       lv_obj_set_width(cont,240);
       lv_obj_align(cont,nullptr,LV_ALIGN_CENTER,0,0);
+
+      
 
 
      test_btn = lv_btn_create(lv_scr_act(), nullptr);
      label = lv_label_create(test_btn, nullptr);
      lv_label_set_text(label,"screen1");
-     lv_obj_align(test_btn, cont, LV_ALIGN_CENTER, 0,-50);
+     lv_obj_align(test_btn, cont, LV_ALIGN_IN_RIGHT_MID, 0,-50);
      lv_obj_set_event_cb(test_btn, lv_event_handler); //set event handler
      
      test_btn2 = lv_btn_create(lv_scr_act(), nullptr);

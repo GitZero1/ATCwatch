@@ -188,30 +188,12 @@ class HomeScreen : public Screen
       #else // Round Display//Square Display P8/PineTime
       //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
-      // STYLE FOR BATTERY TEXT
-      lv_style_copy( &st1, &lv_style_plain );
-      st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
-      st1.text.font = &lv_font_roboto_12;
-
-      //FONT AND STYLE FOR TIME
-      lv_style_copy( &st, &lv_style_plain );
-      st.text.font = &mksd50;
-      st.text.color = LV_COLOR_WHITE;
-      //if(get_main_color() == 2){
-      //  st.text.color = LV_COLOR_WHITE; //usually make this white
-      //} else {st.text.color = LV_COLOR_BLACK;}
       
 
-      //FONT AND STYLE FOR BAR
-      lv_style_copy( &stBar, &lv_style_plain );
-      stBar.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
-      stBar.body.main_color = lv_color_make(0x00, 0x00, 0x00);
-      stBar.body.grad_color = lv_color_make(0x00, 0x00, 0x00);
-
       //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
-      img1 = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img1, &Ixmas2); 
-      lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
+      //img1 = lv_img_create(lv_scr_act(), nullptr);
+      //lv_img_set_src(img1, &Ixmas2); 
+      //lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
 
       //BAR ---------------------------------------------------------------------------------------------------------------------------------
       
@@ -219,7 +201,7 @@ class HomeScreen : public Screen
       lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
       lv_obj_set_size(cont, LV_HOR_RES, 20);
       //lv_cont_set_layout(cont, LV_LAYOUT_COL_M);
-      lv_obj_set_style(cont, &stBar);
+      //todo style bar
 
       // BATTERY ------------------------------------------------------------------------------------------------------------------------------
       label_battery_icon = lv_label_create(cont, nullptr);
@@ -230,12 +212,10 @@ class HomeScreen : public Screen
       label_battery = lv_label_create(cont, nullptr);
       lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
       lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      lv_obj_set_style( label_battery, &st1 );
+      lv_obj_set_style_local_text_font(label_battery,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&lv_font_montserrat_16);
       
       // BATTERY COLOR
-      lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
-      style_battery.text.color = lv_color_hsv_to_rgb(10, 5, 95);
-      lv_obj_set_style(label_battery_icon, &style_battery);
+      lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,lv_color_hsv_to_rgb(10, 5, 95));
       
       // Bluetooth ---------------------------------------------------------------------------------------------------------------------------
       label_ble = lv_label_create(cont, nullptr);
@@ -243,10 +223,7 @@ class HomeScreen : public Screen
       lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 0);
 
       //BLUETOOTH COLOR
-      lv_style_copy(&style_ble, lv_label_get_style(label_ble, LV_LABEL_STYLE_MAIN));
-      style_ble.text.color = LV_COLOR_RED;
-      style_ble.text.font = LV_FONT_DEFAULT;
-      lv_obj_set_style(label_ble, &style_ble);
+      lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
 
       //Heartrate -----------------------------------------------------------------------------------------------------------------------------
       //HEART ICON      
@@ -275,9 +252,9 @@ class HomeScreen : public Screen
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      lv_obj_set_style( label_time, &st );
-      lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
-      //lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0);
+      lv_obj_set_style_local_text_font(label_time,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&lv_font_montserrat_48);
+      //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
+      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0);
 
       //DATE TEXT
       label_date = lv_label_create(lv_scr_act(), nullptr);
@@ -305,6 +282,10 @@ class HomeScreen : public Screen
     }
 
     virtual void updateFace(){
+        //TEST MOVING IMAGE
+        
+        //lv_img_set_angle(img1, time_data.sec*10*60);
+
         //UPDATE TIME
         lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
         lv_obj_realign(label_time);
@@ -322,10 +303,11 @@ class HomeScreen : public Screen
         else lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_2);
   
         // COLOR AND CHANGE BATTERY ICON
-        if (get_battery_percent() < 15) style_battery.text.color = LV_COLOR_RED;
+        if (get_battery_percent() < 15)
+        lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
         else
-          style_battery.text.color = LV_COLOR_MAKE(0x05, 0xF9, 0x25);
-        lv_obj_set_style(label_battery_icon, &style_battery);
+          lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x05, 0xF9, 0x25));
+        
         
   
         //----------------------------------------------------------------------------------------------------------------------------------------
@@ -341,10 +323,9 @@ class HomeScreen : public Screen
   
         //UPDATE BLUETOOTH CONNECTION ICON
         if (get_vars_ble_connected())
-          style_ble.text.color = LV_COLOR_MAKE(0x27, 0xA6, 0xFF);
+          lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x27, 0xA6, 0xFF));
         else
-          style_ble.text.color = LV_COLOR_RED;
-        lv_obj_set_style(label_ble, &style_ble);
+          lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
         /*
         if (time_data.sec % 2 == 0){
           lv_img_set_src(img1, &IFrame0);

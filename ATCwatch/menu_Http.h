@@ -22,12 +22,6 @@ class HttpScreen : public Screen
     {
     set_swipe_enabled(true);
 
-    
-    //FONT AND STYLE FOR ROLLER
-    lv_style_copy( &st, &lv_style_plain );
-    //st.text.color = lv_color_hsv_to_rgb(10, 5, 95);
-    st.text.font = &lv_font_roboto_28;
-
     //LABEL
     label = lv_label_create(lv_scr_act(), NULL);
     lv_label_set_text(label, "Test");
@@ -49,7 +43,7 @@ class HttpScreen : public Screen
 
     //ROLLER    
     roller1 = lv_roller_create(lv_scr_act(), NULL);
-    lv_obj_set_style( roller1, &st );
+    //lv_obj_set_style( roller1, &st );
     lv_roller_set_options(roller1,
                         "block\n"
                         "link\n"

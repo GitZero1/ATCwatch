@@ -78,11 +78,13 @@ class AppScreen : public Screen
       lv_label_set_text(btn_label, _app4->_title);
 
 
+      /*
       //STYLE BUTTONS
-      set_btn_style(app1_btn);
-      set_btn_style(app2_btn);
-      set_btn_style(app3_btn);
-      set_btn_style(app4_btn);
+      set_custom_style(app1_btn);
+      set_custom_style(app2_btn);
+      set_custom_style(app3_btn);
+      set_custom_style(app4_btn);
+      */
 
     }
 

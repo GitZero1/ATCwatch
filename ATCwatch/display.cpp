@@ -84,8 +84,8 @@ void init_display() {
 
   lv_indev_drv_register(&indev_drv);
 
-  lv_theme_t *th = lv_theme_night_init(10, NULL);
-  lv_theme_set_current(th);
+  //lv_theme_t *th = lv_theme_night_init(10, NULL);
+  //lv_theme_set_current(th);
 }
 
 void display_enable(bool state) {
