@@ -92,7 +92,7 @@ class HomeScreen : public Screen
     
     virtual void init_objects(){
       
-      #ifdef PineTime //round display layout
+      #ifdef SN80 //round display layout
       //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
@@ -182,7 +182,7 @@ class HomeScreen : public Screen
       //xmas timer
       label_xmasCount = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_xmasCount, "%i Days to Xmas",  25 - time_data.day);
-      lv_obj_align(label_xmasCount, nullptr, LV_ALIGN_IN_TOP_MID, 20, 40);
+      lv_obj_align(label_xmasCount, nullptr, LV_ALIGN_IN_TOP_MID, 0, 40);
 
 
       #else // Round Display//Square Display P8/PineTime
@@ -210,7 +210,7 @@ class HomeScreen : public Screen
 
       //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
       img1 = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img1, &IxmasBG); 
+      lv_img_set_src(img1, &Ixmas2); 
       lv_obj_align(img1, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
 
       //BAR ---------------------------------------------------------------------------------------------------------------------------------

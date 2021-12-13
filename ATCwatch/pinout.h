@@ -10,8 +10,8 @@
 //Enable or Disable this line to set for Pinetime, P8 Watch, or SN80. more pinouts to added here
 
 //#define P8WATCH
-#define PineTime
-//#define SN80
+//#define PineTime
+#define SN80
 
 
 #ifdef P8WATCH
@@ -68,7 +68,7 @@
 // SN80########################################################################################
 //display
 #define LCD_SCK      2
-#define LCD_SDI      13//sn80 ??
+#define LCD_SDI      3
 #define LCD_CS       25
 #define LCD_RESET    26
 #define LCD_RS       18
@@ -83,7 +83,7 @@
 //Touchscreen
 #define TP_SDA       6
 #define TP_SCL       7
-#define TP_RESET     10 //sn80
+#define TP_RESET     10 
 #define TP_INT       28
 
 //Accl Sensor
@@ -107,8 +107,8 @@
 //InputOutput
 #define STATUS_LED        27
 #define VIBRATOR_OUT      16
-#define PUSH_BUTTON_IN    9 // sn80
-#define PUSH_BUTTON_OUT   17 // sn80
+#define PUSH_BUTTON_IN    9 
+#define PUSH_BUTTON_OUT   17 
 
 //Backlight
 #define LCD_BACKLIGHT_LOW  14
