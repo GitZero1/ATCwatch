@@ -23,45 +23,50 @@ class UpdateScreen : public Screen
   public:
     virtual void pre()
     {
-      static const char * btns[] = {"Yes", "No", ""};
-      lv_obj_t * mbox1 = lv_msgbox_create(lv_scr_act(), NULL);
-      lv_msgbox_set_text(mbox1, "Bootloader ?");
-      lv_msgbox_add_btns(mbox1, btns);
-      lv_obj_set_width(mbox1, 200);
-      lv_obj_set_event_cb(mbox1, event_handler);
-      lv_obj_align(mbox1, NULL, LV_ALIGN_CENTER, 0, 0);
+      
+     left_btn = lv_btn_create(lv_scr_act(), nullptr);
+     label = lv_label_create(left_btn, nullptr);
+     lv_label_set_text(label,"Nvm");
+     lv_obj_align(left_btn, nullptr, LV_ALIGN_CENTER, -50,0);
+     lv_obj_set_event_cb(left_btn, lv_event_handler); //set event handler
+     
+     right_btn = lv_btn_create(lv_scr_act(), nullptr);
+     label = lv_label_create(right_btn, nullptr);
+     lv_label_set_text(label,"Yes");
+     lv_obj_align(right_btn, nullptr, LV_ALIGN_CENTER, 50,0);
+     lv_obj_set_event_cb(right_btn, lv_event_handler); //set event handler
     }
+
 
     virtual void main()
     {
-
     }
+
+    virtual void up()
+    {
+    }
+
+    virtual void down()
+    {
+    }
+
     virtual void right()
     {
-      set_last_menu();
     }
 
-    virtual void click(touch_data_struct touch_data)
+    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
     {
-
+       if (event == LV_EVENT_SHORT_CLICKED) {
+         if(object == left_btn){
+           set_last_menu();
+         } else if (object == right_btn){
+           start_bootloader(true);
+         }
+       }
     }
-
-    virtual void pre_display()// if this is set, the screen gets not cleared
-    {
-    }
-
 
   private:
-
-    static void event_handler(lv_obj_t * obj, lv_event_t event)
-    {
-      if (event == LV_EVENT_VALUE_CHANGED) {
-        if ("Yes" == lv_msgbox_get_active_btn_text(obj))
-          start_bootloader(true);
-        else if ("No" == lv_msgbox_get_active_btn_text(obj))
-          set_last_menu();
-      }
-    }
+  lv_obj_t  *label, *left_btn, *right_btn;
 };
 
 UpdateScreen updateScreen;

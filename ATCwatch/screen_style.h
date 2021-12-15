@@ -42,18 +42,17 @@ void set_gray_screen_style() {
   static lv_style_t style_screen;
   lv_style_init(&style_screen);
   lv_style_set_bg_color(&style_screen,LV_STATE_DEFAULT, color_list[main_color_save]);
-  lv_style_set_text_color(&style_screen,LV_STATE_DEFAULT,color_list[font_color_save]);
+  lv_style_set_text_color(&style_screen,LV_STATE_DEFAULT,color_list[btn_main_color_save]);
   lv_obj_add_style(lv_scr_act(),LV_OBJ_PART_MAIN ,&style_screen);
 }
 
 
 void set_custom_style(lv_obj_t *obj){
   //Create custom style
-  
   static lv_style_t style_custom;
   lv_style_init(&style_custom);
-  lv_style_set_bg_color(&style_custom,LV_STATE_DEFAULT,color_list[main_color_save]);
-  lv_style_set_border_width(&style_custom,LV_STATE_DEFAULT,2);
+  lv_style_set_bg_color(&style_custom,LV_STATE_DEFAULT,color_list[btn_bg_color_save]);
+  lv_style_set_border_width(&style_custom,LV_STATE_DEFAULT,3);
   lv_style_set_border_color(&style_custom,LV_STATE_DEFAULT,color_list[btn_main_color_save]);
   lv_style_set_text_color(&style_custom,LV_STATE_DEFAULT,color_list[btn_main_color_save]);
   //lv_style_set_radius(&style_custom,LV_STATE_DEFAULT,15);

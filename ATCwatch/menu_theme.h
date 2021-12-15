@@ -53,7 +53,7 @@ class ThemeScreen : public Screen
       lv_obj_align(sample_btn, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 10); //set button location
       label = lv_label_create(sample_btn, nullptr); //create button label
       lv_label_set_text(label,"Sample"); //set button label text
-      set_custom_style(sample_btn); //set button style
+      //set_custom_style(sample_btn); //set button style
       lv_obj_set_event_cb(sample_btn, lv_event_handler); //set event handler
 
       //Main Color Row
@@ -61,7 +61,7 @@ class ThemeScreen : public Screen
       main_color_left_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(main_color_left_btn, lv_event_handler);
       lv_obj_align(main_color_left_btn, NULL, LV_ALIGN_CENTER, -55, -25);
-      set_custom_style(main_color_left_btn);
+      //set_custom_style(main_color_left_btn);
       label = lv_label_create(main_color_left_btn, NULL);
       lv_label_set_text(label, "<");
       //todo bigger font here
@@ -70,7 +70,7 @@ class ThemeScreen : public Screen
       main_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(main_color_right_btn, lv_event_handler);
       lv_obj_align(main_color_right_btn, NULL, LV_ALIGN_CENTER, 50, -25);
-      set_custom_style(main_color_right_btn);
+      //set_custom_style(main_color_right_btn);
       label = lv_label_create(main_color_right_btn, NULL);
       lv_label_set_text(label, ">");
       //todo igger font
@@ -85,7 +85,7 @@ class ThemeScreen : public Screen
       alt_color_left_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(alt_color_left_btn, lv_event_handler);
       lv_obj_align(alt_color_left_btn, NULL, LV_ALIGN_CENTER, -55, 35);
-      set_custom_style(alt_color_left_btn);
+      //set_custom_style(alt_color_left_btn);
       label = lv_label_create(alt_color_left_btn, NULL);
       lv_label_set_text(label, "<");
       //todo bigger font
@@ -94,7 +94,7 @@ class ThemeScreen : public Screen
       alt_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(alt_color_right_btn, lv_event_handler);
       lv_obj_align(alt_color_right_btn, NULL, LV_ALIGN_CENTER, 50, 35);
-      set_custom_style(alt_color_right_btn);
+      //set_custom_style(alt_color_right_btn);
       label = lv_label_create(alt_color_right_btn, NULL);
       lv_label_set_text(label, ">");
       //todo bigger font
@@ -112,13 +112,13 @@ class ThemeScreen : public Screen
       label = lv_label_create(background_color_left_btn, NULL);
       lv_label_set_text(label, "<");
       //todobiggerfont
-      set_custom_style(background_color_left_btn);
+      //set_custom_style(background_color_left_btn);
       lv_btn_set_fit2(background_color_left_btn,LV_FIT_NONE,LV_FIT_TIGHT);
       //right btn
       background_color_right_btn = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(background_color_right_btn, lv_event_handler);
       lv_obj_align(background_color_right_btn, NULL, LV_ALIGN_CENTER, 50, 95);
-      set_custom_style(background_color_right_btn);
+      //set_custom_style(background_color_right_btn);
       label = lv_label_create(background_color_right_btn, NULL);
       lv_label_set_text(label, ">");
       //todo bigger font
@@ -159,14 +159,14 @@ class ThemeScreen : public Screen
            if(tmain_color_save >= 1){
             tmain_color_save = tmain_color_save -1;
             set_btn_main_color(tmain_color_save);
-            set_custom_style(sample_btn);
+            //set_custom_style(sample_btn);
            } else {set_motor_ms();}
          }
          else if(object == main_color_right_btn){
            if(tmain_color_save <= 5){
             tmain_color_save = tmain_color_save +1;
             set_btn_main_color(tmain_color_save);
-            set_custom_style(sample_btn);
+            //set_custom_style(sample_btn);
            } else {set_motor_ms();}
          }
          else if (object == alt_color_right_btn)
@@ -175,7 +175,7 @@ class ThemeScreen : public Screen
            {
              tbg_color_save = tbg_color_save +1;
              set_btn_bg_color(tbg_color_save);
-             set_custom_style(sample_btn);
+             //set_custom_style(sample_btn);
              }
              else {set_motor_ms();}
          }
@@ -185,7 +185,7 @@ class ThemeScreen : public Screen
            {
               tbg_color_save = tbg_color_save -1;
               set_btn_bg_color(tbg_color_save);
-              set_custom_style(sample_btn);
+              //set_custom_style(sample_btn);
            }
            else {set_motor_ms();}
          }
