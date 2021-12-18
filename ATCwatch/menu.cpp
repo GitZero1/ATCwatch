@@ -9,16 +9,16 @@
 #include "display.h"
 #include "menu_Boot.h"
 #include "menu_Home.h"
-//#include "menu_Heart.h"
-//#include "menu_Reboot.h"
-//#include "menu_Update.h"
-//#include "menu_Off.h"
+#include "menu_Heart.h"
+#include "menu_Reboot.h"
+#include "menu_Update.h"
+#include "menu_Off.h"
 #include "menu_Notify.h"
 //#include "menu_Settings_Brightness.h"
 #include "menu_App.h"
 #include "menu_Demo.h"
 #include "menu_Charging.h"
-//#include "menu_Http.h"
+#include "menu_Http.h"
 //#include "menu_Torch.h"
 //#include "menu_Calendar.h"
 //#include "menu_Log.h"
@@ -39,18 +39,18 @@ app_struct notifyApp = {"Msg", &notifyScreen};
 
 //app_struct settingsApp = {"Settings", &settingsScreen};
 app_struct demoApp = {"Demo" , &demoScreen};
-//app_struct httpApp = {"HTTP" , &httpScreen};
-//app_struct heartApp = {"<3" , &heartScreen};
-//app_struct offApp = {"Off" , &offScreen};
-//app_struct updateApp = {"update" , &updateScreen};
-//app_struct rebootApp = {"Reboot" , &rebootScreen};
+app_struct httpApp = {"HTTP" , &httpScreen};
+app_struct heartApp = {"<3" , &heartScreen};
+app_struct offApp = {"Off" , &offScreen};
+app_struct updateApp = {"update" , &updateScreen};
+app_struct rebootApp = {"Reboot" , &rebootScreen};
 //app_struct torchApp = {"Torch" , &torchScreen};
 //app_struct calApp = {"Calendar" , &calendarScreen};
 
 
 int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &demoApp, &demoApp, &demoApp);
+AppScreen apps1Screen(1, maxApps, &demoApp, &updateApp, &offApp, &rebootApp);
+AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &heartApp, &demoApp);
 
 Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};
 

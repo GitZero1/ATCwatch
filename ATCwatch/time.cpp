@@ -17,8 +17,8 @@ void init_time() {
     int year = 2020;
     int month = 10;
     int day = 10;
-    int hr = 14;
-    int min = 10;
+    int hr = 12;
+    int min = 0;
     int sec = 0;
     setTime( hr, min, sec, day, month, year);
 }

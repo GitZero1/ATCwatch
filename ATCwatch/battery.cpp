@@ -75,7 +75,7 @@ void check_battery_status() {
         show_push("Battery Empty");
       }
     } else if (get_battery_percent() < 5) {
-      system_off();
+      //system_off();
     } else {
       batteryWasNotified = false;
     }

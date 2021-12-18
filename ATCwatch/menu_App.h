@@ -16,7 +16,7 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
-//#include "screen_style.h"
+#include "screen_style.h"
 #include <lvgl.h>
 
 struct app_struct {

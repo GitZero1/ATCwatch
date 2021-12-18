@@ -29,8 +29,8 @@ lv_color_t color_list[] = {
 6 = xmas green
 */
 
-int main_color_save = 6;
-int grad_color_save = 6;
+int main_color_save = 2;
+int grad_color_save = 2;
 int font_color_save = 2;
 int btn_bg_color_save = 3; //red
 int btn_main_color_save = 0; //white
