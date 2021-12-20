@@ -23,6 +23,7 @@
 #include "menu_Torch.h"
 #include "menu_Calendar.h"
 //#include "menu_Log.h"
+#include "menu_FindMyPhone.h"
 #include "menu_Settings.h"
 #include <lvgl.h>
 
@@ -39,13 +40,14 @@ Screen_def *lastScreen = &homeScreen;
 app_struct notifyApp = {"Msg", &notifyScreen};
 app_struct settingsApp = {"Settings", &settingsScreen};
 app_struct demoApp = {"Demo" , &demoScreen};
+app_struct findPhoneApp = {"Find Phone" , &findMyScreen};
 app_struct httpApp = {"HTTP" , &httpScreen};
 app_struct heartApp = {"<3" , &heartScreen};
 app_struct torchApp = {"Torch" , &torchScreen};
 app_struct calApp = {"Calendar" , &calendarScreen};
 
 int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &demoApp, &calApp, &heartApp);
+AppScreen apps1Screen(1, maxApps, &demoApp, &findPhoneApp, &calApp, &heartApp);
 AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &settingsApp, &torchApp);
 
 Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};

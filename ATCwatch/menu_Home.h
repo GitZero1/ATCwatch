@@ -28,65 +28,14 @@ class HomeScreen : public Screen
   public:
     virtual void pre()
     {
-      init_objects();
       getHomeScreenData();
-      //setface();
+      init_objects();
 
     }
-/*
-    void setface(){
-      int wf = get_watchface();
-      if(wf == 1){
-        face1();
-      } else {face2();}
-    }
 
-    void face1(){
-      //image
-      lv_img_set_src(img1, &IFrame0);
-      //bar
-      lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
-      //battery icon
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-      //battery text
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      //heartrate icon
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -50, 2);
-      //heartrate text
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      //bluetooth
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
-      //time
-      lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_LEFT, +5, 25); 
-      //date
-      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
-    }
-
-    void face2(){
-      //image
-      lv_img_set_src(img1, &IsymbolFootIcon);
-      //bar
-      lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
-      //battery icon
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-      //battery text
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      //heartrate icon
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -50, 2);
-      //heartrate text
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      //bluetooth
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
-      //time
-      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0); 
-      //date
-      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
-    }
-*/
    
     virtual void main(){
         getHomeScreenData();
-        //setface();
         updateFace();
     }
     
@@ -182,7 +131,7 @@ class HomeScreen : public Screen
       //xmas timer
       label_xmasCount = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_xmasCount, "%i Days to Xmas",  25 - time_data.day);
-      lv_obj_align(label_xmasCount, nullptr, LV_ALIGN_IN_TOP_MID, 0, 40);
+      lv_obj_align(label_xmasCount, nullptr, LV_ALIGN_IN_TOP_MID, 25, 40);
 
 
       #else // Round Display//Square Display P8/PineTime

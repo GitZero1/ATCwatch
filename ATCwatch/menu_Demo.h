@@ -80,9 +80,9 @@ class DemoScreen : public Screen
          if(object == test_btn){
            set_motor_ms();
            //lv_label_set_text(label, "pressed");
-           set_watchface(1);
+           //set_watchface(1);
          } else if (object == test_btn2){
-           set_watchface(2);
+           //set_watchface(2);
          }
          
        }

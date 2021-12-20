@@ -28,17 +28,17 @@ class HeartScreen : public Screen
 
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label, "Heartrate");
-      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, -30);
 
       set_gray_screen_style();
       
       label_hr = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_hr, "HR:");
-      lv_obj_align(label_hr, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 50);
+      lv_obj_align(label_hr, NULL, LV_ALIGN_CENTER, 0, 0);
 
       label_hr_last = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_hr_last, "Last HR:");
-      lv_obj_align(label_hr_last, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 80);
+      lv_obj_align(label_hr_last, NULL, LV_ALIGN_CENTER, 0, 30);
 
     }
 
