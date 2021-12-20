@@ -30,7 +30,6 @@ class HomeScreen : public Screen
     {
       getHomeScreenData();
       init_objects();
-
     }
 
    
@@ -45,17 +44,17 @@ class HomeScreen : public Screen
       //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
-      lv_style_copy( &st1, &lv_style_plain );
-      st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
-      st1.text.font = &lv_font_roboto_12;
+      lv_style_copy( &style_battery_text, &lv_style_plain );
+      style_battery_text.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
+      style_battery_text.text.font = &lv_font_roboto_12;
 
       //FONT AND STYLE FOR TIME
-      lv_style_copy( &st, &lv_style_plain );
-      st.text.font = &lv_font_roboto_28;
-      st.text.color = LV_COLOR_WHITE;
+      lv_style_copy( &style_time, &lv_style_plain );
+      style_time.text.font = &lv_font_roboto_28;
+      style_time.text.color = LV_COLOR_WHITE;
       //if(get_main_color() == 2){
-      //  st.text.color = LV_COLOR_WHITE; //usually make this white
-      //} else {st.text.color = LV_COLOR_BLACK;}
+      //  style_time.text.color = LV_COLOR_WHITE; //usually make this white
+      //} else {style_time.text.color = LV_COLOR_BLACK;}
 
       //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
       img1 = lv_img_create(lv_scr_act(), nullptr);
@@ -72,7 +71,7 @@ class HomeScreen : public Screen
       label_battery = lv_label_create(lv_scr_act(), nullptr);
       lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
       lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      lv_obj_set_style( label_battery, &st1 );
+      lv_obj_set_style( label_battery, &style_battery_text );
       
       // BATTERY COLOR
       lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
@@ -118,7 +117,7 @@ class HomeScreen : public Screen
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      lv_obj_set_style( label_time, &st );
+      lv_obj_set_style( label_time, &style_time );
       //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
       lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 72); //center time
 
@@ -138,17 +137,17 @@ class HomeScreen : public Screen
       //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
-      lv_style_copy( &st1, &lv_style_plain );
-      st1.text.color = LV_COLOR_MAKE(0xFF, 0xFF, 0xFF);
-      st1.text.font = &lv_font_roboto_12;
+      lv_style_copy( &style_battery_text, &lv_style_plain );
+      style_battery_text.text.color = LV_COLOR_WHITE;
+      style_battery_text.text.font = &lv_font_roboto_12;
 
       //FONT AND STYLE FOR TIME
-      lv_style_copy( &st, &lv_style_plain );
-      st.text.font = &mksd50;
-      st.text.color = LV_COLOR_WHITE;
+      lv_style_copy( &style_time, &lv_style_plain );
+      style_time.text.font = &mksd50;
+      style_time.text.color = LV_COLOR_WHITE;
       //if(get_main_color() == 2){
-      //  st.text.color = LV_COLOR_WHITE; //usually make this white
-      //} else {st.text.color = LV_COLOR_BLACK;}
+      //  style_time.text.color = LV_COLOR_WHITE; //usually make this white
+      //} else {style_time.text.color = LV_COLOR_BLACK;}
       
 
       //FONT AND STYLE FOR BAR
@@ -167,7 +166,6 @@ class HomeScreen : public Screen
       cont = lv_cont_create(lv_scr_act(), nullptr);
       lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
       lv_obj_set_size(cont, LV_HOR_RES, 20);
-      //lv_cont_set_layout(cont, LV_LAYOUT_COL_M);
       lv_obj_set_style(cont, &stBar);
 
       // BATTERY ------------------------------------------------------------------------------------------------------------------------------
@@ -179,7 +177,7 @@ class HomeScreen : public Screen
       label_battery = lv_label_create(cont, nullptr);
       lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
       lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      lv_obj_set_style( label_battery, &st1 );
+      lv_obj_set_style( label_battery, &style_battery_text );
       
       // BATTERY COLOR
       lv_style_copy(&style_battery, lv_label_get_style(label_battery_icon, LV_LABEL_STYLE_MAIN));
@@ -224,7 +222,7 @@ class HomeScreen : public Screen
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      lv_obj_set_style( label_time, &st );
+      lv_obj_set_style( label_time, &style_time );
       lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
       //lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0);
 
@@ -232,7 +230,6 @@ class HomeScreen : public Screen
       label_date = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
-
 
       //xmas timer
       label_xmasCount = lv_label_create(lv_scr_act(), nullptr);
@@ -253,15 +250,18 @@ class HomeScreen : public Screen
         ztime = get12hrTime();
     }
 
+    //----------------------------------------------------------------------------------------------------------------------------------------
+  
+
     virtual void updateFace(){
         //UPDATE TIME
         lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
         lv_obj_realign(label_time);
+
         //UPDATE DATE
         lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+        lv_obj_realign(label_date);
 
-        //----------------------------------------------------------------------------------------------------------------------------------------
-  
         //UPDATE BATTERY TEXT
         lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
       
@@ -276,29 +276,18 @@ class HomeScreen : public Screen
           style_battery.text.color = LV_COLOR_MAKE(0x05, 0xF9, 0x25);
         lv_obj_set_style(label_battery_icon, &style_battery);
         
-  
-        //----------------------------------------------------------------------------------------------------------------------------------------
-        
         //UPDATE HEARTREATE TEXT
         lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+
         // UPDATE STEPS
         lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
-        
-  
-      
-        //----------------------------------------------------------------------------------------------------------------------------------------
-  
+     
         //UPDATE BLUETOOTH CONNECTION ICON
         if (get_vars_ble_connected())
           style_ble.text.color = LV_COLOR_MAKE(0x27, 0xA6, 0xFF);
         else
           style_ble.text.color = LV_COLOR_RED;
         lv_obj_set_style(label_ble, &style_ble);
-        /*
-        if (time_data.sec % 2 == 0){
-          lv_img_set_src(img1, &IFrame0);
-        } else {lv_img_set_src(img1, &IFrame1);}
-        */
 
     }
 
@@ -335,12 +324,15 @@ class HomeScreen : public Screen
     int ztime;
     time_data_struct time_data;
     accl_data_struct accl_data;
-    lv_style_t st, st1, stBar;
+    //images
+    lv_obj_t * img_heart, *img_steps, *img1;
+    //labels
     lv_obj_t *label, *label_heart, *label_steps, *label_xmasCount;
     lv_obj_t *label_time, *label_date;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon, *cont;
+    //styles
     lv_style_t style_ble, style_battery;
-    lv_obj_t * img_heart, *img_steps, *img1;
+    lv_style_t style_time, style_battery_text, stBar;
 
     char* string2char(String command) {
       if (command.length() != 0) {

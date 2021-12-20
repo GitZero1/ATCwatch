@@ -39,7 +39,8 @@ class AppScreen : public Screen
 
     virtual void pre()
     {
-
+      
+      #ifdef SN80
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);
@@ -75,6 +76,39 @@ class AppScreen : public Screen
       lv_obj_set_event_cb(app4_btn, lv_event_handler);
       btn_label = lv_label_create(app4_btn, NULL);
       lv_label_set_text(btn_label, _app4->_title);
+
+      #else
+
+      label = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
+      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);
+      //top left button
+      app1_btn = lv_btn_create(lv_scr_act(), NULL); 
+      lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -55, -40);
+      lv_obj_set_event_cb(app1_btn, lv_event_handler);
+      btn_label = lv_label_create(app1_btn, NULL);
+      lv_label_set_text(btn_label, _app1->_title);
+      //top right button
+      app2_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 55, -40);
+      lv_obj_set_event_cb(app2_btn, lv_event_handler);
+      btn_label = lv_label_create(app2_btn, NULL);
+      lv_label_set_text(btn_label, _app2->_title);
+      // bottom left button
+      app3_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -55, 40);
+      lv_obj_set_event_cb(app3_btn, lv_event_handler);
+      btn_label = lv_label_create(app3_btn, NULL);
+      lv_label_set_text(btn_label, _app3->_title);
+      //bottom right button
+      app4_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 55, 40);
+      lv_obj_set_event_cb(app4_btn, lv_event_handler);
+      btn_label = lv_label_create(app4_btn, NULL);
+      lv_label_set_text(btn_label, _app4->_title);
+
+      #endif
+
 
 
       //STYLE BUTTONS

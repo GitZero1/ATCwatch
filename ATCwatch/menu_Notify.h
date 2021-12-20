@@ -24,22 +24,15 @@ class NotifyScreen : public Screen
   public:
     virtual void pre()
     {
+      #ifdef SN80
       //set_gray_screen_style();
-      lv_style_copy(&stcont, &lv_style_plain);
-      stcont.body.radius = LV_RADIUS_CIRCLE;
       bodyCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_set_size(bodyCont, 170, 170);
-      //lv_obj_set_style(bodyCont,&stcont);
-      
       lv_obj_align(bodyCont, nullptr, LV_ALIGN_CENTER, 0, 0); 
-      
       set_custom_style(bodyCont);
 
-      
-      
-
-
       label_msg_name = lv_label_create(bodyCont, NULL);
+      lv_label_set_long_mode(label_msg_name, LV_LABEL_LONG_BREAK);
       lv_obj_set_width(label_msg_name, 165);
       //lv_label_set_long_mode(label_msg_name, LV_LABEL_LONG_BREAK);
       lv_label_set_text(label_msg_name, "");
@@ -60,7 +53,36 @@ class NotifyScreen : public Screen
       lv_label_set_text(label_msg_body, string2char(get_body_msg()));
       lv_obj_align(label_msg_body, label_msg_title, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 5);
 
+      #else
 
+      //set_gray_screen_style();
+      bodyCont = lv_cont_create(lv_scr_act(),NULL);
+      lv_obj_set_size(bodyCont, 240, 240);
+      lv_obj_align(bodyCont, nullptr, LV_ALIGN_CENTER, 0, 0); 
+      set_custom_style(bodyCont);
+
+      label_msg_name = lv_label_create(bodyCont, NULL);
+      lv_obj_set_width(label_msg_name, 240);
+      //lv_label_set_long_mode(label_msg_name, LV_LABEL_LONG_BREAK);
+      lv_label_set_text(label_msg_name, "");
+      lv_label_set_text(label_msg_name, string2char(get_name_msg()));
+      lv_obj_align(label_msg_name, NULL, LV_ALIGN_IN_TOP_LEFT, 5, 5);
+
+      label_msg_title = lv_label_create(bodyCont, NULL);
+      lv_label_set_long_mode(label_msg_title, LV_LABEL_LONG_BREAK);
+      lv_obj_set_width(label_msg_title,240);
+      lv_label_set_text(label_msg_title, "");
+      lv_label_set_text(label_msg_title, string2char(get_titl_msg()));
+      lv_obj_align(label_msg_title, label_msg_name, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 5);
+
+      label_msg_body = lv_label_create(bodyCont, NULL);
+      lv_label_set_long_mode(label_msg_body, LV_LABEL_LONG_BREAK);
+      lv_obj_set_width(label_msg_body,240);
+      lv_label_set_text(label_msg_body, "");
+      lv_label_set_text(label_msg_body, string2char(get_body_msg()));
+      lv_obj_align(label_msg_body, label_msg_title, LV_ALIGN_OUT_BOTTOM_LEFT, 0, 5);
+
+      #endif
     }
 
 
@@ -105,10 +127,8 @@ class NotifyScreen : public Screen
     }
 
   private:
-    lv_obj_t *label, *label_msg_body, *label_msg_name, *label_msg_title, *label_msg, *bodyCont;
+    lv_obj_t *label_msg_body, *label_msg_name, *label_msg_title, *bodyCont;
 
-    lv_style_t stcont;
-  
 
     char* string2char(String command) {
       if (command.length() != 0) {
