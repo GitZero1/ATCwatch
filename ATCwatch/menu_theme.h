@@ -18,15 +18,16 @@
 #include "heartrate.h"
 #include "screen_style.h"
 #include <lvgl.h>
- /*
+/*
 0 = white
 1 = gray
 2 = black
 3 = red
-4 = pink
-5 = blue
-6 = xmas green
-7 = sky blue
+4 = blue
+5 = green
+6 = Neon green
+7 = Rose Pink
+8 = Sky Blue
 */
 class ThemeScreen : public Screen
 {
@@ -168,7 +169,7 @@ class ThemeScreen : public Screen
            } else {set_motor_ms();}
          }
          else if(object == main_color_right_btn){
-           if(tmain_color_save <= 6){
+           if(tmain_color_save <= 7){
             tmain_color_save = tmain_color_save +1;
             set_btn_main_color(tmain_color_save);
             set_custom_style(sample_btn);
@@ -176,7 +177,7 @@ class ThemeScreen : public Screen
          }
          else if (object == alt_color_right_btn)
          {
-           if(tbg_color_save <= 6)
+           if(tbg_color_save <= 7)
            {
              tbg_color_save = tbg_color_save +1;
              set_btn_bg_color(tbg_color_save);
@@ -206,7 +207,7 @@ class ThemeScreen : public Screen
          }
          else if (object == background_color_right_btn)
          {
-           if(tscreen_color_save <= 6)
+           if(tscreen_color_save <= 7)
            {
               tscreen_color_save = tscreen_color_save +1;
               set_main_color(tscreen_color_save);

@@ -66,7 +66,7 @@ const lv_img_dsc_t IsymbolFootIcon = {
   256 * LV_IMG_PX_SIZE_ALPHA_BYTE / 8,symbolFootIcon
 };
 
-// END OF WATCH FACE ######################################################################################################################
+/*3END OF WATCH FACE ######################################################################################################################
 
 
 const uint8_t Xmas2_map[] = {
@@ -316,5 +316,5 @@ const lv_img_dsc_t Ixmas2 = {
   (lv_img_header_t){LV_IMG_CF_TRUE_COLOR, 0, 0, 240, 240},
   57600 * LV_COLOR_SIZE / 8, Xmas2_map
 };
-// END OF XMAS FACE
 
+*/

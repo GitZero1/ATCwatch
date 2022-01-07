@@ -60,6 +60,8 @@ class HeartScreen : public Screen
           break;
       }
       lv_label_set_text_fmt(label_hr_last, "Last HR: %i", get_last_heartrate());
+      lv_obj_realign(label_hr);
+      lv_obj_realign(label_hr_last);
     }
 
     virtual void post()

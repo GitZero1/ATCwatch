@@ -35,13 +35,14 @@ class DemoScreen : public Screen
       st.body.radius = 180;
       st.body.border.width = 1;
       st.body.border.color = LV_COLOR_WHITE;
-
       cont = lv_cont_create(lv_scr_act(),nullptr);
       //lv_cont_set_style(cont,LV_CONT_STYLE_MAIN,&st);
       lv_obj_set_style(cont, &st);
       lv_obj_set_height(cont,240);
       lv_obj_set_width(cont,240);
       lv_obj_align(cont,nullptr,LV_ALIGN_CENTER,0,0);
+
+      
 
 
      test_btn = lv_btn_create(lv_scr_act(), nullptr);

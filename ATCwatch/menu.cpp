@@ -14,7 +14,7 @@
 #include "menu_Update.h"
 #include "menu_Off.h"
 #include "menu_Notify.h"
-#include "menu_Settings_Color.h"
+//#include "menu_Settings_Color.h"
 #include "menu_Settings_Brightness.h"
 #include "menu_App.h"
 #include "menu_Demo.h"
@@ -24,12 +24,13 @@
 #include "menu_Calendar.h"
 //#include "menu_Log.h"
 #include "menu_FindMyPhone.h"
-#include "menu_Settings.h"
+//#include "menu_Settings.h"
 #include <lvgl.h>
+#include "menu_theme.h"
 
 long last_main_run;
 int vars_menu = -1;
-int vars_max_menu = 2;
+int vars_max_menu = 3;
 bool swipe_enabled_bool = false;
 
 Screen_def *currentScreen = &homeScreen;
@@ -38,19 +39,25 @@ Screen_def *lastScreen = &homeScreen;
 
 
 app_struct notifyApp = {"Msg", &notifyScreen};
-app_struct settingsApp = {"Settings", &settingsScreen};
+//app_struct settingsApp = {"Settings", &settingsScreen};
 app_struct demoApp = {"Demo" , &demoScreen};
-app_struct findPhoneApp = {"Find Phone" , &findMyScreen};
+app_struct findPhoneApp = {"Find\nPhone" , &findMyScreen};
 app_struct httpApp = {"HTTP" , &httpScreen};
 app_struct heartApp = {"<3" , &heartScreen};
 app_struct torchApp = {"Torch" , &torchScreen};
 app_struct calApp = {"Calendar" , &calendarScreen};
+app_struct rebootApp = {"Reboot" , &rebootScreen};
+app_struct offApp = {"Off" , &offScreen};
+app_struct updateApp = {"Bootldr" , &updateScreen};
+app_struct brightnessApp = {"Brightness" , &settingsBrightnessScreen};
+app_struct themeApp = {"Theme" , &themeScreen};
 
-int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &findPhoneApp, &calApp, &heartApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &settingsApp, &torchApp);
+int maxApps = 3;
+AppScreen apps1Screen(1, maxApps, &themeApp, &brightnessApp, &calApp, &heartApp);
+AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &findPhoneApp, &torchApp);
+AppScreen apps3Screen(3, maxApps, &rebootApp, &offApp, &updateApp, &demoApp);
 
-Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};
+Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen, &apps3Screen};
 
 void init_menu() {
 

@@ -14,9 +14,10 @@ lv_color_t color_list[] = {
   LV_COLOR_GRAY,
   LV_COLOR_BLACK,
   LV_COLOR_RED,
-  LV_COLOR_MAKE(0xFF,0x66,0xCC), //Rose Pink
   LV_COLOR_BLUE,
   LV_COLOR_GREEN,
+  LV_COLOR_MAKE(0x39, 0xFF, 0x14), //neon green?
+  LV_COLOR_MAKE(0xFF,0x66,0xCC), //Rose Pink
   LV_COLOR_MAKE(0x00, 0x8E, 0xFF)}; //sky blue
 
 /*
@@ -24,19 +25,18 @@ lv_color_t color_list[] = {
 1 = gray
 2 = black
 3 = red
-4 = pink
-5 = blue
-6 = green
-7 = sky blue
+4 = blue
+5 = green
+6 = Neon green
+7 = Rose Pink
+8 = Sky Blue
 */
 
-int main_color_save = 6;
-int grad_color_save = 6;
+int main_color_save = 2;
+int grad_color_save = 2;
 int font_color_save = 0;
-int btn_bg_color_save = 3; 
+int btn_bg_color_save = 2; 
 int btn_outline_color_save = 0;
-
-int watchface = 1;
 
 
 void set_gray_screen_style() {
@@ -47,7 +47,6 @@ void set_gray_screen_style() {
   style_screen.text.color = color_list[btn_outline_color_save];
   lv_obj_set_style(lv_scr_act(), &style_screen);
 }
-
 
 void set_btn_style(lv_obj_t *obj){
   //Create btn style
@@ -108,14 +107,6 @@ void set_btn_main_color(int new_color){
 
 void set_btn_bg_color(int new_color){
   btn_bg_color_save = new_color;
-}
-
-void set_watchface(int face){
-  watchface = face;
-}
-
-int get_watchface(){
-  return watchface;
 }
 
 int get_main_btn_color(){
