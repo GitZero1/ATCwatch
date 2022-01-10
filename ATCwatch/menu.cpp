@@ -21,7 +21,7 @@
 #include "menu_Charging.h"
 #include "menu_Http.h"
 #include "menu_Torch.h"
-#include "menu_Calendar.h"
+//#include "menu_Calendar.h"
 //#include "menu_Log.h"
 #include "menu_FindMyPhone.h"
 //#include "menu_Settings.h"
@@ -45,17 +45,17 @@ app_struct findPhoneApp = {"Find\nPhone" , &findMyScreen};
 app_struct httpApp = {"HTTP" , &httpScreen};
 app_struct heartApp = {"<3" , &heartScreen};
 app_struct torchApp = {"Torch" , &torchScreen};
-app_struct calApp = {"Calendar" , &calendarScreen};
+//app_struct calApp = {"Calendar" , &calendarScreen};
 app_struct rebootApp = {"Reboot" , &rebootScreen};
 app_struct offApp = {"Off" , &offScreen};
 app_struct updateApp = {"Bootldr" , &updateScreen};
-app_struct brightnessApp = {"Brightness" , &settingsBrightnessScreen};
+app_struct brightnessApp = {"Back\nLight" , &settingsBrightnessScreen};
 app_struct themeApp = {"Theme" , &themeScreen};
 
 int maxApps = 3;
-AppScreen apps1Screen(1, maxApps, &themeApp, &brightnessApp, &calApp, &heartApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &httpApp, &findPhoneApp, &torchApp);
-AppScreen apps3Screen(3, maxApps, &rebootApp, &offApp, &updateApp, &demoApp);
+AppScreen apps1Screen(1, maxApps, &rebootApp, &offApp, &updateApp, &demoApp);
+AppScreen apps2Screen(2, maxApps, &themeApp, &brightnessApp, &demoApp, &heartApp);
+AppScreen apps3Screen(3, maxApps, &notifyApp, &httpApp, &findPhoneApp, &torchApp);
 
 Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen, &apps3Screen};
 

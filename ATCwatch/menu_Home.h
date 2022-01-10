@@ -38,7 +38,8 @@ class HomeScreen : public Screen
     }
     
     virtual void init_objects(){
-      #ifdef SN80 //round display layout
+      //#ifdef PineTime //round display layout
+      #ifdef SN80
       //style ----------------------------------------------------------------------------------------------------------------------------------
       set_gray_screen_style();
       // STYLE FOR BATTERY TEXT
@@ -48,7 +49,7 @@ class HomeScreen : public Screen
 
       //FONT AND STYLE FOR TIME
       lv_style_copy( &style_time, &lv_style_plain );
-      style_time.text.font = &mksd50;
+      style_time.text.font = &dsDigiBold_72;
       if(get_main_color() == 2){
         style_time.text.color = LV_COLOR_WHITE; 
       } else {style_time.text.color = LV_COLOR_BLACK;}

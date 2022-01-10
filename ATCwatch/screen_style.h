@@ -11,7 +11,7 @@
 
 lv_color_t color_list[] = {
   LV_COLOR_WHITE,
-  LV_COLOR_GRAY,
+  LV_COLOR_MAKE(0xFF, 0x57, 0x33),
   LV_COLOR_BLACK,
   LV_COLOR_RED,
   LV_COLOR_BLUE,
