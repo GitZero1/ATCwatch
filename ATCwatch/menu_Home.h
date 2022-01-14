@@ -71,13 +71,23 @@ class HomeScreen : public Screen
       lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
 
+      //UPTIME MS
+      label_millis = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_millis, "Millis:");
+      lv_obj_align(label_millis, NULL, LV_ALIGN_CENTER, -40, -55);
+      //UPTIME STRING
+      label_uptime = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_uptime, "Uptime:");
+      lv_obj_align(label_uptime, NULL, LV_ALIGN_CENTER, -40, -35);
+
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img_secs, &ItestImg);
       lv_img_set_pivot(img_secs, 9, 120);
       //lv_img_set_zoom(img_secs,1024);
       lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -111);
-/*
+      //lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -60);
+      /*
       img_mins = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img_mins, &IsymbolHeartIcon);
       lv_img_set_pivot(img_mins, 9,90);
@@ -90,14 +100,6 @@ class HomeScreen : public Screen
       //lv_img_set_zoom(img3,512);
       lv_obj_align(img_hrs, nullptr, LV_ALIGN_CENTER, 0, -51);
       */
-
-      label_millis = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_millis, "Millis:");
-      lv_obj_align(label_millis, NULL, LV_ALIGN_CENTER, -40, -55);
-
-      label_uptime = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_uptime, "Uptime:");
-      lv_obj_align(label_uptime, NULL, LV_ALIGN_CENTER, -40, -35);
       
     }
  
@@ -142,6 +144,7 @@ class HomeScreen : public Screen
 
         //Point Min hand //testing with sec
         lv_img_set_angle(img_secs, time_data.sec*6*10);
+        lv_obj_move_foreground(img_secs);
         //lv_img_set_angle(img_mins, time_data.min*6*10);
         //lv_img_set_angle(img_hrs, time_data.hr*30*10);
 

@@ -35,8 +35,8 @@ class AppScreen : public Screen
     {
       
       accl_data = get_accl_data();
-      #ifdef SN80
-      //#ifdef PineTime
+      //#ifdef SN80
+      #ifdef PineTime
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);

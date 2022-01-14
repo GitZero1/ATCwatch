@@ -26,10 +26,10 @@ bool vars_ble_connected = false;
 
 
 void init_ble() {  
-  blePeripheral.setLocalName("ATCwatch.01");
+  blePeripheral.setLocalName("ZeroWatch.SN80");
   blePeripheral.setConnectionInterval(400,401);
   blePeripheral.setAdvertisingInterval(500);
-  blePeripheral.setDeviceName("ATCwatch.01");
+  blePeripheral.setDeviceName("ZeroWatch.SN80");
   blePeripheral.setAdvertisedServiceUuid(main_service.uuid());
   blePeripheral.addAttribute(main_service);
   blePeripheral.addAttribute(TXchar);
