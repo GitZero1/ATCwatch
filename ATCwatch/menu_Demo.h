@@ -31,13 +31,13 @@ class DemoScreen : public Screen
   public:
     virtual void pre()
     {
-    
-
-     test_btn = lv_btn_create(lv_scr_act(), nullptr);
-     label = lv_label_create(test_btn, nullptr);
-     lv_label_set_text(label,"Test");
-     lv_obj_align(test_btn, nullptr, LV_ALIGN_CENTER, 0,0);
-     lv_obj_set_event_cb(test_btn, lv_event_handler); //set event handler
+      static const char * btns[] = {"Yes", "No", ""};
+      lv_obj_t * msgbox1 = lv_msgbox_create(lv_scr_act(), NULL);
+      lv_msgbox_set_text(msgbox1, "Reboot ?");
+      lv_msgbox_add_btns(msgbox1, btns);
+      lv_obj_set_width(msgbox1, 200);
+      lv_obj_set_event_cb(msgbox1, event_handler);
+      lv_obj_align(msgbox1, NULL, LV_ALIGN_CENTER, 0, 0);
     }
 
 
@@ -57,17 +57,17 @@ class DemoScreen : public Screen
     {
     }
 
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
-    {
-       if (event == LV_EVENT_SHORT_CLICKED) {
-         if(object == test_btn){
-           set_motor_ms();
-         } 
-       }
-    }
+    private:
 
-  private:
-  lv_obj_t  *label, *test_btn;
+    static void event_handler(lv_obj_t * obj, lv_event_t event)
+    {
+      if (event == LV_EVENT_VALUE_CHANGED) {
+        if ("Yes" == lv_msgbox_get_active_btn_text(obj))
+          set_reboot();
+        else if ("No" == lv_msgbox_get_active_btn_text(obj))
+          set_last_menu();
+      }
+    }
 };
 
 DemoScreen demoScreen;

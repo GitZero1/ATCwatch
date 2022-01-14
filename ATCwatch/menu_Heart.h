@@ -30,8 +30,6 @@ class HeartScreen : public Screen
       lv_label_set_text(label, "Heartrate");
       lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 
-      set_gray_screen_style();
-      
       label_hr = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_hr, "HR:");
       lv_obj_align(label_hr, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 50);

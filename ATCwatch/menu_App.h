@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2020 Aaron Christophel
- *
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 #pragma once
 #include "Arduino.h"
 #include "class.h"
@@ -16,7 +10,7 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
-#include "screen_style.h"
+//#include "screen_style.h"
 #include <lvgl.h>
 
 struct app_struct {
@@ -39,15 +33,71 @@ class AppScreen : public Screen
 
     virtual void pre()
     {
-      /*
-      slider = lv_slider_create(lv_scr_act(), NULL);
-      lv_obj_set_size(slider, 23, 100);
-      lv_slider_set_range(slider, 1, _maxApps);
-      lv_slider_set_value(slider, _maxApps - _menuPosition + 1, false);
-      lv_obj_align(slider, NULL, LV_ALIGN_IN_RIGHT_MID, -4, 0);
-      lv_obj_set_click(slider, false);
-      lv_obj_set_click(lv_page_get_scrl(slider), false);
-      */
+      
+      accl_data = get_accl_data();
+      #ifdef SN80
+      //#ifdef PineTime
+      label = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
+      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);
+      //top left button
+      app1_btn = lv_btn_create(lv_scr_act(), NULL); 
+      lv_obj_set_height(app1_btn,60);
+      lv_obj_set_width(app1_btn,75);
+      lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -40, -45);
+      lv_obj_set_event_cb(app1_btn, lv_event_handler);
+      btn_label = lv_label_create(app1_btn, NULL);
+      lv_label_set_text(btn_label, _app1->_title);
+      //top right button
+      app2_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_set_height(app2_btn,60);
+      lv_obj_set_width(app2_btn,75);
+      lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 40, -45);
+      lv_obj_set_event_cb(app2_btn, lv_event_handler);
+      btn_label = lv_label_create(app2_btn, NULL);
+      lv_label_set_text(btn_label, _app2->_title);
+      // bottom left button
+      app3_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_set_height(app3_btn,60);
+      lv_obj_set_width(app3_btn,75);
+      lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -40, 22);
+      lv_obj_set_event_cb(app3_btn, lv_event_handler);
+      btn_label = lv_label_create(app3_btn, NULL);
+      lv_label_set_text(btn_label, _app3->_title);
+      //bottom right button
+      app4_btn = lv_btn_create(lv_scr_act(), NULL);
+      lv_obj_set_height(app4_btn,60);
+      lv_obj_set_width(app4_btn,75);
+      lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 40, 22);
+      lv_obj_set_event_cb(app4_btn, lv_event_handler);
+      btn_label = lv_label_create(app4_btn, NULL);
+      lv_label_set_text(btn_label, _app4->_title);
+
+            //Heartrate -----------------------------------------------------------------------------------------------------------------------------
+      
+      //HEART ICON      
+      img_heart = lv_img_create(lv_scr_act(), nullptr);  
+      lv_img_set_src(img_heart, &IsymbolHeartIcon);
+      lv_obj_align(img_heart, nullptr, LV_ALIGN_CENTER, -55, 65);
+      
+      //HEART TEXT
+      label_heart = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+      
+      // STEPS---------------------------------------------------------------------------------------------------------------------------------
+      
+      //STEPS IMAGE
+      img_steps = lv_img_create(lv_scr_act(), nullptr);
+      lv_img_set_src(img_steps, &IsymbolFootIcon);
+      lv_obj_align(img_steps, nullptr, LV_ALIGN_CENTER, 5, 65);
+
+      //STEPS TEXT
+      label_steps = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
+      lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+
+      #else
 
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
@@ -77,19 +127,16 @@ class AppScreen : public Screen
       btn_label = lv_label_create(app4_btn, NULL);
       lv_label_set_text(btn_label, _app4->_title);
 
+      #endif
 
-      /*
-      //STYLE BUTTONS
-      set_custom_style(app1_btn);
-      set_custom_style(app2_btn);
-      set_custom_style(app3_btn);
-      set_custom_style(app4_btn);
-      */
 
     }
 
     virtual void main()
     {
+      accl_data = get_accl_data();
+      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
 
     }
 
@@ -130,5 +177,11 @@ class AppScreen : public Screen
     app_struct* _app4;
     lv_obj_t *app1_btn, *app2_btn, *app3_btn, *app4_btn, *btn_label, *slider, *label;
     uint32_t _menuPosition, _maxApps;
+
+    //Steps
+    accl_data_struct accl_data;
+    lv_obj_t *img_steps, *label_steps;
+    //HeartRate
+    lv_obj_t * img_heart, *label_heart;
 
 };

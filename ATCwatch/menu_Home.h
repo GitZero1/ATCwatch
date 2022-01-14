@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2020 Aaron Christophel
- *
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 #pragma once
 #include "Arduino.h"
 #include "class.h"
@@ -19,7 +13,6 @@
 #include "heartrate.h"
 #include "fonts.h"
 #include "sleep.h"
-#include "screen_style.h"
 #include <lvgl.h>
 
 
@@ -30,143 +23,61 @@ class HomeScreen : public Screen
     {
       init_objects();
       getHomeScreenData();
-      //setface();
-
-    }
-/*
-    void setface(){
-      int wf = get_watchface();
-      if(wf == 1){
-        face1();
-      } else {face2();}
     }
 
-    void face1(){
-      //image
-      lv_img_set_src(img1, &IFrame0);
-      //bar
-      lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
-      //battery icon
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-      //battery text
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      //heartrate icon
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -50, 2);
-      //heartrate text
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      //bluetooth
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
-      //time
-      lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_LEFT, +5, 25); 
-      //date
-      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
-    }
-
-    void face2(){
-      //image
-      lv_img_set_src(img1, &IsymbolFootIcon);
-      //bar
-      lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
-      //battery icon
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-      //battery text
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      //heartrate icon
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -50, 2);
-      //heartrate text
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      //bluetooth
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
-      //time
-      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0); 
-      //date
-      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -13);
-    }
-*/
-   
     virtual void main(){
         getHomeScreenData();
         updateFace();
+        home_uptime();
     }
     
     virtual void init_objects(){
-      
-      #ifdef PineTime //round display layout
-
-      //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
-      img_background = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_background, &Ixmas2); 
-      lv_obj_align(img_background, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-
-      
+      //bg color
+      lv_obj_set_style_local_bg_color(lv_scr_act(),LV_OBJ_PART_MAIN,LV_STATE_DEFAULT, LV_COLOR_BLACK);
       // BATTERY ------------------------------------------------------------------------------------------------------------------------------
       label_battery_icon = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_MID, -7, 2);
+      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_MID, 10, 20);
       
       // BATTERY TEXT
       label_battery = lv_label_create(lv_scr_act(), nullptr);
       lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
       lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
+      lv_obj_set_style_local_text_color(label_battery,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       
       // BATTERY COLOR
       lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,lv_color_hsv_to_rgb(10, 5, 95));
       
-      
       // Bluetooth ---------------------------------------------------------------------------------------------------------------------------
       label_ble = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_CENTER, 60, 68);
+      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_MID, -20, 20);
 
       //BLUETOOTH COLOR
       lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
 
-      //Heartrate -----------------------------------------------------------------------------------------------------------------------------
-      
-      //HEART ICON      
-      img_heart = lv_img_create(lv_scr_act(), nullptr);  
-      lv_img_set_src(img_heart, &IsymbolHeartIcon);
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -45, 20);
-      
-      //HEART TEXT
-      label_heart = lv_label_create(lv_scr_act(), nullptr);
-      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-
-      // STEPS---------------------------------------------------------------------------------------------------------------------------------
-      
-      //STEPS IMAGE
-      img_steps = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_steps, &IsymbolFootIcon);
-      lv_obj_align(img_steps, nullptr, LV_ALIGN_IN_TOP_MID, 10, 20);
-
-      //STEPS TEXT
-      label_steps = lv_label_create(lv_scr_act(), nullptr);
-      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
-      lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-      
       //DATE TIME ##############################################################################################################
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      lv_obj_set_style_local_text_font(label_time,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&lv_font_montserrat_48);
+      lv_obj_set_style_local_text_font(label_time,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&dsDigiBold_72);
+      lv_obj_set_style_local_text_color(label_time,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
       lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0); //center time
 
       //DATE TEXT
       label_date = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+      lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
 
-
-      /*
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_secs, &IsymbolHeartIcon);
+      lv_img_set_src(img_secs, &ItestImg);
       lv_img_set_pivot(img_secs, 9, 120);
       //lv_img_set_zoom(img_secs,1024);
       lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -111);
-
+/*
       img_mins = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img_mins, &IsymbolHeartIcon);
       lv_img_set_pivot(img_mins, 9,90);
@@ -179,122 +90,19 @@ class HomeScreen : public Screen
       //lv_img_set_zoom(img3,512);
       lv_obj_align(img_hrs, nullptr, LV_ALIGN_CENTER, 0, -51);
       */
+
+      label_millis = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_millis, "Millis:");
+      lv_obj_align(label_millis, NULL, LV_ALIGN_CENTER, -40, -55);
+
+      label_uptime = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_uptime, "Uptime:");
+      lv_obj_align(label_uptime, NULL, LV_ALIGN_CENTER, -40, -35);
       
-
-      #else // Round Display//Square Display P8/PineTime
-
-      //BACKGROUND IMAGE -------------------------------------------------------------------------------------------------------------------
-      //img_background = lv_img_create(lv_scr_act(), nullptr);
-      //lv_img_set_src(img_background, &Ixmas2); 
-      //lv_obj_align(img_background, nullptr, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-      /*
-      cont = lv_cont_create(lv_scr_act(),nullptr);
-      //lv_cont_set_style(cont,LV_CONT_STYLE_MAIN,&st);
-      lv_obj_set_style_local_radius(cont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,360);
-      lv_obj_set_height(cont,240);
-      lv_obj_set_width(cont,240);
-      lv_obj_align(cont,nullptr,LV_ALIGN_CENTER,0,0);
-      */
-      
-
-      //BAR ---------------------------------------------------------------------------------------------------------------------------------
-      
-      cont = lv_cont_create(lv_scr_act(), nullptr);
-      lv_obj_set_size(cont, 240, 20);
-      lv_obj_align(cont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
-      lv_obj_set_style_local_bg_color(cont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_BLACK);
-      lv_obj_set_style_local_text_color(cont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
-      //lv_cont_set_layout(cont, LV_LAYOUT_COL_M);
-      //todo style bar
-
-      // BATTERY ------------------------------------------------------------------------------------------------------------------------------
-      label_battery_icon = lv_label_create(cont, nullptr);
-      lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 2, 1);
-      
-      // BATTERY TEXT
-      label_battery = lv_label_create(cont, nullptr);
-      lv_obj_align(label_battery, label_battery_icon, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
-      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-      
-      // BATTERY COLOR
-      lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,lv_color_hsv_to_rgb(10, 5, 95));
-      
-      // Bluetooth ---------------------------------------------------------------------------------------------------------------------------
-      label_ble = lv_label_create(cont, nullptr);
-      lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 0);
-
-      //BLUETOOTH COLOR
-      lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
-
-      //Heartrate -----------------------------------------------------------------------------------------------------------------------------
-      //HEART ICON      
-      img_heart = lv_img_create(cont, nullptr);  
-      lv_img_set_src(img_heart, &IsymbolHeartIcon);
-      lv_obj_align(img_heart, nullptr, LV_ALIGN_IN_TOP_MID, -50, 1);
-      
-      //HEART TEXT
-      label_heart = lv_label_create(cont, nullptr);
-      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
-      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-
-      // STEPS---------------------------------------------------------------------------------------------------------------------------------
-      
-      //STEPS IMAGE
-      img_steps = lv_img_create(cont, nullptr);
-      lv_img_set_src(img_steps, &IsymbolFootIcon);
-      lv_obj_align(img_steps, nullptr, LV_ALIGN_IN_TOP_MID, 20, 1);
-
-      //STEPS TEXT
-      label_steps = lv_label_create(cont, nullptr);
-      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
-      lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
-
-      //DATE TIME ##############################################################################################################
-      //TIME TEXT
-      label_time = lv_label_create(lv_scr_act(), nullptr);
-      lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-      lv_obj_set_style_local_text_font(label_time,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&lv_font_montserrat_48);
-      //lv_obj_align(label_time, nullptr, LV_ALIGN_IN_TOP_RIGHT, -5, 25); //top right time
-      lv_obj_align(label_time, nullptr, LV_ALIGN_CENTER, 0, 0);
-
-      //DATE TEXT
-      label_date = lv_label_create(lv_scr_act(), nullptr);
-      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
-      lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -0);
-
-
-      /*
-      img_secs = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_secs, &IsymbolHeartIcon);
-      lv_img_set_pivot(img_secs, 9, 120);
-      //lv_img_set_zoom(img_secs,1024);
-      lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -111);
-      */
-      img_mins = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_mins, &IsymbolHeartIcon);
-      lv_img_set_pivot(img_mins, 9,90);
-      //lv_img_set_zoom(img_mins,1024);
-      lv_obj_align(img_mins, nullptr, LV_ALIGN_CENTER, 0, -81);
-
-      img_hrs = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_hrs, &IsymbolHeartIcon);
-      lv_img_set_pivot(img_hrs, 9, 60);
-      //lv_img_set_zoom(img3,512);
-      lv_obj_align(img_hrs, nullptr, LV_ALIGN_CENTER, 0, -51);
-
-      
-      
-      
-      #endif
     }
-    
-  
  
     //get+update datetime data
     virtual void getHomeScreenData(){
-        accl_data = get_accl_data();
         time_data = get_time();
         weekday = getDayString();
         month = getMonthString();
@@ -318,18 +126,11 @@ class HomeScreen : public Screen
         //UPDATE BATTERY TEXT
         lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
 
-        //UPDATE HEARTREATE TEXT
-        lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
-
-        // UPDATE STEPS
-        lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
-
         //UPDATE BLUETOOTH CONNECTION ICON
         if (get_vars_ble_connected())
           lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x27, 0xA6, 0xFF));
         else
           lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
-     
 
        //UPDATE TIME
         lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
@@ -339,14 +140,31 @@ class HomeScreen : public Screen
         lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
         lv_obj_realign(label_date);
 
-
         //Point Min hand //testing with sec
-        //lv_img_set_angle(img_secs, time_data.sec*6*10);
+        lv_img_set_angle(img_secs, time_data.sec*6*10);
         //lv_img_set_angle(img_mins, time_data.min*6*10);
         //lv_img_set_angle(img_hrs, time_data.hr*30*10);
 
-       
+    }
 
+    virtual void home_uptime(){
+      long days = 0;
+      long hours = 0;
+      long mins = 0;
+      long secs = 0;
+      secs = millis() / 1000;
+      mins = secs / 60;
+      hours = mins / 60;
+      days = hours / 24;
+      secs = secs - (mins * 60);
+      mins = mins - (hours * 60);
+      hours = hours - (days * 24);
+
+      char time_string[14];
+      sprintf(time_string, "%i %02i:%02i:%02i", days, hours, mins, secs);
+
+      lv_label_set_text_fmt(label_millis, "millis: %d", millis());
+      lv_label_set_text_fmt(label_uptime, "Uptime: %s", time_string);
     }
 
     //Swipes
@@ -381,12 +199,10 @@ class HomeScreen : public Screen
     String month;
     int ztime;
     time_data_struct time_data;
-    accl_data_struct accl_data;
-    lv_obj_t *label, *label_heart, *label_steps, *label_xmasCount;
-    lv_obj_t *label_time, *label_date;
-    lv_obj_t *label_ble, *label_battery, *label_battery_icon, *cont;
+    lv_obj_t *label_time, *label_date, *label_millis, *label_uptime;
+    lv_obj_t *label_ble, *label_battery, *label_battery_icon;
     lv_style_t style_ble, style_battery;
-    lv_obj_t * img_heart, *img_steps, *img_secs, *img_mins, *img_hrs, *img_background;
+    lv_obj_t  *img_secs, *img_mins, *img_hrs;
 
     char* string2char(String command) {
       if (command.length() != 0) {

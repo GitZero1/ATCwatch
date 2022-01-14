@@ -24,16 +24,13 @@ class NotifyScreen : public Screen
   public:
     virtual void pre()
     {
-      set_gray_screen_style();
       titleCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_align(titleCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0); 
       lv_obj_set_size(titleCont, LV_HOR_RES, 50);
-      set_custom_style(titleCont);
 
       bodyCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_align(bodyCont, nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 50); 
       lv_obj_set_size(bodyCont, LV_HOR_RES, LV_VER_RES -50);
-      set_custom_style(bodyCont);
       
 
 

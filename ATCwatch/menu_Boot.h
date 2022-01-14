@@ -10,8 +10,8 @@
 #include "accl.h"
 #include "push.h"
 #include "heartrate.h"
-#include "screen_style.h"
 #include <lvgl.h>
+#include "fonts.h"
 
 
 /*
@@ -26,10 +26,9 @@ class BootScreen : public Screen
   public:
     virtual void pre()
     {
-      set_gray_screen_style();
-      
       lv_obj_t *label = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label, "Booting\n 01OS");
+      lv_label_set_text(label, "Booting\n01OS");
+      lv_obj_set_style_local_text_font(label,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&dsDigiBold_72);
       lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
       lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, 0);
       
