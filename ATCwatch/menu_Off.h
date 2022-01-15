@@ -23,28 +23,13 @@ class OffScreen : public Screen
   public:
     virtual void pre()
     {
-      /*
-      cont = lv_cont_create(lv_scr_act(),nullptr);
-      //lv_cont_set_style(cont,LV_CONT_STYLE_MAIN,&st);
-      lv_obj_set_style_local_radius(cont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,360);
-      lv_obj_set_height(cont,240);
-      lv_obj_set_width(cont,240);
-      lv_obj_align(cont,nullptr,LV_ALIGN_CENTER,0,0);
-      */
-      
-
-
-     left_btn = lv_btn_create(lv_scr_act(), nullptr);
-     label = lv_label_create(left_btn, nullptr);
-     lv_label_set_text(label,"Nvm");
-     lv_obj_align(left_btn, nullptr, LV_ALIGN_CENTER, -50,0);
-     lv_obj_set_event_cb(left_btn, lv_event_handler); //set event handler
-     
-     right_btn = lv_btn_create(lv_scr_act(), nullptr);
-     label = lv_label_create(right_btn, nullptr);
-     lv_label_set_text(label,"OFF");
-     lv_obj_align(right_btn, nullptr, LV_ALIGN_CENTER, 50,0);
-     lv_obj_set_event_cb(right_btn, lv_event_handler); //set event handler
+      static const char * btns[] = {"Yes", "No", ""};
+      lv_obj_t * msgbox1 = lv_msgbox_create(lv_scr_act(), NULL);
+      lv_msgbox_set_text(msgbox1, "Power Off?");
+      lv_msgbox_add_btns(msgbox1, btns);
+      lv_obj_set_width(msgbox1, 200);
+      lv_obj_set_event_cb(msgbox1, event_handler);
+      lv_obj_align(msgbox1, NULL, LV_ALIGN_CENTER, 0, 0);
     }
 
 
@@ -64,19 +49,17 @@ class OffScreen : public Screen
     {
     }
 
-    virtual void lv_event_class(lv_obj_t * object, lv_event_t event)
-    {
-       if (event == LV_EVENT_SHORT_CLICKED) {
-         if(object == left_btn){
-           set_last_menu();
-         } else if (object == right_btn){
-           system_off();
-         }
-       }
-    }
+    private:
 
-  private:
-  lv_obj_t  *label, *left_btn, *right_btn;
+    static void event_handler(lv_obj_t * obj, lv_event_t event)
+    {
+      if (event == LV_EVENT_VALUE_CHANGED) {
+        if ("Yes" == lv_msgbox_get_active_btn_text(obj))
+          system_off();
+        else if ("No" == lv_msgbox_get_active_btn_text(obj))
+          set_last_menu();
+      }
+    }
 };
 
 OffScreen offScreen;

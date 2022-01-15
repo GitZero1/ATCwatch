@@ -14,14 +14,20 @@
 #include "menu_Update.h"
 #include "menu_Off.h"
 #include "menu_Notify.h"
+#include "menu_Settings_Brightness.h"
 #include "menu_App.h"
 #include "menu_Demo.h"
 #include "menu_Charging.h"
+#include "menu_Http.h"
+//#include "menu_Torch.h"
+//#include "menu_Calendar.h"
+//#include "menu_Log.h"
+#include "menu_FindMyPhone.h"
 #include <lvgl.h>
 
 long last_main_run;
 int vars_menu = -1;
-int vars_max_menu = 2;
+int vars_max_menu = 3;
 bool swipe_enabled_bool = false;
 
 Screen_def *currentScreen = &homeScreen;
@@ -30,18 +36,25 @@ Screen_def *lastScreen = &homeScreen;
 
 
 app_struct notifyApp = {"Msg", &notifyScreen};
+//app_struct settingsApp = {"Settings", &settingsScreen};
 app_struct demoApp = {"Demo" , &demoScreen};
+app_struct findPhoneApp = {"Find\nPhone" , &findMyScreen};
+app_struct httpApp = {"HTTP" , &httpScreen};
 app_struct heartApp = {"<3" , &heartScreen};
-app_struct offApp = {"Off" , &offScreen};
-app_struct updateApp = {"update" , &updateScreen};
+//app_struct torchApp = {"Torch" , &torchScreen};
+//app_struct calApp = {"Calendar" , &calendarScreen};
 app_struct rebootApp = {"Reboot" , &rebootScreen};
+app_struct offApp = {"Off" , &offScreen};
+app_struct updateApp = {"Bootldr" , &updateScreen};
+app_struct brightnessApp = {"Back\nLight" , &settingsBrightnessScreen};
+//app_struct themeApp = {"Theme" , &themeScreen};
 
+int maxApps = 3;
+AppScreen apps1Screen(1, maxApps, &rebootApp, &offApp, &updateApp, &brightnessApp);
+AppScreen apps2Screen(2, maxApps, &demoApp, &demoApp, &demoApp, &demoApp);
+AppScreen apps3Screen(3, maxApps, &notifyApp, &httpApp, &findPhoneApp, &heartApp);
 
-int maxApps = 2;
-AppScreen apps1Screen(1, maxApps, &demoApp, &updateApp, &offApp, &rebootApp);
-AppScreen apps2Screen(2, maxApps, &notifyApp, &demoApp, &heartApp, &demoApp);
-
-Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen};
+Screen_def *menus[] = {&homeScreen, &apps1Screen, &apps2Screen, &apps3Screen};
 
 void init_menu() {
 
@@ -66,11 +79,13 @@ void display_charging() {
 }
 
 void display_booting() {
+  //set_gray_screen_style();
   lastScreen = currentScreen;
   currentScreen = &bootScreen;
   oldScreen = &bootScreen;
   set_swipe_enabled(false);
   currentScreen->pre_display();
+  //set_gray_screen_style();
   currentScreen->pre();
   currentScreen->main();
   inc_tick();
@@ -83,6 +98,7 @@ void display_screen(bool ignoreWait) {
     if (currentScreen != oldScreen) {
       oldScreen->post();
       currentScreen->pre_display();
+      //set_gray_screen_style();
       oldScreen = currentScreen;
       set_swipe_enabled(false);
       currentScreen->pre();

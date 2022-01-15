@@ -33,7 +33,7 @@ class SettingsBrightnessScreen : public Screen
 
       btn1 = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(btn1, lv_event_handler);
-      lv_obj_align(btn1, NULL, LV_ALIGN_IN_BOTTOM_MID, -55, 0);
+      lv_obj_align(btn1, NULL, LV_ALIGN_IN_BOTTOM_MID, -53, -10);
       lv_btn_set_fit2(btn1, LV_FIT_NONE, LV_FIT_TIGHT);
       btn1_label = lv_label_create(btn1, NULL);
       lv_label_set_text(btn1_label, "Abort");
@@ -41,7 +41,7 @@ class SettingsBrightnessScreen : public Screen
       btn2 = lv_btn_create(lv_scr_act(), NULL);
       lv_obj_set_event_cb(btn2, lv_event_handler);
       lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);
-      lv_obj_align(btn2, NULL, LV_ALIGN_IN_BOTTOM_MID, 55, 0);
+      lv_obj_align(btn2, NULL, LV_ALIGN_IN_BOTTOM_MID, 53, -10);
       btn2_label = lv_label_create(btn2, NULL);
       lv_label_set_text(btn2_label, "Save");
 

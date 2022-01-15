@@ -21,17 +21,6 @@ class HomeScreen : public Screen
   public:
     virtual void pre()
     {
-      init_objects();
-      getHomeScreenData();
-    }
-
-    virtual void main(){
-        getHomeScreenData();
-        updateFace();
-        home_uptime();
-    }
-    
-    virtual void init_objects(){
       //bg color
       lv_obj_set_style_local_bg_color(lv_scr_act(),LV_OBJ_PART_MAIN,LV_STATE_DEFAULT, LV_COLOR_BLACK);
       // BATTERY ------------------------------------------------------------------------------------------------------------------------------
@@ -56,7 +45,6 @@ class HomeScreen : public Screen
       //BLUETOOTH COLOR
       lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
 
-      //DATE TIME ##############################################################################################################
       //TIME TEXT
       label_time = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
@@ -71,23 +59,23 @@ class HomeScreen : public Screen
       lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
 
-      //UPTIME MS
-      label_millis = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_millis, "Millis:");
-      lv_obj_align(label_millis, NULL, LV_ALIGN_CENTER, -40, -55);
       //UPTIME STRING
       label_uptime = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_uptime, "Uptime:");
       lv_obj_align(label_uptime, NULL, LV_ALIGN_CENTER, -40, -35);
 
+      /*
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
-      lv_img_set_src(img_secs, &ItestImg);
-      lv_img_set_pivot(img_secs, 9, 120);
+      lv_img_set_src(img_secs, &ItestImg2);
+      lv_img_set_pivot(img_secs, 32, 118);
+      lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -90);
+      lv_obj_set_style_local_image_recolor_opa(img_secs, LV_IMG_PART_MAIN, LV_STATE_DEFAULT, 255);
+      lv_obj_set_style_local_image_recolor(img_secs,LV_IMG_PART_MAIN,LV_STATE_DEFAULT, LV_COLOR_WHITE);
+      
       //lv_img_set_zoom(img_secs,1024);
-      lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -111);
       //lv_obj_align(img_secs, nullptr, LV_ALIGN_CENTER, 0, -60);
-      /*
+      
       img_mins = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img_mins, &IsymbolHeartIcon);
       lv_img_set_pivot(img_mins, 9,90);
@@ -100,55 +88,47 @@ class HomeScreen : public Screen
       //lv_img_set_zoom(img3,512);
       lv_obj_align(img_hrs, nullptr, LV_ALIGN_CENTER, 0, -51);
       */
-      
-    }
- 
-    //get+update datetime data
-    virtual void getHomeScreenData(){
-        time_data = get_time();
-        weekday = getDayString();
-        month = getMonthString();
-        ztime = get12hrTime();
     }
 
-    virtual void updateFace(){
-
-        //UPDATE BATTERY ICON
-        if (get_battery_percent() < 15){
-          lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_EMPTY);
-          lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
-        } else if (get_battery_percent() > 75){
-          lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
+    virtual void main(){
+      time_data = get_time();
+      weekday = getDayString();
+      month = getMonthString();
+      ztime = get12hrTime();
+      home_uptime();
+      //UPDATE BATTERY ICON
+      if (get_battery_percent() < 15){
+        lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_EMPTY);
+        lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
+      } else if (get_battery_percent() > 75){
+        lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
+        lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x05, 0xF9, 0x25));
+        } else {
+          lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_2);
           lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x05, 0xF9, 0x25));
-          } else {
-            lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_2);
-            lv_obj_set_style_local_text_color(label_battery_icon,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x05, 0xF9, 0x25));
-          } 
-        
-        //UPDATE BATTERY TEXT
-        lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
-
-        //UPDATE BLUETOOTH CONNECTION ICON
-        if (get_vars_ble_connected())
-          lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x27, 0xA6, 0xFF));
-        else
-          lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
-
-       //UPDATE TIME
-        lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
-        lv_obj_realign(label_time);
-
-        //UPDATE DATE
-        lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
-        lv_obj_realign(label_date);
-
-        //Point Min hand //testing with sec
-        lv_img_set_angle(img_secs, time_data.sec*6*10);
-        lv_obj_move_foreground(img_secs);
-        //lv_img_set_angle(img_mins, time_data.min*6*10);
-        //lv_img_set_angle(img_hrs, time_data.hr*30*10);
-
+        } 
+      
+      //UPDATE BATTERY TEXT
+      lv_label_set_text_fmt(label_battery, "%i%%", get_battery_percent());
+      //UPDATE BLUETOOTH CONNECTION ICON
+      if (get_vars_ble_connected())
+        lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_MAKE(0x27, 0xA6, 0xFF));
+      else
+        lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
+      //UPDATE TIME
+      lv_label_set_text_fmt(label_time,  "%02i:%02i", ztime, time_data.min);
+      lv_obj_realign(label_time);
+      //UPDATE DATE
+      lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
+      lv_obj_realign(label_date);
+      //Point Min hand //testing with sec
+      //lv_img_set_angle(img_secs, time_data.sec*6*10);
+      //lv_obj_move_foreground(img_secs);
+      //lv_img_set_angle(img_mins, time_data.min*6*10);
+      //lv_img_set_angle(img_hrs, time_data.hr*30*10);
     }
+    
+ 
 
     virtual void home_uptime(){
       long days = 0;
@@ -165,8 +145,6 @@ class HomeScreen : public Screen
 
       char time_string[14];
       sprintf(time_string, "%i %02i:%02i:%02i", days, hours, mins, secs);
-
-      lv_label_set_text_fmt(label_millis, "millis: %d", millis());
       lv_label_set_text_fmt(label_uptime, "Uptime: %s", time_string);
     }
 

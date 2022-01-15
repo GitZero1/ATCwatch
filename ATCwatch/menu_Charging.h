@@ -25,16 +25,18 @@ class ChargingScreen : public Screen
     {
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label, "Charging");
-      lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, -30);
+      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 20);
 
       label_battery_big = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_battery_big, "---%");
-      lv_obj_align(label_battery_big, lv_scr_act(), LV_ALIGN_CENTER, -20, 20);
+      lv_obj_align(label_battery_big, lv_scr_act(), LV_ALIGN_CENTER, -0, 0);
+      lv_obj_set_style_local_text_font(label_battery_big,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&dsDigiBold_72);
     }
 
     virtual void main()
     {
       lv_label_set_text_fmt(label_battery_big, "%i%%", get_battery_percent());
+      lv_obj_realign(label_battery_big);
     }
 
     virtual void long_click()

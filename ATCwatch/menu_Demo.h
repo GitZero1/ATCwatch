@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2020 Aaron Christophel
- *
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 #pragma once
 #include "Arduino.h"
 #include "class.h"
@@ -17,15 +11,6 @@
 #include "push.h"
 #include "heartrate.h"
 #include <lvgl.h>
- /*    
-    0 = white
-    1 = gray
-    2 = black
-    3 = red
-    4 = green
-    5 = blue
-    6 = green?  
-    */
 class DemoScreen : public Screen
 {
   public:
@@ -34,12 +19,11 @@ class DemoScreen : public Screen
       
       time_data = get_time();
       demo_img = lv_img_create(lv_scr_act(),nullptr);
-      lv_img_set_src(demo_img, &ItestImg);
-      lv_img_set_pivot(demo_img, 9, 120);
-      //lv_img_set_zoom(demo_img,1024);
-      lv_obj_align(demo_img, nullptr, LV_ALIGN_CENTER, 0, -111);
+      lv_img_set_src(demo_img, &ItestImg2);
+      lv_img_set_pivot(demo_img, 32, 118);
+      lv_obj_align(demo_img, nullptr, LV_ALIGN_CENTER, 0, -90);
+      
     }
-
 
     virtual void main()
     {

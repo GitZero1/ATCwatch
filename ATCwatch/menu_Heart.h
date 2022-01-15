@@ -28,15 +28,15 @@ class HeartScreen : public Screen
 
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label, "Heartrate");
-      lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
+      lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, -20);
 
       label_hr = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_hr, "HR:");
-      lv_obj_align(label_hr, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 50);
+      lv_obj_align(label_hr, NULL, LV_ALIGN_CENTER, 0, 0);
 
       label_hr_last = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text(label_hr_last, "Last HR:");
-      lv_obj_align(label_hr_last, NULL, LV_ALIGN_IN_TOP_LEFT, 10, 80);
+      lv_obj_align(label_hr_last, NULL, LV_ALIGN_CENTER, 0, 20);
 
     }
 
@@ -49,15 +49,19 @@ class HeartScreen : public Screen
           break;
         case 254:
           lv_label_set_text_fmt(label_hr, "HR: No Touch");
+          lv_obj_realign(label_hr);
           break;
         case 253:
           lv_label_set_text_fmt(label_hr, "HR: Please Wait");
+          lv_obj_realign(label_hr);
           break;
         default:
           lv_label_set_text_fmt(label_hr, "HR: %i", hr);
+          lv_obj_realign(label_hr);
           break;
       }
       lv_label_set_text_fmt(label_hr_last, "Last HR: %i", get_last_heartrate());
+      lv_obj_realign(label_hr_last);
     }
 
     virtual void post()
