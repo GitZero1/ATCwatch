@@ -1,8 +1,7 @@
 {
-    "configuration": "softdevice=stockFW",
-    "board": "sandeepmistry:nRF5:p8watch",
-    "sketch": "ATCwatch\\ATCwatch.ino",
+    "configuration": "softdevice=onlySoftDevice",
+    "sketch": "ATCwatch/ATCwatch.ino",
     "programmer": "sandeepmistry:stlink",
-    "output": "C:\\Users\\zeroo\\Documents\\Watch Firmware Builds",
-    "port":"COM3"
+    "output": "/home/zero/Documents/ATCwatch/builds/",
+    "board": "nRF52D6Fitness:nRF5:dsd6Watch"
 }
