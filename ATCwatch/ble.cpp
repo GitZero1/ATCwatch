@@ -26,10 +26,22 @@ bool vars_ble_connected = false;
 
 
 void init_ble() {  
+  #ifdef P8Watch
+  blePeripheral.setLocalName("ZeroWatch.P8");
+  blePeripheral.setDeviceName("ZeroWatch.P8");
+  #endif
+
+  #ifdef PineTime
+  blePeripheral.setLocalName("ZeroWatch.PineTime");
+  blePeripheral.setDeviceName("ZeroWatch.PineTime");
+  #endif
+
+  #ifdef SN80
   blePeripheral.setLocalName("ZeroWatch.SN80");
+  blePeripheral.setDeviceName("ZeroWatch.SN80");
+  #endif
   blePeripheral.setConnectionInterval(400,401);
   blePeripheral.setAdvertisingInterval(500);
-  blePeripheral.setDeviceName("ZeroWatch.SN80");
   blePeripheral.setAdvertisedServiceUuid(main_service.uuid());
   blePeripheral.addAttribute(main_service);
   blePeripheral.addAttribute(TXchar);
@@ -119,7 +131,7 @@ void filterCmd(String Command) {
     ble_write("AT+VER:PineTime");
     #endif
     #ifdef P8WATCH
-    ble_write("AT+VER:PineTime");
+    ble_write("AT+VER:P8");
     #endif
     #ifdef SN80
     ble_write("AT+VER:SN80");

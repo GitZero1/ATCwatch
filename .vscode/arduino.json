@@ -3,5 +3,6 @@
     "sketch": "ATCwatch/ATCwatch.ino",
     "programmer": "sandeepmistry:stlink",
     "output": "/home/zero/Documents/ATCwatch/builds/",
-    "board": "nRF52D6Fitness:nRF5:dsd6Watch"
+    "board": "nRF52D6Fitness:nRF5:dsd6Watch",
+    "port": "/dev/ttyS0"
 }

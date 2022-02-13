@@ -36,8 +36,7 @@ class AppScreen : public Screen
       //GET STEPS
       accl_data = get_accl_data();
 
-      //#ifdef SN80
-      #ifdef PineTime
+      #ifdef SN80
 
       //PAGE #/# Label
       label = lv_label_create(lv_scr_act(), NULL);
@@ -102,33 +101,68 @@ class AppScreen : public Screen
 
       #else
 
+     
+
+      //PAGE #/# Label
       label = lv_label_create(lv_scr_act(), NULL);
       lv_label_set_text_fmt(label, "%i/%i", _menuPosition, _maxApps);
       lv_obj_align(label, NULL, LV_ALIGN_IN_TOP_MID, 0, 10);
-      //top left button
+
+      //TOP LEFT BUTTON
       app1_btn = lv_btn_create(lv_scr_act(), NULL); 
-      lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -55, -40);
+      lv_obj_set_height(app1_btn,60);
+      lv_obj_set_width(app1_btn,75);
+      lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -40, -45);
       lv_obj_set_event_cb(app1_btn, lv_event_handler);
       btn_label = lv_label_create(app1_btn, NULL);
       lv_label_set_text(btn_label, _app1->_title);
-      //top right button
+
+      //TOP RIGHT BUTTON
       app2_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 55, -40);
+      lv_obj_set_height(app2_btn,60);
+      lv_obj_set_width(app2_btn,75);
+      lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 40, -45);
       lv_obj_set_event_cb(app2_btn, lv_event_handler);
       btn_label = lv_label_create(app2_btn, NULL);
       lv_label_set_text(btn_label, _app2->_title);
-      // bottom left button
+
+      //BOTTOM LEFT BUTTON
       app3_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -55, 40);
+      lv_obj_set_height(app3_btn,60);
+      lv_obj_set_width(app3_btn,75);
+      lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -40, 22);
       lv_obj_set_event_cb(app3_btn, lv_event_handler);
       btn_label = lv_label_create(app3_btn, NULL);
       lv_label_set_text(btn_label, _app3->_title);
-      //bottom right button
+
+      //BOTTOM RIGHT BUTTON
       app4_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 55, 40);
+      lv_obj_set_height(app4_btn,60);
+      lv_obj_set_width(app4_btn,75);
+      lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 40, 22);
       lv_obj_set_event_cb(app4_btn, lv_event_handler);
       btn_label = lv_label_create(app4_btn, NULL);
       lv_label_set_text(btn_label, _app4->_title);
+
+      //HEART ICON      
+      img_heart = lv_img_create(lv_scr_act(), nullptr);  
+      lv_img_set_src(img_heart, &IsymbolHeartIcon);
+      lv_obj_align(img_heart, nullptr, LV_ALIGN_CENTER, -55, 65);
+      
+      //HEART TEXT
+      label_heart = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_heart, "%i", get_last_heartrate());
+      lv_obj_align(label_heart, img_heart, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
+    
+      //STEPS IMAGE
+      img_steps = lv_img_create(lv_scr_act(), nullptr);
+      lv_img_set_src(img_steps, &IsymbolFootIcon);
+      lv_obj_align(img_steps, nullptr, LV_ALIGN_CENTER, 5, 65);
+
+      //STEPS TEXT
+      label_steps = lv_label_create(lv_scr_act(), nullptr);
+      lv_label_set_text_fmt(label_steps, "%i", accl_data.steps);
+      lv_obj_align(label_steps, img_steps, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
 
       #endif
 

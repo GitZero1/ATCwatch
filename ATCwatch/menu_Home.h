@@ -58,13 +58,13 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
-
-      //UPTIME STRING
-      label_uptime = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_uptime, "Uptime:");
-      lv_obj_align(label_uptime, NULL, LV_ALIGN_CENTER, -40, -35);
-
       /*
+      //debug accl
+      label_accl = lv_label_create(lv_scr_act(), NULL);
+      lv_label_set_text(label_accl, "Accl:");
+      lv_obj_align(label_accl, NULL, LV_ALIGN_CENTER, -40, -35);
+
+
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
       lv_img_set_src(img_secs, &ItestImg2);
@@ -95,7 +95,6 @@ class HomeScreen : public Screen
       weekday = getDayString();
       month = getMonthString();
       ztime = get12hrTime();
-      home_uptime();
       //UPDATE BATTERY ICON
       if (get_battery_percent() < 15){
         lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_EMPTY);
@@ -130,24 +129,6 @@ class HomeScreen : public Screen
     
  
 
-    virtual void home_uptime(){
-      long days = 0;
-      long hours = 0;
-      long mins = 0;
-      long secs = 0;
-      secs = millis() / 1000;
-      mins = secs / 60;
-      hours = mins / 60;
-      days = hours / 24;
-      secs = secs - (mins * 60);
-      mins = mins - (hours * 60);
-      hours = hours - (days * 24);
-
-      char time_string[14];
-      sprintf(time_string, "%i %02i:%02i:%02i", days, hours, mins, secs);
-      lv_label_set_text_fmt(label_uptime, "Uptime: %s", time_string);
-    }
-
     //Swipes
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     virtual void up()
@@ -180,7 +161,7 @@ class HomeScreen : public Screen
     String month;
     int ztime;
     time_data_struct time_data;
-    lv_obj_t *label_time, *label_date, *label_millis, *label_uptime;
+    lv_obj_t *label_time, *label_date, *label_millis, *label_accl;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon;
     lv_style_t style_ble, style_battery;
     lv_obj_t  *img_secs, *img_mins, *img_hrs;
