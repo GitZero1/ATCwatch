@@ -58,12 +58,16 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
-      /*
-      //debug accl
-      label_accl = lv_label_create(lv_scr_act(), NULL);
-      lv_label_set_text(label_accl, "Accl:");
-      lv_obj_align(label_accl, NULL, LV_ALIGN_CENTER, -40, -35);
+      
+      //debug 
+      label_debug = lv_label_create(lv_scr_act(), NULL);
+      lv_obj_align(label_debug, NULL, LV_ALIGN_CENTER, -40, -35);
 
+      lv_obj_set_width(label_debug, 235);
+      lv_label_set_text(label_debug, " ");
+      lv_label_set_text(label_debug, string2char(get_push_msg(30)));
+      lv_obj_align(label_debug, nullptr, LV_ALIGN_IN_TOP_LEFT, 5, 5);
+/*
 
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
@@ -161,7 +165,7 @@ class HomeScreen : public Screen
     String month;
     int ztime;
     time_data_struct time_data;
-    lv_obj_t *label_time, *label_date, *label_millis, *label_accl;
+    lv_obj_t *label_time, *label_date, *label_millis, *label_debug;
     lv_obj_t *label_ble, *label_battery, *label_battery_icon;
     lv_style_t style_ble, style_battery;
     lv_obj_t  *img_secs, *img_mins, *img_hrs;

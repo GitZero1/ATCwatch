@@ -79,12 +79,12 @@ void ble_written(BLECentral& central, BLECharacteristic& characteristic) {
   memset(remoteCharArray, 0, sizeof(remoteCharArray));
   memcpy(remoteCharArray, characteristic.value(), tempLen1);
   tempCmd = tempCmd + remoteCharArray;
-  if (tempCmd[tempLen - 2] == '\r' && tempCmd[tempLen - 1] == '\n') {
-    answer = tempCmd.substring(0, tempLen - 2);
+  //if (tempCmd[tempLen - 2] == '\r' && tempCmd[tempLen - 1] == '\n') {
+    answer = tempCmd.substring(0, tempLen);
     tempCmd = "";
     tempLen = 0;
     filterCmd(answer);
-  }
+  //}
 }
 
 void ble_write(String Command) {
@@ -168,5 +168,8 @@ void filterCmd(String Command) {
     show_msgBody(Command.substring(8));
   } else if (Command.substring(0, 8) == "AT+TICK=") { //end of handling notifications
     show_msgBody(Command.substring(8));
+  } else {
+    show_msgBody(Command.substring(0));
+    show_push(Command.substring(0));
   }
 }
