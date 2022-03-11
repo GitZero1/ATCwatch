@@ -26,7 +26,7 @@ bool vars_ble_connected = false;
 
 
 void init_ble() {  
-  #ifdef P8Watch
+  #ifdef P8WATCH
   blePeripheral.setLocalName("ZeroWatch.P8");
   blePeripheral.setDeviceName("ZeroWatch.P8");
   #endif
@@ -168,8 +168,5 @@ void filterCmd(String Command) {
     show_msgBody(Command.substring(8));
   } else if (Command.substring(0, 8) == "AT+TICK=") { //end of handling notifications
     show_msgBody(Command.substring(8));
-  } else {
-    show_msgBody(Command.substring(0));
-    show_push(Command.substring(0));
   }
 }

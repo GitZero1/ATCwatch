@@ -26,7 +26,7 @@ class HomeScreen : public Screen
       // BATTERY ------------------------------------------------------------------------------------------------------------------------------
       label_battery_icon = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text(label_battery_icon, LV_SYMBOL_BATTERY_FULL);
-      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_MID, 10, 20);
+      lv_obj_align(label_battery_icon, nullptr, LV_ALIGN_IN_TOP_LEFT, 5, 5);
       
       // BATTERY TEXT
       label_battery = lv_label_create(lv_scr_act(), nullptr);
@@ -40,7 +40,7 @@ class HomeScreen : public Screen
       // Bluetooth ---------------------------------------------------------------------------------------------------------------------------
       label_ble = lv_label_create(lv_scr_act(), nullptr);
       lv_label_set_text(label_ble, LV_SYMBOL_BLUETOOTH);
-      lv_obj_align(label_ble, nullptr, LV_ALIGN_IN_TOP_MID, -20, 20);
+      lv_obj_align(label_ble, label_battery, LV_ALIGN_OUT_RIGHT_MID, 3, 2);
 
       //BLUETOOTH COLOR
       lv_obj_set_style_local_text_color(label_ble,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_RED);
@@ -58,7 +58,7 @@ class HomeScreen : public Screen
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_set_style_local_text_color(label_date,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,LV_COLOR_WHITE);
       lv_obj_align(label_date, label_time, LV_ALIGN_OUT_BOTTOM_MID, 0, -7);
-      
+    /*  
       //debug 
       label_debug = lv_label_create(lv_scr_act(), NULL);
       lv_obj_align(label_debug, NULL, LV_ALIGN_CENTER, -40, -35);
@@ -67,7 +67,7 @@ class HomeScreen : public Screen
       lv_label_set_text(label_debug, " ");
       lv_label_set_text(label_debug, string2char(get_push_msg(30)));
       lv_obj_align(label_debug, nullptr, LV_ALIGN_IN_TOP_LEFT, 5, 5);
-/*
+
 
       //ANALOG HANDS ###########################################################################################################
       img_secs = lv_img_create(lv_scr_act(), nullptr);
@@ -124,6 +124,8 @@ class HomeScreen : public Screen
       //UPDATE DATE
       lv_label_set_text_fmt(label_date, "%s, %s %02i", string2char(weekday), string2char(month), time_data.day);
       lv_obj_realign(label_date);
+      lv_obj_realign(label_battery);
+      lv_obj_realign(label_ble);
       //Point Min hand //testing with sec
       //lv_img_set_angle(img_secs, time_data.sec*6*10);
       //lv_obj_move_foreground(img_secs);

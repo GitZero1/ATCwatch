@@ -73,6 +73,10 @@ void show_tick(String tickMSG) {
 
 void show_msgBody(String bodyMSG) {
   msgBodyText = filter_string(bodyMSG);
+  sleep_up(WAKEUP_BLEPUSH);
+  display_notify();
+  set_motor_ms();
+  set_led_ms(100);
   set_sleep_time();
 }
 

@@ -21,6 +21,11 @@ struct app_struct {
 class AppScreen : public Screen
 {
   public:
+    int roundBtnWidth = 75;
+    int roundBtnHeight = 60;
+    int squareBtnWidth = 75;
+    int squareBtnHeight = 60;
+    
     AppScreen(int menuPosition, int maxApps, app_struct* app1, app_struct* app2, app_struct* app3, app_struct* app4)
     {
       _menuPosition = menuPosition;
@@ -45,8 +50,8 @@ class AppScreen : public Screen
 
       //TOP LEFT BUTTON
       app1_btn = lv_btn_create(lv_scr_act(), NULL); 
-      lv_obj_set_height(app1_btn,60);
-      lv_obj_set_width(app1_btn,75);
+      lv_obj_set_height(app1_btn, roundBtnHeight);
+      lv_obj_set_width(app1_btn, roundBtnWidth);
       lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -40, -45);
       lv_obj_set_event_cb(app1_btn, lv_event_handler);
       btn_label = lv_label_create(app1_btn, NULL);
@@ -54,8 +59,8 @@ class AppScreen : public Screen
 
       //TOP RIGHT BUTTON
       app2_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app2_btn,60);
-      lv_obj_set_width(app2_btn,75);
+      lv_obj_set_height(app2_btn,roundBtnHeight);
+      lv_obj_set_width(app2_btn,roundBtnWidth);
       lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 40, -45);
       lv_obj_set_event_cb(app2_btn, lv_event_handler);
       btn_label = lv_label_create(app2_btn, NULL);
@@ -63,8 +68,8 @@ class AppScreen : public Screen
 
       //BOTTOM LEFT BUTTON
       app3_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app3_btn,60);
-      lv_obj_set_width(app3_btn,75);
+      lv_obj_set_height(app3_btn,roundBtnHeight);
+      lv_obj_set_width(app3_btn,roundBtnWidth);
       lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -40, 22);
       lv_obj_set_event_cb(app3_btn, lv_event_handler);
       btn_label = lv_label_create(app3_btn, NULL);
@@ -72,8 +77,8 @@ class AppScreen : public Screen
 
       //BOTTOM RIGHT BUTTON
       app4_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app4_btn,60);
-      lv_obj_set_width(app4_btn,75);
+      lv_obj_set_height(app4_btn,roundBtnHeight);
+      lv_obj_set_width(app4_btn,roundBtnWidth);
       lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 40, 22);
       lv_obj_set_event_cb(app4_btn, lv_event_handler);
       btn_label = lv_label_create(app4_btn, NULL);
@@ -110,8 +115,8 @@ class AppScreen : public Screen
 
       //TOP LEFT BUTTON
       app1_btn = lv_btn_create(lv_scr_act(), NULL); 
-      lv_obj_set_height(app1_btn,60);
-      lv_obj_set_width(app1_btn,75);
+      lv_obj_set_height(app1_btn,squareBtnHeight);
+      lv_obj_set_width(app1_btn, squareBtnWidth);
       lv_obj_align(app1_btn, NULL, LV_ALIGN_CENTER, -40, -45);
       lv_obj_set_event_cb(app1_btn, lv_event_handler);
       btn_label = lv_label_create(app1_btn, NULL);
@@ -119,8 +124,8 @@ class AppScreen : public Screen
 
       //TOP RIGHT BUTTON
       app2_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app2_btn,60);
-      lv_obj_set_width(app2_btn,75);
+      lv_obj_set_height(app2_btn,squareBtnHeight);
+      lv_obj_set_width(app2_btn,squareBtnWidth);
       lv_obj_align(app2_btn, NULL, LV_ALIGN_CENTER, 40, -45);
       lv_obj_set_event_cb(app2_btn, lv_event_handler);
       btn_label = lv_label_create(app2_btn, NULL);
@@ -128,8 +133,8 @@ class AppScreen : public Screen
 
       //BOTTOM LEFT BUTTON
       app3_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app3_btn,60);
-      lv_obj_set_width(app3_btn,75);
+      lv_obj_set_height(app3_btn, squareBtnHeight);
+      lv_obj_set_width(app3_btn, squareBtnWidth);
       lv_obj_align(app3_btn, NULL, LV_ALIGN_CENTER, -40, 22);
       lv_obj_set_event_cb(app3_btn, lv_event_handler);
       btn_label = lv_label_create(app3_btn, NULL);
@@ -137,8 +142,8 @@ class AppScreen : public Screen
 
       //BOTTOM RIGHT BUTTON
       app4_btn = lv_btn_create(lv_scr_act(), NULL);
-      lv_obj_set_height(app4_btn,60);
-      lv_obj_set_width(app4_btn,75);
+      lv_obj_set_height(app4_btn, squareBtnHeight);
+      lv_obj_set_width(app4_btn, squareBtnWidth);
       lv_obj_align(app4_btn, NULL, LV_ALIGN_CENTER, 40, 22);
       lv_obj_set_event_cb(app4_btn, lv_event_handler);
       btn_label = lv_label_create(app4_btn, NULL);

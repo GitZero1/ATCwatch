@@ -60,6 +60,9 @@ class NotifyScreen : public Screen
       bodyCont = lv_cont_create(lv_scr_act(),NULL);
       lv_obj_set_size(bodyCont, 240, 240);
       lv_obj_align(bodyCont, nullptr, LV_ALIGN_CENTER, 0, 0); 
+      //lv_obj_set_style_local_text_font(bodyCont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT,&lv_font_montserrat_12);
+      lv_obj_set_style_local_bg_color(bodyCont,LV_OBJ_PART_MAIN,LV_STATE_DEFAULT, LV_COLOR_BLACK);
+
 
       label_msg_name = lv_label_create(bodyCont, NULL);
       lv_obj_set_width(label_msg_name, 240);

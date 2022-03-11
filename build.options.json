@@ -1,0 +1,12 @@
+{
+  "additionalFiles": "",
+  "builtInLibrariesFolders": "/home/zero/Documents/arduino-1.8.19/libraries",
+  "builtInToolsFolders": "/home/zero/Documents/arduino-1.8.19/tools-builder,/home/zero/Documents/arduino-1.8.19/hardware/tools/avr,/home/zero/.arduino15/packages",
+  "compiler.optimization_flags": "",
+  "customBuildProperties": "build.path=/home/zero/Documents/ATCwatch,build.warn_data_percentage=75,runtime.tools.gcc-arm-none-eabi.path=/home/zero/.arduino15/packages/nRF52D6Fitness/tools/gcc-arm-none-eabi/5_2-2015q4,runtime.tools.gcc-arm-none-eabi-5_2-2015q4.path=/home/zero/.arduino15/packages/nRF52D6Fitness/tools/gcc-arm-none-eabi/5_2-2015q4,runtime.tools.openocd.path=/home/zero/.arduino15/packages/nRF52D6Fitness/tools/openocd/0.10.0-dev.nrf5,runtime.tools.openocd-0.10.0-dev.nrf5.path=/home/zero/.arduino15/packages/nRF52D6Fitness/tools/openocd/0.10.0-dev.nrf5",
+  "fqbn": "nRF52D6Fitness:nRF5:dsd6Watch:softdevice=onlySoftDevice",
+  "hardwareFolders": "/home/zero/Documents/arduino-1.8.19/hardware,/home/zero/.arduino15/packages",
+  "otherLibrariesFolders": "/home/zero/Arduino/libraries",
+  "runtime.ide.version": "10819",
+  "sketchLocation": "/home/zero/Documents/ATCwatch/ATCwatch/ATCwatch.ino"
+}
